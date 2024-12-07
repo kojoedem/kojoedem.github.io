@@ -1,0 +1,16 @@
+{
+  "about": "I am a networking enthusiast working on my CCNP certification.",
+  "projects": [
+    {
+      "name": "Network Automation Tool",
+      "description": "Automates network configurations.",
+      "link": "#"
+    },
+    {
+      "name": "Packet Analyzer",
+      "description": "Analyzes network traffic.",
+      "link": "#"
+    }
+  ],
+  "resume": "resume/my_resume.pdf"
+}

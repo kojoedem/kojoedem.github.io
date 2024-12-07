@@ -1,0 +1,46 @@
+{
+  "about": {
+      "text": "Hi, I'm  Edem Robin! I'm currently pursuing CCNP certification and building tools to streamline network management. Here's my journey so far."
+  },
+  "progress": [
+      {
+          "day": 1,
+          "update": "Learned about EIGRP configurations."
+      },
+      {
+          "day": 2,
+          "update": "Configured static routing."
+      },
+      {
+          "day": 3,
+          "update": "Studied routing protocols like OSPF and BGP."
+      },
+      {
+        "day": 2,
+        "update": "Configured static routing."
+    }
+  ],
+  "projects": [
+      {
+          "name": "Network Tool",
+          "description": "Automates network configurations.",
+          "link": "https://github.com/yourproject"
+      },
+      {
+          "name": "Network Automation",
+          "description": "Scripted network device configurations for automation.",
+          "link": "https://github.com/yournetworkautomation"
+      },
+      {
+        "name": "Network Tool",
+        "description": "Automates network configurations.",
+        "link": "https://github.com/yourproject"
+    },
+    {
+        "name": "Network Automation",
+        "description": "Scripted network device configurations for automation.",
+        "link": "https://github.com/yournetworkautomation"
+    }
+  ],
+  "resume": "https://yourresume.com"
+}

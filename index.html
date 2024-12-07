@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edem Robin- Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>EDEM ROBIN</h1>
+        <p>Less Bullshit More Engineering</p>
+        <nav class="navbar">
+            <a href="#about">About Me</a>
+            <a href="#progress">CCNP Progress</a>
+            <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="section about-section">
+            <h2>About Me</h2>
+            <p id="aboutText">Hi, I'm [Your Name]! I'm currently pursuing CCNP certification and building tools to streamline network management. Here's my journey so far.</p>
+        </section>
+
+        <section id="progress" class="section progress-section">
+            <h2>100 Days of CCNP</h2>
+            <div id="progress-list" class="progress-list"></div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <h2>Projects</h2>
+            <div id="project-list" class="progress-list"></div>
+        </section>
+
+        <section id="resume" class="section resume-section">
+            <h2>Resume</h2>
+            <a id="resume-link" href="#" class="button" download>Download Resume</a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 [Your Name]. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function loadData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+
+            // About Me Section
+            document.getElementById('aboutText').textContent = data.about.text;
+
+            // Progress Section - Card Layout
+            const progressList = document.getElementById('progress-list');
+            data.progress.forEach(entry => {
+                const progressItem = document.createElement('div');
+                progressItem.classList.add('progress-item');
+                
+                progressItem.innerHTML = `
+                    <h3>Day ${entry.day}</h3>
+                    <p>${entry.update}</p>
+                    <a href="${entry.readMoreLink}" target="_blank" class="read-more">Read More</a>
+                `;
+                
+                progressList.appendChild(progressItem);
+            });
+
+            // Projects Section - Card Layout (same as Progress Section)
+            const projectList = document.getElementById('project-list');
+            data.projects.forEach(project => {
+                const projectItem = document.createElement('div');
+                projectItem.classList.add('progress-item');
+                
+                projectItem.innerHTML = `
+                    <h3>${project.name}</h3>
+                    <p>${project.description}</p>
+                    <a href="${project.link}" target="_blank" class="read-more">View on GitHub</a>
+                `;
+                
+                projectList.appendChild(projectItem);
+            });
+
+            // Resume Section
+            document.getElementById('resume-link').href = data.resume;
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .project-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-item button {
+            background: #ff4d4d;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Dashboard</h1>
+        <form id="dashboardForm">
+            <h2>About Me</h2>
+            <textarea id="aboutMe" rows="5" placeholder="Update your About Me section"></textarea>
+
+            <h2>Projects</h2>
+            <div id="projectsList"></div>
+            <input type="text" id="projectName" placeholder="Project Name">
+            <textarea id="projectDescription" rows="3" placeholder="Project Description"></textarea>
+            <input type="url" id="projectLink" placeholder="Project Link">
+            <button type="button" id="addProjectButton">Add Project</button>
+
+            <h2>Resume</h2>
+            <input type="url" id="resumeLink" placeholder="Resume Link">
+
+            <button type="button" id="saveButton">Save Changes</button>
+        </form>
+        <p id="statusMessage"></p>
+    </div>
+
+    <script>
+        let data = {
+            about: "",
+            projects: [],
+            resume: ""
+        };
+
+        // Load data from data.txt file
+        async function loadData() {
+            try {
+                const response = await fetch('data.txt');
+                const jsonData = await response.json();
+                data = jsonData;
+
+                // Populate fields
+                document.getElementById('aboutMe').value = data.about;
+                document.getElementById('resumeLink').value = data.resume;
+
+                const projectsList = document.getElementById('projectsList');
+                projectsList.innerHTML = "";
+                data.projects.forEach((project, index) => {
+                    const div = document.createElement('div');
+                    div.classList.add('project-item');
+                    div.innerHTML = `
+                        <span><strong>${project.name}</strong>: ${project.description} (<a href="${project.link}" target="_blank">View</a>)</span>
+                        <button onclick="deleteProject(${index})">Delete</button>
+                    `;
+                    projectsList.appendChild(div);
+                });
+            } catch (error) {
+                console.error("Error loading data:", error);
+            }
+        }
+
+        // Add a project
+        document.getElementById('addProjectButton').addEventListener('click', () => {
+            const name = document.getElementById('projectName').value;
+            const description = document.getElementById('projectDescription').value;
+            const link = document.getElementById('projectLink').value;
+
+            if (name && description && link) {
+                data.projects.push({ name, description, link });
+                document.getElementById('projectName').value = "";
+                document.getElementById('projectDescription').value = "";
+                document.getElementById('projectLink').value = "";
+                loadData();
+            }
+        });
+
+        // Delete a project
+        window.deleteProject = function (index) {
+            data.projects.splice(index, 1);
+            loadData();
+        };
+
+        // Save data to data.txt
+        document.getElementById('saveButton').addEventListener('click', () => {
+            data.about = document.getElementById('aboutMe').value;
+            data.resume = document.getElementById('resumeLink').value;
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "data.txt";
+            a.click();
+
+            document.getElementById('statusMessage').textContent = "Changes saved! Upload the updated data.txt to GitHub.";
+        });
+
+        // Initialize the dashboard
+        loadData();
+    </script>
+</body>
+</html>

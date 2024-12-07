@@ -5,20 +5,11 @@
   "progress": [
       {
           "day": 1,
-          "update": "Learned about EIGRP configurations."
-      },
-      {
-          "day": 2,
-          "update": "Configured static routing."
-      },
-      {
-          "day": 3,
-          "update": "Studied routing protocols like OSPF and BGP."
-      },
-      {
-        "day": 2,
-        "update": "Configured static routing."
-    }
+          "update": "What is Encor v1.1.",
+          "description": "Scripted network device configurations for automation.",
+           "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+      }
+     
   ],
   "projects": [
       {

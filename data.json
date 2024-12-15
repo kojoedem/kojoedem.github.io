@@ -12,8 +12,8 @@
     ],
     "projects": [
         {
-            "name": "Network Tool",
-            "description":[ "This is a small a small tool to help you take advantage of your mikrotik router firewall. visit site to read more and download"],
+            "name": "KOKIKO DNS BLOCKER",
+            "description":[ "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."],
             "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md", 
             "image": "images/kolikodnsblock.png"
         }

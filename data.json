@@ -1,37 +1,51 @@
 {
-  "about": {
-      "text": "Hi, I'm  Edem Robin! I'm currently pursuing CCNP certification and building tools to streamline network management. Here's my journey so far."
-  },
-  "progress": [
-      {
-          "day": 1,
-          "update": "What is Encor v1.1.",
-          "description": "Scripted network device configurations for automation.",
-           "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-      }
-     
-  ],
-  "projects": [
-      {
-          "name": "Network Tool",
-          "description": "Automates network configurations.",
-          "link": "https://github.com/yourproject"
-      },
-      {
-          "name": "Network Automation",
-          "description": "Scripted network device configurations for automation.",
-          "link": "https://github.com/yournetworkautomation"
-      },
-      {
-        "name": "Network Tool",
-        "description": "Automates network configurations.",
-        "link": "https://github.com/yourproject"
+    "about": {
+        "text": ["Hey Again 👋! I’m Edem, a network engineer, Python and Android programmer, and passionate about sharing what I know. I believe in hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries!"]
     },
-    {
-        "name": "Network Automation",
-        "description": "Scripted network device configurations for automation.",
-        "link": "https://github.com/yournetworkautomation"
-    }
-  ],
-  "resume": "https://yourresume.com"
+    "progress": [
+        {
+            "day": 1,
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": 2,
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": 3,
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Network Tool",
+            "description": "Automates network configurations.",
+            "link": "https://github.com/yourproject", "image": "images/kolikodnsblock.png"
+        },
+        {
+            "name": "Network Automation",
+            "description": "Scripted network device configurations for automation.",
+            "link": "https://github.com/yournetworkautomation",
+             "image": "images/kolikodnsblock.png"
+        },
+        {
+            "name": "Network Tool",
+            "description": "Automates network configurations.",
+            "link": "https://github.com/yourproject",
+             "image": "images/kolikodnsblock.png"
+        },
+        {
+            "name": "Network Automation",
+            "description": "Scripted network device configurations for automation.",
+            "link": "https://github.com/yournetworkautomation",
+             "image": "images/kolikodnsblock.png"
+        }
+    ],
+    "resume": "https://yourresume.com"
 }

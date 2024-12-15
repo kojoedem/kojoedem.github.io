@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +38,7 @@
         button:hover {
             background: #45a049;
         }
-        .project-item {
+        .project-item, .progress-item {
             border: 1px solid #ddd;
             padding: 10px;
             margin: 10px 0;
@@ -48,31 +47,57 @@
             justify-content: space-between;
             align-items: center;
         }
-        .project-item button {
+        .project-item button, .progress-item button {
             background: #ff4d4d;
             padding: 5px 10px;
+        }
+        .project-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Portfolio Dashboard</h1>
-        <form id="dashboardForm">
-            <h2>About Me</h2>
-            <textarea id="aboutMe" rows="5" placeholder="Update your About Me section"></textarea>
+        
+        <!-- Upload Data JSON File -->
+        <h2>Upload Portfolio Data (data.json)</h2>
+        <input type="file" id="uploadFile" accept=".json">
+        
+        <!-- About Me Section -->
+        <h2>About Me</h2>
+        <textarea id="aboutMe" rows="5" placeholder="Update your About Me section"></textarea>
 
-            <h2>Projects</h2>
-            <div id="projectsList"></div>
-            <input type="text" id="projectName" placeholder="Project Name">
-            <textarea id="projectDescription" rows="3" placeholder="Project Description"></textarea>
-            <input type="url" id="projectLink" placeholder="Project Link">
-            <button type="button" id="addProjectButton">Add Project</button>
+        <!-- Projects Section -->
+        <h2>Projects</h2>
+        <div id="projectsList"></div>
+        <input type="text" id="projectName" placeholder="Project Name">
+        <textarea id="projectDescription" rows="3" placeholder="Project Description"></textarea>
+        <input type="url" id="projectLink" placeholder="Project Link">
+        <input type="file" id="projectImage" accept="image/*">
+        <button type="button" id="addProjectButton">Add Project</button>
 
-            <h2>Resume</h2>
-            <input type="url" id="resumeLink" placeholder="Resume Link">
+        <!-- CCNP Progress Section -->
+        <h2>CCNP Progress</h2>
+        <div id="progressList"></div>
+        <input type="number" id="progressDay" placeholder="Day Number">
+        <textarea id="progressUpdate" rows="3" placeholder="Progress Update"></textarea>
+        <textarea id="progressDescription" rows="3" placeholder="Detailed Description"></textarea>
+        <input type="url" id="progressLink" placeholder="Link to More Info">
+        <button type="button" id="addProgressButton">Add Progress</button>
 
-            <button type="button" id="saveButton">Save Changes</button>
-        </form>
+        <!-- Resume Section -->
+        <h2>Resume</h2>
+        <input type="url" id="resumeLink" placeholder="Resume Link">
+        <input type="file" id="resumeFile" accept=".pdf, .doc, .docx">
+
+        <!-- Save and Download Section -->
+        <button type="button" id="saveButton">Save Changes</button>
+        <button type="button" id="downloadButton">Download data.json</button>
+        
         <p id="statusMessage"></p>
     </div>
 
@@ -80,34 +105,50 @@
         let data = {
             about: "",
             projects: [],
-            resume: ""
+            progress: [],
+            resume: "",
         };
 
-        // Load data from data.txt file
-        async function loadData() {
-            try {
-                const response = await fetch('data.txt');
-                const jsonData = await response.json();
-                data = jsonData;
-
-                // Populate fields
-                document.getElementById('aboutMe').value = data.about;
-                document.getElementById('resumeLink').value = data.resume;
-
-                const projectsList = document.getElementById('projectsList');
-                projectsList.innerHTML = "";
-                data.projects.forEach((project, index) => {
-                    const div = document.createElement('div');
-                    div.classList.add('project-item');
-                    div.innerHTML = `
-                        <span><strong>${project.name}</strong>: ${project.description} (<a href="${project.link}" target="_blank">View</a>)</span>
-                        <button onclick="deleteProject(${index})">Delete</button>
-                    `;
-                    projectsList.appendChild(div);
-                });
-            } catch (error) {
-                console.error("Error loading data:", error);
+        // Load data from localStorage or prompt to upload JSON
+        function loadData() {
+            const storedData = localStorage.getItem('portfolioData');
+            if (storedData) {
+                data = JSON.parse(storedData);
+                populateFields();
+            } else {
+                document.getElementById('statusMessage').textContent = "No saved data found. Please upload your data.json.";
             }
+        }
+
+        // Populate the fields with the loaded data
+        function populateFields() {
+            document.getElementById('aboutMe').value = data.about;
+            document.getElementById('resumeLink').value = data.resume;
+
+            const projectsList = document.getElementById('projectsList');
+            projectsList.innerHTML = "";
+            data.projects.forEach((project, index) => {
+                const div = document.createElement('div');
+                div.classList.add('project-item');
+                div.innerHTML = `
+                    <span><strong>${project.name}</strong>: ${project.description} (<a href="${project.link}" target="_blank">View</a>)</span>
+                    <img src="image/${project.image}" alt="Project Image">
+                    <button onclick="deleteProject(${index})">Delete</button>
+                `;
+                projectsList.appendChild(div);
+            });
+
+            const progressList = document.getElementById('progressList');
+            progressList.innerHTML = "";
+            data.progress.forEach((entry, index) => {
+                const div = document.createElement('div');
+                div.classList.add('progress-item');
+                div.innerHTML = `
+                    <span><strong>Day ${entry.day}</strong>: ${entry.update} (<a href="${entry.readMoreLink}" target="_blank">Read More</a>)</span>
+                    <button onclick="deleteProgress(${index})">Delete</button>
+                `;
+                progressList.appendChild(div);
+            });
         }
 
         // Add a project
@@ -115,39 +156,102 @@
             const name = document.getElementById('projectName').value;
             const description = document.getElementById('projectDescription').value;
             const link = document.getElementById('projectLink').value;
+            const imageFile = document.getElementById('projectImage').files[0];
+            let imageName = "";
 
-            if (name && description && link) {
-                data.projects.push({ name, description, link });
-                document.getElementById('projectName').value = "";
-                document.getElementById('projectDescription').value = "";
-                document.getElementById('projectLink').value = "";
-                loadData();
+            if (name && description && link && imageFile) {
+                imageName = Date.now() + "-" + imageFile.name;
+                const imagePath = "image/" + imageName;
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    // Save the image as a data URL (you could also upload it to a server)
+                    const projectData = { name, description, link, image: imageName };
+                    data.projects.push(projectData);
+                    localStorage.setItem('portfolioData', JSON.stringify(data));
+                    populateFields();
+                };
+                reader.readAsDataURL(imageFile); // You can save the image if needed in a folder or DB
             }
         });
 
         // Delete a project
         window.deleteProject = function (index) {
             data.projects.splice(index, 1);
-            loadData();
+            localStorage.setItem('portfolioData', JSON.stringify(data));
+            populateFields();
         };
 
-        // Save data to data.txt
+        // Add a progress entry
+        document.getElementById('addProgressButton').addEventListener('click', () => {
+            const day = document.getElementById('progressDay').value;
+            const update = document.getElementById('progressUpdate').value;
+            const description = document.getElementById('progressDescription').value;
+            const link = document.getElementById('progressLink').value;
+
+            if (day && update && description && link) {
+                data.progress.push({ day, update, description, readMoreLink: link });
+                localStorage.setItem('portfolioData', JSON.stringify(data));
+                populateFields();
+            }
+        });
+
+        // Delete a progress entry
+        window.deleteProgress = function (index) {
+            data.progress.splice(index, 1);
+            localStorage.setItem('portfolioData', JSON.stringify(data));
+            populateFields();
+        };
+
+        // Save changes to localStorage
         document.getElementById('saveButton').addEventListener('click', () => {
             data.about = document.getElementById('aboutMe').value;
             data.resume = document.getElementById('resumeLink').value;
+            const resumeFile = document.getElementById('resumeFile').files[0];
 
+            // Save the resume if uploaded
+            if (resumeFile) {
+                const resumePath = "resumes/" + resumeFile.name;
+                // Logic to upload or save the resume can go here
+
+                // Placeholder for now
+                data.resume = resumePath;
+            }
+
+            localStorage.setItem('portfolioData', JSON.stringify(data));
+            document.getElementById('statusMessage').textContent = "Changes saved to localStorage!";
+        });
+
+        // Download updated data.json
+        document.getElementById('downloadButton').addEventListener('click', () => {
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = "data.txt";
+            a.download = "data.json";
             a.click();
-
-            document.getElementById('statusMessage').textContent = "Changes saved! Upload the updated data.txt to GitHub.";
+            URL.revokeObjectURL(url);
         });
 
-        // Initialize the dashboard
+        // Handle file upload
+        document.getElementById('uploadFile').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file && file.name.endsWith('.json')) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    data = JSON.parse(reader.result);
+                    localStorage.setItem('portfolioData', JSON.stringify(data));
+                    populateFields();
+                };
+                reader.readAsText(file);
+            } else {
+                alert("Please upload a valid JSON file.");
+            }
+        });
+
+        // Initialize dashboard
         loadData();
+
     </script>
 </body>
 </html>

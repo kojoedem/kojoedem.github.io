@@ -196,3 +196,9 @@ footer p {
     margin-bottom: 1rem;
     object-fit: cover; /* Ensure the image covers the area without distortion */
 }
+.slogan {
+    font-size: 1.2rem;
+    color: #f39c12; /* Yellow to make it stand out */
+    font-weight: bold;
+    margin-top: 0.5rem;
+}

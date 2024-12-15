@@ -8,44 +8,16 @@
             "update": "What is Encor v1.1.",
             "description": "Scripted network device configurations for automation.",
             "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 2,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 3,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notion.so/DAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
         }
     ],
     "projects": [
         {
             "name": "Network Tool",
-            "description": "Automates network configurations.",
-            "link": "https://github.com/yourproject", "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "Network Automation",
-            "description": "Scripted network device configurations for automation.",
-            "link": "https://github.com/yournetworkautomation",
-             "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "Network Tool",
-            "description": "Automates network configurations.",
-            "link": "https://github.com/yourproject",
-             "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "Network Automation",
-            "description": "Scripted network device configurations for automation.",
-            "link": "https://github.com/yournetworkautomation",
-             "image": "images/kolikodnsblock.png"
+            "description":[ "This is a small a small tool to help you take advantage of your mikrotik router firewall. visit site to read more and download"],
+            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md", 
+            "image": "images/kolikodnsblock.png"
         }
+       
     ],
     "resume": "https://yourresume.com"
 }

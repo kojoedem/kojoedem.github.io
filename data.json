@@ -6,43 +6,7 @@
     },
     "progress": [
         {
-            "day": 1,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 2,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 3,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 4,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 5,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 6,
-            "update": "What is Encor v1.1.",
-            "description": "Scripted network device configurations for automation.",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        },
-        {
-            "day": 7,
+            "day": "Ehss",
             "update": "What is Encor v1.1.",
             "description": "Scripted network device configurations for automation.",
             "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
@@ -56,73 +20,33 @@
             ],
             "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
             "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "KOKIKO DNS BLOCKER",
-            "description": [
-                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
-            ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "KOKIKO DNS BLOCKER",
-            "description": [
-                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
-            ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "KOKIKO DNS BLOCKER",
-            "description": [
-                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
-            ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "KOKIKO DNS BLOCKER",
-            "description": [
-                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
-            ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
-        },
-        {
-            "name": "KOKIKO DNS BLOCKER",
-            "description": [
-                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
-            ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
         }
     ],
     "resume": "https://yourresume.com",
     "contact": [
         {
-            "name": "buy coffee",
-            "link": "buymecofe.com",
-            "image": "images/bmc-brand-icon.svg"
+            "name": "buy me a coffee",
+            "link": "buymeacoffee.com/edemrobin",
+            "image": "images/buyme.gif"
         },
         {
             "name": "email",
-            "link": "koo@gmail.com",
+            "link": "edemozone@gmailcom",
             "image": "images/gmail.png"
         },
         {
             "name": "github",
-            "link": "man.githou",
+            "link": "https://github.com/kojoedem",
             "image": "images/github.png"
         },
         {
             "name": "x",
-            "link": "x.com",
-            "image": "images/social-media.png"
+            "link": "twitter.com/edemrobin",
+            "image": "images/x.png"
         },
         {
             "name": "linkedin",
-            "link": "linden.com",
+            "link": "www.linkedin.com/in/amedzo-edem-robin-2a484890",
             "image": "images/linkedin.png"
         }
     ]

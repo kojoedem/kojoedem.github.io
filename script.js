@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Portfolio loaded successfully!");
 
-    const CARDS_PER_PAGE = 6; // Maximum cards per page
+    const currentYear = new Date().getFullYear();
 
-    async function loadData() {
+    // Insert the current year into the span with id "current-year"
+    document.getElementById("current-year").textContent = currentYear;
+
+        const CARDS_PER_PAGE = 6; // Maximum cards per page
+
+        async function loadData() {
         try {
             const response = await fetch("data.json");
             if (!response.ok) throw new Error("Failed to load data.json");

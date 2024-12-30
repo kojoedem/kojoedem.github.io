@@ -10,18 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            // Get About Me section
+            // Populate About Me section
             const aboutSection = document.querySelector("#about p");
-            if (data.about && data.about.text) {
-                aboutSection.textContent = data.about.text;
-            } else {
-                aboutSection.textContent = "No About Me section found.";
-            }
+            aboutSection.textContent = data.about?.text || "No About Me section found.";
 
-            // Render Progress Section with Pagination
+            // Render sections with pagination
             renderSectionWithPagination(data.progress || [], "progress-list");
-
-            // Render Projects Section with Pagination
             renderSectionWithPagination(data.projects || [], "projects-list");
         } catch (error) {
             console.error("Error loading data:", error);
@@ -31,111 +25,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderSectionWithPagination(items, containerId) {
         const container = document.getElementById(containerId);
-        const parentContainer = container.parentElement;
-        let currentPage = 1; // Start from the first page
         const totalCards = items.length;
         const totalPages = Math.ceil(totalCards / CARDS_PER_PAGE);
+        let currentPage = 1;
 
-        if (totalCards <= CARDS_PER_PAGE) {
-            // If there are 6 or fewer cards, render all cards without pagination
-            renderPage(items);
-        } else {
-            // If there are more than 6 cards, apply pagination
-            renderPage(items.slice(0, CARDS_PER_PAGE)); // Render the first page initially
-            renderPaginationControls(totalPages, items);
-        }
+        function renderPage(page) {
+            container.innerHTML = "";
+            const start = (page - 1) * CARDS_PER_PAGE;
+            const pageItems = items.slice(start, start + CARDS_PER_PAGE);
 
-        function renderPage(pageItems) {
-            container.innerHTML = ""; // Clear the container
-
-            pageItems.forEach((item) => {
+            pageItems.forEach(item => {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
-                const cardFrontStyle = item.image
-                    ? `background-image: url(${item.image}); background-size: cover; background-position: center;`
-                    : 'background-color: #3498db;';
+                const backgroundStyle = item.image
+                    ? `background-image: url(${item.image}); background-size: cover;`
+                    : "background-color: #3498db;";
 
                 card.innerHTML = `
-                    <div class="card-front" style="${cardFrontStyle}">
-                        <h3>${item.day ? 'Day ' + item.day : item.name || 'Item'}</h3>
+                    <div class="card-front" style="${backgroundStyle}">
+                        <h3>${item.day || item.name}</h3>
                     </div>
                     <div class="card-content">
-                        <p>${item.update || item.description}</p>
-                        <a href="${item.readMoreLink || item.link}" target="_blank" class="read-more">Read More</a>
+                        <p>${item.description || "No description available."}</p>
                     </div>
                 `;
+
                 container.appendChild(card);
+
+                card.addEventListener("click", () => card.classList.toggle("open"));
             });
         }
 
-        function renderPaginationControls(totalPages, items) {
-            let paginationContainer = parentContainer.querySelector(".pagination");
-            if (!paginationContainer) {
-                paginationContainer = document.createElement("div");
-                paginationContainer.classList.add("pagination");
-                parentContainer.appendChild(paginationContainer);
-            } else {
-                paginationContainer.innerHTML = ""; // Clear previous pagination controls
-            }
+        function renderPagination() {
+            const paginationContainer = container.parentElement.querySelector(".pagination") || document.createElement("div");
+            paginationContainer.classList.add("pagination");
+            paginationContainer.innerHTML = "";
 
             const prevButton = document.createElement("button");
             prevButton.textContent = "Previous";
             prevButton.disabled = currentPage === 1;
             prevButton.addEventListener("click", () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updatePage();
-                }
+                if (currentPage > 1) updatePage(--currentPage);
             });
+
             paginationContainer.appendChild(prevButton);
 
             for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement("button");
-                button.textContent = i;
-                button.classList.add("page-button");
-                if (i === currentPage) button.classList.add("active");
-
-                button.addEventListener("click", () => {
-                    currentPage = i;
-                    updatePage();
-                });
-
-                paginationContainer.appendChild(button);
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                if (i === currentPage) pageButton.classList.add("active");
+                pageButton.addEventListener("click", () => updatePage(i));
+                paginationContainer.appendChild(pageButton);
             }
 
             const nextButton = document.createElement("button");
             nextButton.textContent = "Next";
             nextButton.disabled = currentPage === totalPages;
             nextButton.addEventListener("click", () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    updatePage();
-                }
+                if (currentPage < totalPages) updatePage(++currentPage);
             });
+
             paginationContainer.appendChild(nextButton);
-
-            function updatePage() {
-                const start = (currentPage - 1) * CARDS_PER_PAGE;
-                const end = start + CARDS_PER_PAGE;
-                renderPage(items.slice(start, end));
-                updatePaginationControls();
-            }
-
-            function updatePaginationControls() {
-                const buttons = paginationContainer.querySelectorAll(".page-button");
-                buttons.forEach((button, index) => {
-                    if (index === currentPage - 1) {
-                        button.classList.add("active");
-                    } else {
-                        button.classList.remove("active");
-                    }
-                });
-
-                prevButton.disabled = currentPage === 1;
-                nextButton.disabled = currentPage === totalPages;
-            }
+            container.parentElement.appendChild(paginationContainer);
         }
+
+        function updatePage(page) {
+            currentPage = page;
+            renderPage(page);
+            renderPagination();
+        }
+
+        updatePage(1);
     }
 
     loadData();

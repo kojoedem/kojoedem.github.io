@@ -26,12 +26,12 @@
     "contact": [
         {
             "name": "buy me a coffee",
-            "link": "buymeacoffee.com/edemrobin",
+            "link": "https://buymeacoffee.com/edemrobin",
             "image": "images/buyme.gif"
         },
         {
             "name": "email",
-            "link": "edemozone@gmailcom",
+            "link": "edemozone@gmail.com",
             "image": "images/gmail.png"
         },
         {
@@ -41,12 +41,12 @@
         },
         {
             "name": "x",
-            "link": "twitter.com/edemrobin",
+            "link": "https://twitter.com/edemrobin",
             "image": "images/x.png"
         },
         {
             "name": "linkedin",
-            "link": "www.linkedin.com/in/amedzo-edem-robin-2a484890",
+            "link": "https://linkedin.com/in/amedzo-edem-robin-2a484890",
             "image": "images/linkedin.png"
         }
     ]

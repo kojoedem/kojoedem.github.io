@@ -31,7 +31,10 @@ header img {
     border-radius: 50%;
     width: 300px;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    padding: -10px; 
+    box-sizing: content-box;
 }
 
 header h1 {
@@ -106,6 +109,19 @@ a:hover {
         font-weight: bold;
         text-align: center;
         cursor: pointer;
+    }
+
+    header img {
+        width: 150px; /* Further reduce image size for smaller screens */
+        height: 150px;
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* Smaller heading for small screens */
+    }
+
+    header p.slogan {
+        font-size: 0.9rem; /* Adjust slogan font size for smaller screens */
     }
 }
 

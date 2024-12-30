@@ -81,9 +81,9 @@ a:hover {
     nav {
         flex-direction: column;
         align-items: flex-start;
-        display: none; /* Hide menu by default */
+        display: inline-block; /* Hide menu by default */
         padding: 1rem;
-        position: absolute;
+        position: relative;
         top: 100%;
         left: 0;
         width: 100%;

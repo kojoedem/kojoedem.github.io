@@ -18,7 +18,7 @@
             "description": [
                 "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
             ],
-            "link": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
+            "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
             "image": "images/kolikodnsblock.png"
         }
     ],

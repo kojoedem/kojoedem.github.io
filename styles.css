@@ -17,7 +17,7 @@ body {
     width: 100%;
     max-width: 800px;
     margin: 0 auto; /* Center horizontally */
-    padding: 1rem; /* Add padding for small screens */
+    padding: 0.1rem; /* Add padding for small screens */
 }
 
 /* Header */
@@ -194,3 +194,66 @@ a:hover {
     background-color: #666;
     cursor: not-allowed;
 }
+
+/* Contact Section */
+#contact {
+    padding: 2rem;
+    background-color: #111;
+}
+
+#contact h2 {
+    text-align: center;
+    color: #f39c12;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.contact-list p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.contact-list a {
+    color: #f39c12;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+/* Contact Images (icons) */
+.contact-list img {
+    width: 30px; /* Set size for the icon images */
+    height: 30px;
+    object-fit: contain;
+    margin-right: 0.5rem; /* Space between image and text */
+    transition: transform 0.3s ease;
+}
+
+.contact-list img:hover {
+    transform: scale(1.2); /* Slightly enlarge the icon on hover */
+}
+
+/* Responsive Contact Section */
+@media (max-width: 768px) {
+    .contact-list p {
+        font-size: 1rem;
+    }
+
+    .contact-list img {
+        width: 25px; /* Reduce icon size on smaller screens */
+        height: 25px;
+    }
+}
+

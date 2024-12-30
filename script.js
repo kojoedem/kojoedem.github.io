@@ -17,6 +17,54 @@ document.addEventListener("DOMContentLoaded", () => {
             // Render sections with pagination
             renderSectionWithPagination(data.progress || [], "progress-list");
             renderSectionWithPagination(data.projects || [], "projects-list");
+
+            // Populate Resume section
+            const resumeLink = document.querySelector("#resume a");
+            if (data.resume) {
+                resumeLink.href = data.resume;
+                resumeLink.textContent = "View Resume";
+            } else {
+                resumeLink.textContent = "Resume not available.";
+                resumeLink.href = "#";
+            }
+
+          // Populate Contact section
+const contactSection = document.querySelector("#contact .contact-list");
+if (data.contact?.length) {
+    contactSection.innerHTML = "";
+    data.contact.forEach(contactItem => {
+        const contactElement = document.createElement("div");
+        contactElement.classList.add("contact-item"); // Adding a class for styling
+
+        // Check if the link exists
+        if (contactItem.link) {
+            const contactLink = document.createElement("a");
+            contactLink.href = contactItem.link;
+            contactLink.target = "_blank";
+
+            // Create and append image if it exists
+            if (contactItem.image) {
+                const contactImage = document.createElement("img");
+                contactImage.src = contactItem.image;
+                contactImage.alt = `${contactItem.name} image`;
+                contactImage.classList.add("contact-image"); // Optional: Add class for styling
+                contactLink.appendChild(contactImage);
+            }
+
+            // Add the name as text to the link
+            contactLink.innerHTML += `<span>${contactItem.name}</span>`;
+            contactElement.appendChild(contactLink);
+        } else {
+            // If there's no link, just display the name or default text
+            contactElement.textContent = contactItem.name || "Contact option unavailable.";
+        }
+
+        contactSection.appendChild(contactElement);
+    });
+} else {
+    contactSection.textContent = "No contact options available.";
+}
+
         } catch (error) {
             console.error("Error loading data:", error);
             alert("Failed to load portfolio data. Please ensure the data.json file is available.");
@@ -34,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const start = (page - 1) * CARDS_PER_PAGE;
             const pageItems = items.slice(start, start + CARDS_PER_PAGE);
 
-            pageItems.forEach(item => {
+            pageItems.forEach((item) => {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
@@ -48,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class="card-content">
                         <p>${item.description || "No description available."}</p>
+                        <a href="${item.readMoreLink || "#"}" class="read-more" target="_blank">Read More</a>
                     </div>
                 `;
 

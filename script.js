@@ -1,14 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Portfolio loaded successfully!");
-
     const currentYear = new Date().getFullYear();
-
-    // Insert the current year into the span with id "current-year"
     document.getElementById("current-year").textContent = currentYear;
 
-        const CARDS_PER_PAGE = 6; // Maximum cards per page
+    const CARDS_PER_PAGE = 6; // Maximum cards per page
 
-        async function loadData() {
+    // Menu toggle functionality
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const navLinksItems = navLinks.querySelectorAll("a");
+
+    menuToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", isOpen);
+    });
+
+    navLinksItems.forEach(link => {
+        link.addEventListener("click", () => {
+            if (navLinks.classList.contains("open")) {
+                navLinks.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", false);
+            }
+        });
+    });
+
+    async function loadData() {
         try {
             const response = await fetch("data.json");
             if (!response.ok) throw new Error("Failed to load data.json");
@@ -143,6 +158,7 @@ if (data.contact?.length) {
             paginationContainer.appendChild(nextButton);
             container.parentElement.appendChild(paginationContainer);
         }
+
 
         function updatePage(page) {
             currentPage = page;

@@ -10,6 +10,46 @@
             "update": "What is Encor v1.1.",
             "description": "Scripted network device configurations for automation.",
             "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.Scripted network device configurations for automationScripted network device configurations for automationScripted network device configurations for automation",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },{
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },{
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        },
+        {
+            "day": "Ehss",
+            "update": "What is Encor v1.1.",
+            "description": "Scripted network device configurations for automation.",
+            "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md"
         }
     ],
     "projects": [
@@ -20,6 +60,22 @@
             ],
             "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
             "image": "images/kolikodnsblock.png"
+        },
+        {
+            "name": "KOKIKO DNS BLOCKER",
+            "description": [
+                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
+            ],
+            "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
+            "image": "images/kolikodnsblock.png"
+        },
+        {
+            "name": "KOKIKO DNS BLOCKER",
+            "description": [
+                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
+            ],
+            "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md"
+            
         }
     ],
     "resume": "https://yourresume.com",

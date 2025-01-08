@@ -432,3 +432,23 @@ footer .social-links a:hover {
 .contact-list img:hover {
     transform: scale(1.2); /* Slightly enlarge the icon on hover */
 }
+
+
+@media (max-width: 768px) {
+    #about{
+        color: white;
+        
+    }
+    .about-me-p{
+        padding: 1rem;
+        margin-top: -1rem;
+        font-size: 0.98rem;
+    }
+
+    .about-me{
+        color: white;
+        font-size: 0.98rem;
+        padding: 1rem;
+    }
+ 
+    }

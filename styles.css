@@ -109,6 +109,7 @@ nav .nav-links.open {
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
+    top:-5px;
 }
 
     nav .nav-links a {
@@ -210,9 +211,7 @@ header img {
         margin: 0; /* Remove any extra margins */
     }
 
-    /* #contact h2{
-        font-size: 5px;
-    } */
+ 
 }
 
 
@@ -314,18 +313,41 @@ footer .social-links a:hover {
         height: auto; /* Allow height to adjust based on content */
     }
 
-    .card-front,
-    .card-content {
-        padding: 0.2rem; /* Add padding for smaller screens */
-    
+    .card-front{
+        padding: 3rem; /* Add padding for smaller screens */
         
     }
 
     .card-content {
-        width: auto;
-        height: auto;
-        font-size: 0.9rem; /* Adjust font size for readability */
-    }
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #ccc;
+    font-size: 0.9rem; /* Adjust font size for readability */
+
+   }
+
+   .card-content p{
+       font-size: 0.66rem;
+       word-break: break-all;
+       white-space: normal;
+       margin-top: -25px;
+       padding: 1px;
+
+   }
+
+   .card-content .read-more{
+    position: absolute;
+    top: 10rem;
+    background-color: orange;
+    padding: 0.2rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: white;
+   }
 }
 
 

@@ -158,6 +158,38 @@ if (data.contact?.length) {
             paginationContainer.appendChild(nextButton);
             container.parentElement.appendChild(paginationContainer);
         }
+        
+
+// Function to fetch the JSON file and select a random line
+function getRandomLine() {
+    fetch("data.json") // Replace with your actual file path
+        .then(response => response.json())
+        .then(data => {
+            const lines = data.lines;
+            const randomIndex = Math.floor(Math.random() * lines.length);
+            const randomLine = lines[randomIndex];
+
+            // Find the element with class "slogan" and update its text
+            const sloganElement = document.querySelector('.slogan');
+            if (sloganElement) {
+                // Reset the animation by toggling the class
+                sloganElement.classList.remove('typing');
+                void sloganElement.offsetWidth; // Trigger reflow to restart animation
+                sloganElement.textContent = randomLine; // Update the text
+                sloganElement.classList.add('typing'); // Apply the typing class
+            }
+        })
+        .catch(error => {
+            console.error('Error loading JSON:', error);
+        });
+}
+
+// Call the function every 5 minutes (300,000 milliseconds)
+setInterval(getRandomLine, 30000);
+
+// Call immediately to get the first random line
+getRandomLine();
+
 
 
         function updatePage(page) {

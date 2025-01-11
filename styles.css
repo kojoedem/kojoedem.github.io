@@ -123,11 +123,13 @@ nav .nav-links a:hover {
 
 /* Responsive Header Image */
 header img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    object-fit: cover; 
+    /* border: 2px solid #ccc; */
+    margin: 10px;
+    padding: 20px;
 }
 
 /* Contact Section */
@@ -405,6 +407,8 @@ footer .social-links a:hover {
             font-weight: bold;
             font-family:Helvetica, Arial, Georgia, Tahoma and Roboto;
             padding: 2px;
+            word-wrap: break-word;
+            overflow-wrap: break-word
         }
         /* Typing animation */
         @keyframes typing {
@@ -428,22 +432,30 @@ footer .social-links a:hover {
             font-weight: bold;      
             background-color: #2c3e50; 
             padding: 4px;           
-            border-radius: 4px;    
+            border-radius: 4px;   
+            word-wrap: break-word;
+            overflow-wrap: break-word 
         }
 
         header p.slogan.typing {
             animation: typing 5s steps(50, end) 1s 1 normal both;
             border-right: 3px dotted rgb(255, 253, 253);
+            word-wrap: break-word;
+            overflow-wrap: break-word
+            
         }
 
+       /* Responsive Header Image */
         header img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            /* margin: 0 auto; */
-            display: block;
-            margin-top: 20px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover; 
+            /* border: 2px solid #ccc; */
+            margin: 10px;
+            padding: 20px;
         }
+
 
 }
    

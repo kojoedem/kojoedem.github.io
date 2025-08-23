@@ -166,36 +166,49 @@ async function loadBlogPost(path, container) {
 function renderBlogPage(data) {
     const contentContainer = document.getElementById('blog-content');
     const sidebarList = document.getElementById('blog-sidebar-list');
-    if (!contentContainer || !sidebarList) return;
+    const searchInput = document.getElementById('sidebar-search-input');
+    if (!contentContainer || !sidebarList || !searchInput) return;
 
-    const posts = (data.progress || []).slice().reverse(); // Newest first
+    const allPosts = (data.progress || []).slice().reverse(); // Newest first
 
-    // Populate sidebar
-    sidebarList.innerHTML = "";
-    posts.forEach(post => {
-        const listItem = document.createElement("li");
-        const link = document.createElement("a");
-        link.href = "#";
-        link.textContent = post.day;
-        link.dataset.path = post.readMoreLink;
+    const populateSidebar = (postsToRender) => {
+        sidebarList.innerHTML = "";
+        postsToRender.forEach(post => {
+            const listItem = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = "#";
+            link.textContent = post.day;
+            link.dataset.path = post.readMoreLink;
 
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadBlogPost(link.dataset.path, contentContainer);
-            // Optional: Add an 'active' class to the clicked link
-            sidebarList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-            link.classList.add('active');
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadBlogPost(link.dataset.path, contentContainer);
+                sidebarList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+            });
+
+            listItem.appendChild(link);
+            sidebarList.appendChild(listItem);
         });
+    };
 
-        listItem.appendChild(link);
-        sidebarList.appendChild(listItem);
-    });
+    // Initial population
+    populateSidebar(allPosts);
 
     // Load the latest post by default
-    if (posts.length > 0) {
-        loadBlogPost(posts[0].readMoreLink, contentContainer);
+    if (allPosts.length > 0) {
+        loadBlogPost(allPosts[0].readMoreLink, contentContainer);
         sidebarList.querySelector('a')?.classList.add('active');
     }
+
+    // Add search functionality
+    searchInput.addEventListener('keyup', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredPosts = allPosts.filter(post =>
+            post.day.toLowerCase().includes(searchTerm)
+        );
+        populateSidebar(filteredPosts);
+    });
 }
 
 function renderContact(data) {

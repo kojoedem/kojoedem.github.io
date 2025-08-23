@@ -179,6 +179,16 @@ nav .menu-toggle {
     margin-bottom: 1rem;
 }
 
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+    color: #bbb;
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
+}
+
 .card-content .read-more {
     display: inline-block;
     margin-top: 1rem;
@@ -283,19 +293,22 @@ footer {
 .contact-list {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1rem;
+    gap: 2rem;
+    margin-top: 1.5rem;
     flex-wrap: wrap;
 }
 
 .contact-list img {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.3s ease;
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    filter: grayscale(1) invert(1);
+    opacity: 0.7;
 }
 
 .contact-list img:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    opacity: 1;
 }
 
 /* Animations */

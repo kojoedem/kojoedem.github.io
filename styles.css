@@ -40,40 +40,6 @@ header p {
     font-family: 'Lato', sans-serif;
     padding: 2px;
 }
-/* Typing animation */
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-header p.slogan {
-    display: inline-block;  
-    overflow: hidden;       
-    white-space: nowrap;    
-    width: 0;               
-    border-right: 3px dotted #f0f0f0;
-    color: #2ecc71;         
-    font-family: "Courier New", Courier, monospace; 
-    font-size: 1.25rem;
-    font-weight: bold;      
-    background-color: #2c3e50; 
-    padding: 5px;           
-    border-radius: 4px;    
-}
-
-header p.slogan.typing {
-    animation: typing 5s steps(50, end) 1s 1 normal both; /* Adjust timing for animation */
-    border-right: 3px dotted #f0f0f0;
-}
-
-header p.slogan.typing {
-    animation: typing 5s steps(50, end) 1s 1 normal both; /* Typing animation */
-    border-right: 3px solid #16a085; /* Match cursor color */
-}
 
 
 /* Navigation Styling */

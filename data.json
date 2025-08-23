@@ -4,14 +4,6 @@
             "Hey Again 👋! I’m Edem. I believe that Beautiful is better than ugly and Simple is better than complex. Passionate about sharing what I know, I thrive on hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries! Oh, and don’t worry, I won’t 'force-close' our interaction—though I might throw an exception! 😉. In all of this, I am just a simple computer user with an ability to click an icon."
         ]
     },
-    "techChronicles": [
-        {
-            "title": "VirtualBox Kernel Error",
-            "date": "2024-07-29",
-            "file": "tech-chronicles/tech-chronicle-1.md",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
-        }
-    ],
     "projects": [
         {
             "name": "KOKIKO DNS BLOCKER",
@@ -49,17 +41,17 @@
             "image": "images/linkedin.png"
         }
     ],
-    "lines":[
-        "LESS BULLSHIT MORE ENGINEERING",
-        "KNOW YOUR WHY",
-        "FIND A WAY OR FADE OUT",
-        "IT's NEVER TOO LATE TO LEARN, JUST START TODAY"
-      ],
     "blog": [
         {
             "title": "My First Blog Post",
             "date": "2024-07-29",
             "file": "blog/blog-1.md"
+        },
+        {
+            "title": "VirtualBox Kernel Error",
+            "date": "2024-07-29",
+            "file": "blog/blog-2.md",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
         }
     ]
 }

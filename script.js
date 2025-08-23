@@ -22,21 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Function to display a random slogan
-    function getRandomLine(lines) {
-        if (!lines || lines.length === 0) return;
-        const sloganElement = document.querySelector('.slogan');
-        if (sloganElement) {
-            const randomIndex = Math.floor(Math.random() * lines.length);
-            const randomLine = lines[randomIndex];
-
-            sloganElement.classList.remove('typing');
-            void sloganElement.offsetWidth; // Trigger reflow
-            sloganElement.textContent = randomLine;
-            sloganElement.classList.add('typing');
-        }
-    }
-
     function loadLatestPosts(posts) {
         const latestPostsList = document.getElementById("latest-posts-list");
         if (!latestPostsList || !posts || posts.length === 0) return;
@@ -71,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#about p").textContent = data.about?.text || "No About Me section found.";
 
             // Populate sections
-            renderSectionWithMarkdown(data.techChronicles || [], "tech-chronicles-list");
             renderSectionWithMarkdown(data.projects || [], "projects-list");
             loadLatestPosts(data.blog || []);
 
@@ -103,12 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             } else {
                 contactList.textContent = "No contact options available.";
-            }
-
-            // Setup slogan rotator
-            if (data.lines) {
-                getRandomLine(data.lines);
-                setInterval(() => getRandomLine(data.lines), 30000);
             }
 
         } catch (error) {

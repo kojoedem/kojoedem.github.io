@@ -14,21 +14,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>My Blog</h1>
-        <nav>
-            <a href="index.html">Home</a>
-        </nav>
-    </header>
+    <nav>
+    <a href="index.html" class="nav-brand">edemrobin.com</a>
+    <button class="menu-toggle">☰</button>
+    <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="resume/my_resume.pdf" target="_blank">Resume</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+    </nav>
 
-    <div class="container">
-        <section id="blog-posts">
-            <h2>Latest Posts</h2>
+    <div class="container main-layout">
+        <main class="main-content">
+            <section id="blog-post-content">
+                <!-- Selected blog post will be loaded here -->
+            </section>
+        </main>
+        <aside class="sidebar">
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Search posts...">
             </div>
-            <div id="posts-list"></div>
-        </section>
+            <section id="posts-list-sidebar">
+                <h2>All Posts</h2>
+                <div id="posts-list"></div>
+            </section>
+        </aside>
     </div>
 
     <footer>

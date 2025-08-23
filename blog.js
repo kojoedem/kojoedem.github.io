@@ -6,11 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const searchInput = document.getElementById("search-input");
-    const postsList = document.getElementById("posts-list");
+    const postsListContainer = document.getElementById("posts-list");
+    const postContentContainer = document.getElementById("blog-post-content");
+
     let allPosts = [];
 
     async function fetchPostContent(post) {
-        if (post.file) {
+        if (post.file && !post.content) {
             try {
                 const mdResponse = await fetch(post.file);
                 if (mdResponse.ok) {
@@ -34,47 +36,69 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             if (data.blog && data.blog.length > 0) {
-                const postPromises = data.blog.map(fetchPostContent);
-                allPosts = await Promise.all(postPromises);
-                renderPosts(allPosts);
+                allPosts = data.blog.sort((a, b) => new Date(b.date) - new Date(a.date));
+                renderSidebar(allPosts);
+                // Load the most recent post by default
+                if (allPosts.length > 0) {
+                    displayPost(allPosts[0]);
+                }
             } else {
-                postsList.textContent = "No blog posts found.";
+                postsListContainer.textContent = "No blog posts found.";
             }
         } catch (error) {
             console.error("Error loading blog posts:", error);
-            if (postsList) {
-                postsList.textContent = "Could not load blog posts.";
+            if (postsListContainer) {
+                postsListContainer.textContent = "Could not load blog posts.";
             }
         }
     }
 
-    function renderPosts(posts) {
-        postsList.innerHTML = "";
+    function renderSidebar(posts) {
+        postsListContainer.innerHTML = "";
         if (posts.length === 0) {
-            postsList.textContent = "No posts found.";
+            postsListContainer.textContent = "No posts found.";
             return;
         }
 
+        const ul = document.createElement('ul');
         posts.forEach(post => {
-            const postElement = document.createElement("div");
-            postElement.classList.add("blog-post");
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `#${post.title.replace(/\s+/g, '-').toLowerCase()}`;
+            a.textContent = post.title;
 
-            const titleElement = document.createElement("h3");
-            titleElement.textContent = post.title;
-            postElement.appendChild(titleElement);
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                displayPost(post);
+                // Update URL hash
+                window.location.hash = a.hash;
+            });
 
-            const dateElement = document.createElement("p");
-            dateElement.classList.add("post-date");
-            dateElement.textContent = `Posted on ${post.date}`;
-            postElement.appendChild(dateElement);
+            a.addEventListener('mouseover', async () => {
+                const postWithContent = await fetchPostContent(post);
+                const snippet = postWithContent.content.substring(0, 100) + '...';
+                a.title = snippet;
+            });
 
-            const contentElement = document.createElement("div");
-            contentElement.classList.add("post-content");
-            contentElement.innerHTML = marked.parse(post.content || "");
-            postElement.appendChild(contentElement);
-
-            postsList.appendChild(postElement);
+            li.appendChild(a);
+            ul.appendChild(li);
         });
+        postsListContainer.appendChild(ul);
+    }
+
+    async function displayPost(post) {
+        if (!post) return;
+
+        postContentContainer.innerHTML = '<h2>Loading...</h2>';
+
+        const postWithContent = await fetchPostContent(post);
+
+        postContentContainer.innerHTML = `
+            <div class="blog-post">
+                <h3>${postWithContent.title}</h3>
+                <p class="post-date">Posted on ${postWithContent.date}</p>
+                <div class="post-content">${marked.parse(postWithContent.content || "")}</div>
+            </div>`;
     }
 
     searchInput.addEventListener("keyup", (e) => {
@@ -82,13 +106,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const filteredPosts = allPosts.filter(post => {
             const titleMatch = post.title.toLowerCase().includes(searchTerm);
-            const contentMatch = post.content.toLowerCase().includes(searchTerm);
             const tagsMatch = post.tags?.some(tag => tag.toLowerCase().includes(searchTerm));
-            return titleMatch || contentMatch || tagsMatch;
+            return titleMatch || tagsMatch;
         });
 
-        renderPosts(filteredPosts);
+        renderSidebar(filteredPosts);
     });
 
-    loadBlogPosts();
+    // Handle loading post from URL hash
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.substring(1);
+        const postToLoad = allPosts.find(p => p.title.replace(/\s+/g, '-').toLowerCase() === hash);
+        if (postToLoad) {
+            displayPost(postToLoad);
+        }
+    });
+
+    loadBlogPosts().then(() => {
+        if (window.location.hash) {
+             const hash = window.location.hash.substring(1);
+             const postToLoad = allPosts.find(p => p.title.replace(/\s+/g, '-').toLowerCase() === hash);
+             if (postToLoad) {
+                displayPost(postToLoad);
+             }
+        }
+    });
 });

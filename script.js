@@ -26,10 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const latestPostsList = document.getElementById("latest-posts-list");
         if (!latestPostsList || !posts || posts.length === 0) return;
 
-        // Sort posts by date in descending order
         const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Get the 3 most recent posts
         const recentPosts = sortedPosts.slice(0, 3);
 
         const ul = document.createElement('ul');
@@ -52,23 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            // Populate About Me
-            document.querySelector("#about p").textContent = data.about?.text || "No About Me section found.";
-
-            // Populate sections
             renderSectionWithMarkdown(data.projects || [], "projects-list");
             loadLatestPosts(data.blog || []);
 
-            // Populate Resume
-            const resumeLink = document.querySelector("#resume a");
-            if (data.resume) {
-                resumeLink.href = data.resume;
-            } else {
-                resumeLink.textContent = "Resume not available.";
-                resumeLink.href = "#";
-            }
-
-            // Populate Contact
             const contactList = document.querySelector("#contact .contact-list");
             if (data.contact?.length) {
                 contactList.innerHTML = "";
@@ -96,17 +79,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderSectionWithMarkdown(items, containerId) {
+        const sectionContainer = document.getElementById(containerId).parentElement;
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        const totalCards = items.length;
-        const totalPages = Math.ceil(totalCards / CARDS_PER_PAGE);
+        let allItems = [...items];
+        let filteredItems = [...allItems];
         let currentPage = 1;
 
-        async function renderPage(page) {
+        function getUniqueTags() {
+            const allTags = allItems.flatMap(item => item.tags || []);
+            return [...new Set(allTags)];
+        }
+
+        function renderFilterButtons() {
+            const uniqueTags = getUniqueTags();
+            const filterContainer = document.createElement('div');
+            filterContainer.classList.add('filter-container');
+
+            const allButton = document.createElement('button');
+            allButton.textContent = 'All';
+            allButton.classList.add('active');
+            allButton.addEventListener('click', () => {
+                filteredItems = [...allItems];
+                currentPage = 1;
+                updatePage();
+                setActiveButton(allButton);
+            });
+            filterContainer.appendChild(allButton);
+
+            uniqueTags.forEach(tag => {
+                const button = document.createElement('button');
+                button.textContent = tag;
+                button.addEventListener('click', () => {
+                    filteredItems = allItems.filter(item => item.tags?.includes(tag));
+                    currentPage = 1;
+                    updatePage();
+                    setActiveButton(button);
+                });
+                filterContainer.appendChild(button);
+            });
+
+            sectionContainer.insertBefore(filterContainer, container);
+        }
+
+        function setActiveButton(activeButton) {
+            const buttons = sectionContainer.querySelectorAll('.filter-container button');
+            buttons.forEach(button => button.classList.remove('active'));
+            activeButton.classList.add('active');
+        }
+
+        async function renderPage() {
             container.innerHTML = "";
-            const start = (page - 1) * CARDS_PER_PAGE;
-            const pageItems = items.slice(start, start + CARDS_PER_PAGE);
+            const totalPages = Math.ceil(filteredItems.length / CARDS_PER_PAGE);
+            const start = (currentPage - 1) * CARDS_PER_PAGE;
+            const pageItems = filteredItems.slice(start, start + CARDS_PER_PAGE);
 
             for (const item of pageItems) {
                 const card = document.createElement("div");
@@ -132,9 +159,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let technologiesHTML = '';
                 if (item.technologies && item.technologies.length > 0) {
-                    technologiesHTML = `<ul class="technologies-list">
-                        ${item.technologies.map(tech => `<li>${tech}</li>`).join('')}
-                    </ul>`;
+                    technologiesHTML = `<div class="technologies"><h4>Technologies</h4><ul class="technologies-list">${item.technologies.map(tech => `<li>${tech}</li>`).join('')}</ul></div>`;
+                }
+
+                let tagsHTML = '';
+                if (item.tags && item.tags.length > 0) {
+                    tagsHTML = `<div class="tags"><h4>Tags</h4><ul class="tags-list">${item.tags.map(tag => `<li>${tag}</li>`).join('')}</ul></div>`;
                 }
 
                 let readMoreLink = item.readMoreLink || "#";
@@ -144,15 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 card.innerHTML = `
-                    <div class="card-front" style="${backgroundStyle}">
-                        <h3>${item.title || item.name}</h3>
-                    </div>
+                    <div class="card-front" style="${backgroundStyle}"><h3>${item.title || item.name}</h3></div>
                     <div class="card-content">
                         <div>${description}</div>
                         ${technologiesHTML}
+                        ${tagsHTML}
                         <a href="${readMoreLink}" class="read-more" target="${target}">Read More</a>
-                    </div>
-                `;
+                    </div>`;
 
                 container.appendChild(card);
                 card.addEventListener("click", (e) => {
@@ -161,10 +189,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
             }
+            renderPagination(totalPages);
         }
 
-        function renderPagination() {
-            const paginationContainer = container.parentElement.querySelector(".pagination");
+        function renderPagination(totalPages) {
+            const paginationContainer = sectionContainer.querySelector(".pagination");
             if (!paginationContainer) return;
             paginationContainer.innerHTML = "";
 
@@ -173,32 +202,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const prevButton = document.createElement("button");
             prevButton.textContent = "Previous";
             prevButton.disabled = currentPage === 1;
-            prevButton.addEventListener("click", () => updatePage(currentPage - 1));
+            prevButton.addEventListener("click", () => {
+                currentPage--;
+                updatePage();
+            });
             paginationContainer.appendChild(prevButton);
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement("button");
                 pageButton.textContent = i;
                 if (i === currentPage) pageButton.classList.add("active");
-                pageButton.addEventListener("click", () => updatePage(i));
+                pageButton.addEventListener("click", () => {
+                    currentPage = i;
+                    updatePage();
+                });
                 paginationContainer.appendChild(pageButton);
             }
 
             const nextButton = document.createElement("button");
             nextButton.textContent = "Next";
             nextButton.disabled = currentPage === totalPages;
-            nextButton.addEventListener("click", () => updatePage(currentPage + 1));
+            nextButton.addEventListener("click", () => {
+                currentPage++;
+                updatePage();
+            });
             paginationContainer.appendChild(nextButton);
         }
 
-        async function updatePage(page) {
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            await renderPage(page);
-            renderPagination();
+        function updatePage() {
+            renderPage();
         }
 
-        updatePage(1);
+        renderFilterButtons();
+        updatePage();
     }
 
     loadData();

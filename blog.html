@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the portfolio of Edem Robin, a Network Engineer and Developer specializing in innovative technology solutions. Dive into projects, tech chronicles, and more.">
-    <title>Edem Robin - Portfolio</title>
+    <meta name="description" content="Blog by Edem Robin, a Network Engineer and Developer.">
+    <title>Blog - Edem Robin</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,34 +25,28 @@
     </nav>
 
     <div class="container">
-        <div class="main-layout">
-            <main class="main-content scroll-animate">
-                <h2>Welcome to my Portfolio</h2>
-                <p>Explore my work and thoughts. Use the navigation above to learn more about me, read my blog, or see my projects.</p>
-            </main>
-            <aside class="sidebar scroll-animate">
-                <h3>Latest Posts</h3>
-                <ul id="latest-posts-list">
-                    <!-- Posts will be loaded here by JavaScript -->
-                </ul>
-            </aside>
-        </div>
+        <main>
+            <section id="progress" class="scroll-animate">
+                <h2>Blog</h2>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search posts...">
+                </div>
+                <div class="filter-container" id="blog-filter-container"></div>
+                <div id="progress-list" class="progress-list"></div>
+                <div class="pagination"></div>
+            </section>
+        </main>
     </div>
 
     <footer>
         <section id="contact">
             <h3>Contact Me</h3>
             <div id="contact-list" class="contact-list"></div>
-            <ul class="social-links">
-                
-            </ul>
         </section>
         <p>&copy; <span id="current-year"></span> Edem Robin. All Rights Reserved.</p>
     </footer>
 
     <script src="app.js"></script>
     <script src="loader.js"></script>
-
-
 </body>
 </html>

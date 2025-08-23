@@ -9,7 +9,8 @@
             "day": "VirtualBox Kernel Error",
             "update": "What caused this Error",
             "description": "The VirtualBox Linux kernel driver is either not loaded or not set up correctly. Please try setting it up again by executing'/sbin/vboxconfig'as root.If your system has EFI Secure Boot enabled you may also need to sign the kernel modules",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4",
+            "tags": ["Virtualization", "Linux", "Troubleshooting"]
         }
     ],
     "projects": [
@@ -19,7 +20,8 @@
                 "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
             ],
             "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
+            "image": "images/kolikodnsblock.png",
+            "tags": ["Networking", "Security", "Tool"]
         }
 
     ],

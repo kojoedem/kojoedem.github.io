@@ -6,14 +6,10 @@ function renderAbout(data) {
 }
 
 function renderFilterableSection(items, containerId, filterContainerId, searchInputId, CARDS_PER_PAGE = 8) {
-    console.log(`[renderFilterableSection for ${containerId}] Received ${items.length} items.`);
     const container = document.getElementById(containerId);
     const filterContainer = document.getElementById(filterContainerId);
     const searchInput = document.getElementById(searchInputId);
-    if (!container) {
-        console.error(`[renderFilterableSection] Container #${containerId} not found.`);
-        return;
-    }
+    if (!container) return;
 
     let currentFilter = "All";
     let searchTerm = "";
@@ -32,7 +28,6 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
                 return title.includes(lowerCaseSearchTerm) || description.includes(lowerCaseSearchTerm);
             });
         }
-        console.log(`[applyFilters for ${containerId}] Filtered down to ${filtered.length} items.`);
         return filtered;
     }
 
@@ -40,7 +35,6 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
         container.innerHTML = "";
         const start = (page - 1) * CARDS_PER_PAGE;
         const pageItems = itemsToRender.slice(start, start + CARDS_PER_PAGE);
-        console.log(`[renderPage for ${containerId}] Rendering page ${page} with ${pageItems.length} items.`);
 
         pageItems.forEach((item) => {
             const card = document.createElement("div");
@@ -53,11 +47,18 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
                 <div class="card-content">
                     <p>${Array.isArray(item.description) ? item.description.join(' ') : item.description || "No description available."}</p>
                     ${item.tags ? `<div class="tags-container">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
-                    <a href="${item.readMoreLink || "#"}" class="read-more" target="_blank">Read More</a>
+                    <button class="read-more" data-markdown-path="${item.readMoreLink || "#"}">Read More</button>
                 </div>
             `;
             container.appendChild(card);
-            card.addEventListener("click", () => card.classList.toggle("open"));
+            card.addEventListener("click", (e) => {
+                if (e.target.classList.contains('read-more')) {
+                    e.stopPropagation(); // Prevent card flip when clicking button
+                    showMarkdownModal(e.target.dataset.markdownPath);
+                } else {
+                    card.classList.toggle("open");
+                }
+            });
         });
     }
 
@@ -66,13 +67,11 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
         paginationContainer.classList.add("pagination");
         paginationContainer.innerHTML = "";
         if (totalPages <= 1) return;
-
         const prevButton = document.createElement("button");
         prevButton.textContent = "Previous";
         prevButton.disabled = currentPage === 1;
         prevButton.addEventListener("click", () => updatePage(currentPage - 1));
         paginationContainer.appendChild(prevButton);
-
         for (let i = 1; i <= totalPages; i++) {
             const pageButton = document.createElement("button");
             pageButton.textContent = i;
@@ -80,7 +79,6 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
             pageButton.addEventListener("click", () => updatePage(i));
             paginationContainer.appendChild(pageButton);
         }
-
         const nextButton = document.createElement("button");
         nextButton.textContent = "Next";
         nextButton.disabled = currentPage === totalPages;
@@ -145,27 +143,16 @@ function renderBlog(data) {
 }
 
 function renderContact(data) {
-    console.log("Attempting to render contact section...");
     const contactSection = document.querySelector("#contact .contact-list");
-
-    if (!contactSection) {
-        console.error("Error: Contact section container not found.");
-        return;
-    }
-
-    if (data.contact && data.contact.length > 0) {
-        console.log("Contact data found:", data.contact);
+    if (contactSection && data.contact?.length) {
         contactSection.innerHTML = "";
         data.contact.forEach(contactItem => {
-            console.log("Processing contact item:", contactItem.name);
             const contactElement = document.createElement("div");
             contactElement.classList.add("contact-item");
-
             if (contactItem.link) {
                 const contactLink = document.createElement("a");
                 contactLink.href = contactItem.link;
                 contactLink.target = "_blank";
-
                 if (contactItem.image) {
                     const contactImage = document.createElement("img");
                     contactImage.src = contactItem.image;
@@ -173,13 +160,11 @@ function renderContact(data) {
                     contactImage.classList.add("contact-image");
                     contactLink.appendChild(contactImage);
                 }
-
                 contactLink.innerHTML += `<span>${contactItem.name}</span>`;
                 contactElement.appendChild(contactLink);
             } else {
                 contactElement.textContent = contactItem.name || "Contact option unavailable.";
             }
-
             contactSection.appendChild(contactElement);
         });
     } else if (contactSection) {
@@ -192,12 +177,10 @@ function setupMenu() {
     const navLinks = document.querySelector(".nav-links");
     if (menuToggle && navLinks) {
         const navLinksItems = navLinks.querySelectorAll("a");
-
         menuToggle.addEventListener("click", () => {
             const isOpen = navLinks.classList.toggle("open");
             menuToggle.setAttribute("aria-expanded", isOpen);
         });
-
         navLinksItems.forEach(link => {
             link.addEventListener("click", () => {
                 if (navLinks.classList.contains("open")) {
@@ -220,19 +203,15 @@ function setYear() {
 function renderLatestPosts(data, count = 5) {
     const listContainer = document.getElementById("latest-posts-list");
     if (!listContainer) return;
-
     const latestPosts = data.progress?.slice(0, count) || [];
-
     if (latestPosts.length === 0) {
         listContainer.innerHTML = "<li>No recent posts available.</li>";
         return;
     }
-
-    listContainer.innerHTML = ""; // Clear existing content
+    listContainer.innerHTML = "";
     latestPosts.forEach(post => {
         const listItem = document.createElement("li");
         const link = document.createElement("a");
-        // Note: This requires an anchor on the blog page, which will be added later.
         link.href = `blog.html#post-${post.day.replace(/\s+/g, '-')}`;
         link.textContent = post.day;
         listItem.appendChild(link);
@@ -248,13 +227,51 @@ function setupScrollAnimations() {
                 observer.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.1
-    });
-
+    }, { threshold: 0.1 });
     const elementsToAnimate = document.querySelectorAll('.scroll-animate');
     elementsToAnimate.forEach(el => {
         el.classList.add('hidden');
         observer.observe(el);
     });
 }
+
+// --- Modal Logic ---
+async function showMarkdownModal(path) {
+    if (!path || path === "#") return;
+    const modalOverlay = document.getElementById('markdown-modal');
+    const modalBody = document.getElementById('modal-body');
+    if (!modalOverlay || !modalBody) return;
+
+    try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error(`Failed to fetch ${path}`);
+        const markdown = await response.text();
+        modalBody.innerHTML = marked.parse(markdown);
+        modalOverlay.classList.add('visible');
+    } catch (error) {
+        console.error("Error loading markdown:", error);
+        modalBody.innerHTML = "<p>Error: Could not load content.</p>";
+        modalOverlay.classList.add('visible');
+    }
+}
+
+function setupModal() {
+    const modalOverlay = document.getElementById('markdown-modal');
+    const modalCloseButton = modalOverlay?.querySelector('.modal-close');
+
+    function closeModal() {
+        modalOverlay.classList.remove('visible');
+    }
+
+    if (modalOverlay && modalCloseButton) {
+        modalCloseButton.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    }
+}
+
+// Add setupModal to the loader
+document.addEventListener('DOMContentLoaded', setupModal);

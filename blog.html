@@ -6,6 +6,7 @@
     <meta name="description" content="Blog by Edem Robin, a Network Engineer and Developer.">
     <title>Blog - Edem Robin</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <header>
@@ -49,5 +50,12 @@
 
     <script src="app.js"></script>
     <script src="loader.js"></script>
+
+    <div id="markdown-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 </body>
 </html>

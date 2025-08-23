@@ -2,16 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentYear = new Date().getFullYear();
     document.getElementById("current-year").textContent = currentYear;
 
-    // Menu toggle
+    const CARDS_PER_PAGE = 6; // Maximum cards per page
+
+    // Menu toggle functionality
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
+    const navLinksItems = navLinks.querySelectorAll("a");
+
     menuToggle.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
-        menuToggle.setAttribute("aria-expanded", navLinks.classList.contains("open"));
+        const isOpen = navLinks.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", isOpen);
     });
 
-    // Close menu when a link is clicked
-    navLinks.querySelectorAll("a").forEach(link => {
+    navLinksItems.forEach(link => {
         link.addEventListener("click", () => {
             if (navLinks.classList.contains("open")) {
                 navLinks.classList.remove("open");
@@ -20,26 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    function loadLatestPosts(posts) {
-        const latestPostsList = document.getElementById("latest-posts-list");
-        if (!latestPostsList || !posts || posts.length === 0) return;
-
-        const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const recentPosts = sortedPosts.slice(0, 3);
-
-        const ul = document.createElement('ul');
-        recentPosts.forEach(post => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = `blog.html#${post.title.replace(/\s+/g, '-').toLowerCase()}`;
-            a.textContent = post.title;
-            li.appendChild(a);
-            ul.appendChild(li);
-        });
-
-        latestPostsList.appendChild(ul);
-    }
-
     async function loadData() {
         try {
             const response = await fetch("data.json");
@@ -47,29 +30,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            renderSectionWithMarkdown(data.projects || [], "projects-list", 8);
-            renderSectionWithMarkdown(data.blog || [], "blog-list", 8);
-            loadLatestPosts(data.blog || []);
+            // Populate About Me section
+            const aboutSection = document.querySelector("#about p");
+            aboutSection.textContent = data.about?.text || "No About Me section found.";
 
-            const contactList = document.querySelector("#contact .contact-list");
-            if (data.contact?.length) {
-                contactList.innerHTML = "";
-                data.contact.forEach(item => {
-                    const link = document.createElement("a");
-                    link.href = item.link;
-                    link.target = "_blank";
-                    link.title = item.name;
-                    if(item.image) {
-                        const img = document.createElement("img");
-                        img.src = item.image;
-                        img.alt = `${item.name} icon`;
-                        link.appendChild(img);
-                    }
-                    contactList.appendChild(link);
-                });
+            // Render sections with pagination
+            renderSectionWithPagination(data.progress || [], "progress-list");
+            renderSectionWithPagination(data.projects || [], "projects-list");
+
+            // Populate Resume section
+            const resumeLink = document.querySelector("#resume a");
+            if (data.resume) {
+                resumeLink.href = data.resume;
+                resumeLink.textContent = "View Resume";
             } else {
-                contactList.textContent = "No contact options available.";
+                resumeLink.textContent = "Resume not available.";
+                resumeLink.href = "#";
             }
+
+          // Populate Contact section
+const contactSection = document.querySelector("#contact .contact-list");
+if (data.contact?.length) {
+    contactSection.innerHTML = "";
+    data.contact.forEach(contactItem => {
+        const contactElement = document.createElement("div");
+        contactElement.classList.add("contact-item"); // Adding a class for styling
+
+        // Check if the link exists
+        if (contactItem.link) {
+            const contactLink = document.createElement("a");
+            contactLink.href = contactItem.link;
+            contactLink.target = "_blank";
+
+            // Create and append image if it exists
+            if (contactItem.image) {
+                const contactImage = document.createElement("img");
+                contactImage.src = contactItem.image;
+                contactImage.alt = `${contactItem.name} image`;
+                contactImage.classList.add("contact-image"); // Optional: Add class for styling
+                contactLink.appendChild(contactImage);
+            }
+
+            // Add the name as text to the link
+            contactLink.innerHTML += `<span>${contactItem.name}</span>`;
+            contactElement.appendChild(contactLink);
+        } else {
+            // If there's no link, just display the name or default text
+            contactElement.textContent = contactItem.name || "Contact option unavailable.";
+        }
+
+        contactSection.appendChild(contactElement);
+    });
+} else {
+    contactSection.textContent = "No contact options available.";
+}
 
         } catch (error) {
             console.error("Error loading data:", error);
@@ -77,149 +91,60 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function renderSectionWithMarkdown(items, containerId, cardsPerPage) {
-        const sectionContainer = document.getElementById(containerId)?.parentElement;
+    function renderSectionWithPagination(items, containerId) {
         const container = document.getElementById(containerId);
-        if (!container || !sectionContainer) return;
-
-        let allItems = [...items];
-        let filteredItems = [...allItems];
+        const totalCards = items.length;
+        const totalPages = Math.ceil(totalCards / CARDS_PER_PAGE);
         let currentPage = 1;
 
-        function getUniqueTags() {
-            const allTags = allItems.flatMap(item => item.tags || []);
-            return [...new Set(allTags)];
-        }
-
-        function renderFilterButtons() {
-            const uniqueTags = getUniqueTags();
-            if (uniqueTags.length === 0) return;
-
-            const filterContainer = document.createElement('div');
-            filterContainer.classList.add('filter-container');
-
-            const allButton = document.createElement('button');
-            allButton.textContent = 'All';
-            allButton.classList.add('active');
-            allButton.addEventListener('click', () => {
-                filteredItems = [...allItems];
-                currentPage = 1;
-                updatePage();
-                setActiveButton(allButton);
-            });
-            filterContainer.appendChild(allButton);
-
-            uniqueTags.forEach(tag => {
-                const button = document.createElement('button');
-                button.textContent = tag;
-                button.addEventListener('click', () => {
-                    filteredItems = allItems.filter(item => item.tags?.includes(tag));
-                    currentPage = 1;
-                    updatePage();
-                    setActiveButton(button);
-                });
-                filterContainer.appendChild(button);
-            });
-
-            sectionContainer.insertBefore(filterContainer, container);
-        }
-
-        function setActiveButton(activeButton) {
-            const buttons = sectionContainer.querySelectorAll('.filter-container button');
-            buttons.forEach(button => button.classList.remove('active'));
-            activeButton.classList.add('active');
-        }
-
-        async function renderPage() {
+        function renderPage(page) {
             container.innerHTML = "";
-            const totalPages = Math.ceil(filteredItems.length / cardsPerPage);
-            const start = (currentPage - 1) * cardsPerPage;
-            const pageItems = filteredItems.slice(start, start + cardsPerPage);
+            const start = (page - 1) * CARDS_PER_PAGE;
+            const pageItems = items.slice(start, start + CARDS_PER_PAGE);
 
-            for (const item of pageItems) {
+            pageItems.forEach((item) => {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
-                const backgroundStyle = item.image ? `background-image: url(${item.image});` : "background-color: #3498db;";
-
-                let description = "No description available.";
-                if (item.file) {
-                    try {
-                        const mdResponse = await fetch(item.file);
-                        if (mdResponse.ok) {
-                            const markdown = await mdResponse.text();
-                            // Create a snippet instead of full parsed markdown
-                            const snippet = markdown.replace(/#.*$/m, '').trim().substring(0, 150) + '...';
-                            description = `<p>${snippet}</p>`; // Wrap snippet in a p tag for consistent styling
-                        } else {
-                            throw new Error(`Failed to load ${item.file}`);
-                        }
-                    } catch (error) {
-                        console.error("Error loading markdown file:", error);
-                        description = "<p>Error loading content.</p>";
-                    }
-                }
-
-                let technologiesHTML = '';
-                if (item.technologies && item.technologies.length > 0) {
-                    technologiesHTML = `<div class="technologies"><h4>Technologies</h4><ul class="technologies-list">${item.technologies.map(tech => `<li>${tech}</li>`).join('')}</ul></div>`;
-                }
-
-                let tagsHTML = '';
-                if (item.tags && item.tags.length > 0) {
-                    tagsHTML = `<div class="tags"><h4>Tags</h4><ul class="tags-list">${item.tags.map(tag => `<li>${tag}</li>`).join('')}</ul></div>`;
-                }
-
-                let readMoreLink = item.readMoreLink || "#";
-                let target = "_blank";
-                if (containerId === 'projects-list' || containerId === 'blog-list' && item.name) {
-                    readMoreLink = `project.html?name=${encodeURIComponent(item.name)}`;
-                } else if (containerId === 'blog-list') {
-                    readMoreLink = `blog.html#${item.title.replace(/\s+/g, '-').toLowerCase()}`;
-                }
-
+                const backgroundStyle = item.image
+                    ? `background-image: url(${item.image}); background-size: cover;`
+                    : "background-color: #3498db;";
 
                 card.innerHTML = `
-                    <div class="card-front" style="${backgroundStyle}"><h3>${item.title || item.name}</h3></div>
+                    <div class="card-front" style="${backgroundStyle}">
+                        <h3>${item.day || item.name}</h3>
+                    </div>
                     <div class="card-content">
-                        <div>${description}</div>
-                        <a href="${readMoreLink}" class="read-more" target="${target}">Read More</a>
-                    </div>`;
+                        <p>${item.description || "No description available."}</p>
+                        <a href="${item.readMoreLink || "#"}" class="read-more" target="_blank">Read More</a>
+                    </div>
+                `;
 
                 container.appendChild(card);
-                card.addEventListener("click", (e) => {
-                    if (e.target.tagName !== 'A') {
-                        card.classList.toggle("open");
-                    }
-                });
-            }
-            renderPagination(totalPages);
+
+                card.addEventListener("click", () => card.classList.toggle("open"));
+            });
         }
 
-        function renderPagination(totalPages) {
-            const paginationContainer = sectionContainer.querySelector(".pagination");
-            if (!paginationContainer) return;
+        function renderPagination() {
+            const paginationContainer = container.parentElement.querySelector(".pagination") || document.createElement("div");
+            paginationContainer.classList.add("pagination");
             paginationContainer.innerHTML = "";
-
-            if (totalPages <= 1) return;
 
             const prevButton = document.createElement("button");
             prevButton.textContent = "Previous";
             prevButton.disabled = currentPage === 1;
             prevButton.addEventListener("click", () => {
-                currentPage--;
-                updatePage();
+                if (currentPage > 1) updatePage(--currentPage);
             });
+
             paginationContainer.appendChild(prevButton);
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement("button");
                 pageButton.textContent = i;
                 if (i === currentPage) pageButton.classList.add("active");
-                pageButton.addEventListener("click", () => {
-                    currentPage = i;
-                    updatePage();
-                });
+                pageButton.addEventListener("click", () => updatePage(i));
                 paginationContainer.appendChild(pageButton);
             }
 
@@ -227,18 +152,53 @@ document.addEventListener("DOMContentLoaded", () => {
             nextButton.textContent = "Next";
             nextButton.disabled = currentPage === totalPages;
             nextButton.addEventListener("click", () => {
-                currentPage++;
-                updatePage();
+                if (currentPage < totalPages) updatePage(++currentPage);
             });
+
             paginationContainer.appendChild(nextButton);
+            container.parentElement.appendChild(paginationContainer);
         }
 
-        function updatePage() {
-            renderPage();
+
+// Function to fetch the JSON file and select a random line
+function getRandomLine() {
+    fetch("data.json") // Replace with your actual file path
+        .then(response => response.json())
+        .then(data => {
+            const lines = data.lines;
+            const randomIndex = Math.floor(Math.random() * lines.length);
+            const randomLine = lines[randomIndex];
+
+            // Find the element with class "slogan" and update its text
+            const sloganElement = document.querySelector('.slogan');
+            if (sloganElement) {
+                // Reset the animation by toggling the class
+                sloganElement.classList.remove('typing');
+                void sloganElement.offsetWidth; // Trigger reflow to restart animation
+                sloganElement.textContent = randomLine; // Update the text
+                sloganElement.classList.add('typing'); // Apply the typing class
+            }
+        })
+        .catch(error => {
+            console.error('Error loading JSON:', error);
+        });
+}
+
+// Call the function every 5 minutes (300,000 milliseconds)
+setInterval(getRandomLine, 30000);
+
+// Call immediately to get the first random line
+getRandomLine();
+
+
+
+        function updatePage(page) {
+            currentPage = page;
+            renderPage(page);
+            renderPagination();
         }
 
-        renderFilterButtons();
-        updatePage();
+        updatePage(1);
     }
 
     loadData();

@@ -1,15 +1,29 @@
 {
+    "about": {
+        "text": [
+            "Hey Again 👋! I’m Edem. I believe that Beautiful is better than ugly and Simple is better than complex. Passionate about sharing what I know, I thrive on hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries! Oh, and don’t worry, I won’t 'force-close' our interaction—though I might throw an exception! 😉. In all of this, I am just a simple computer user with an ability to click an icon."
+        ]
+    },
+    "progress": [
+        {
+            "day": "VirtualBox Kernel Error",
+            "update": "What caused this Error",
+            "description": "The VirtualBox Linux kernel driver is either not loaded or not set up correctly. Please try setting it up again by executing'/sbin/vboxconfig'as root.If your system has EFI Secure Boot enabled you may also need to sign the kernel modules",
+            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4"
+        }
+    ],
     "projects": [
         {
             "name": "KOKIKO DNS BLOCKER",
-            "file": "projects/project-1.md",
+            "description": [
+                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
+            ],
             "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png",
-            "technologies": ["Python", "MikroTik API"],
-            "tags": ["Networking", "Python", "Tool"]
+            "image": "images/kolikodnsblock.png"
         }
+
     ],
-    "resume": "resume/my_resume.pdf",
+    "resume": "https://yourresume.com",
     "contact": [
         {
             "name": "buy me a coffee",
@@ -37,19 +51,10 @@
             "image": "images/linkedin.png"
         }
     ],
-    "blog": [
-        {
-            "title": "My First Blog Post",
-            "date": "2024-07-29",
-            "file": "blog/blog-1.md",
-            "tags": ["Intro", "General"]
-        },
-        {
-            "title": "VirtualBox Kernel Error",
-            "date": "2024-07-29",
-            "file": "blog/blog-2.md",
-            "readMoreLink": "https://www.notioDAY-1-155450a68c9a800f92c6ce4106ebeb2e?pvs=4",
-            "tags": ["Linux", "Virtualization", "Troubleshooting"]
-        }
-    ]
+    "lines":[
+        "LESS BULLSHIT MORE ENGINEERING",
+        "KNOW YOUR WHY",
+        "FIND A WAY OR FADE OUT",
+        "IT's NEVER TOO LATE TO LEARN, JUST START TODAY"
+      ]
 }

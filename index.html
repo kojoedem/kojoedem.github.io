@@ -4,54 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explore the portfolio of Edem Robin, a Network Engineer and Developer specializing in innovative technology solutions. Dive into projects, tech chronicles, and more.">
-    <meta property="og:title" content="Edem Robin - Portfolio">
-    <meta property="og:description" content="Explore the portfolio of Edem Robin, a Network Engineer and Developer specializing in innovative technology solutions.">
-    <meta property="og:image" content="images/guykoliko.png">
-    <meta property="og:url" content="https://kojoedem.github.io/Portfolio/">
-    <meta name="twitter:card" content="summary_large_image">
     <title>Edem Robin - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <img src="images/guykoliko.png" alt="Profile Picture" class="header-image">
+        <img src="images/guykoliko.jpeg" alt="Profile Picture">
         <h1>Edem Robin</h1>
         <p>{Network Engineer}</p>
+        <p class="slogan" title="Focus on practical engineering solutions with minimal distractions">LESS BULLSHIT MORE ENGINEERING</p>
     </header>
 
     <nav>
     <button class="menu-toggle">☰</button>
     <div class="nav-links">
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="resume/my_resume.pdf" target="_blank">Resume</a>
+        <a href="#about">About</a>
+        <a href="#progress">Tech Chronicles</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
         <a href="#contact">Contact</a>
     </div>
 </nav>
 
 
-    <div class="container main-layout">
-        <main class="main-content">
-            <section id="projects">
-                <h2>Projects</h2>
-                <div id="projects-list" class="projects-list"></div>
-                <div class="pagination"></div>
-            </section>
+    <div class="container">
+        <section id="about">
+            <h2 class="about-me">About Me</h2>
+            <p class="about-me-p">Loading...</p>
+        </section>
 
-            <section id="blog">
-                <h2>Latest Blog Posts</h2>
-                <div id="blog-list" class="projects-list"></div>
-                <div class="pagination"></div>
-            </section>
-        </main>
-        <aside class="sidebar">
-            <section id="latest-posts">
-                <h2>Latest Posts</h2>
-                <div id="latest-posts-list"></div>
-            </section>
-        </aside>
+        <section id="progress">
+            <h2>Tech Chronicles</h2>
+            <div id="progress-list" class="progress-list"></div>
+            <div class="pagination"></div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="projects-list" class="projects-list"></div>
+            <div class="pagination"></div>
+        </section>
+
+        <section id="resume">
+            <h2>Resume</h2>
+            <a href="#" class="resume-link" target="_blank">View Resume</a>
+        </section>
     </div>
 
     <footer>
@@ -65,9 +62,7 @@
         <p>&copy; <span id="current-year"></span> Edem Robin. All Rights Reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
-    <script src="animations.js"></script>
 
 
 </body>

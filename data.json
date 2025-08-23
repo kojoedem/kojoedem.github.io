@@ -5,12 +5,14 @@
         ]
     },
     "progress": [
-        { "day": "New Blog Post 4", "description": "Description...", "readMoreLink": "content/blog-post-5.md", "tags": ["Cloud"], "author": "Edem Robin", "date": "2025-08-23" },
-        { "day": "New Blog Post 3", "description": "Description...", "readMoreLink": "content/blog-post-4.md", "tags": ["DevOps"], "author": "Edem Robin", "date": "2025-08-22" },
-        { "day": "New Blog Post 2", "description": "Description...", "readMoreLink": "content/blog-post-3.md", "tags": ["WebDev"], "author": "Edem Robin", "date": "2025-08-21" },
-        { "day": "New Blog Post 1", "description": "Description...", "readMoreLink": "content/blog-post-2.md", "tags": ["Tutorial"], "author": "Edem Robin", "date": "2025-08-20" },
+        { "day": "New Blog Post 4", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-5.md", "tags": ["Cloud"], "author": "Edem Robin", "date": "2025-08-23" },
+        { "day": "New Blog Post 3", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-4.md", "tags": ["DevOps"], "author": "Edem Robin", "date": "2025-08-22" },
+        { "day": "New Blog Post 2", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-3.md", "tags": ["WebDev"], "author": "Edem Robin", "date": "2025-08-21" },
+        { "day": "New Blog Post 1", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-2.md", "tags": ["Tutorial"], "author": "Edem Robin", "date": "2025-08-20" },
         {
             "day": "VirtualBox Kernel Error",
+            "type": "blog",
+            "image": "images/kolikodnsblock.png",
             "update": "What caused this Error",
             "description": "The VirtualBox Linux kernel driver is either not loaded or not set up correctly. Please try setting it up again by executing'/sbin/vboxconfig'as root.If your system has EFI Secure Boot enabled you may also need to sign the kernel modules",
             "readMoreLink": "content/blog-post-1.md",
@@ -20,12 +22,13 @@
         }
     ],
     "projects": [
-        { "name": "Project Alpha", "description": ["Description..."], "readMoreLink": "content/project-2.md", "image": "", "tags": ["AI", "Python"], "author": "Edem Robin", "date": "2025-07-15" },
-        { "name": "Project Beta", "description": ["Description..."], "readMoreLink": "content/project-3.md", "image": "", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
-        { "name": "Project Gamma", "description": ["Description..."], "readMoreLink": "content/project-4.md", "image": "", "tags": ["Go", "Networking"], "author": "Edem Robin", "date": "2025-05-05" },
-        { "name": "Project Delta", "description": ["Description..."], "readMoreLink": "content/project-5.md", "image": "", "tags": ["Rust", "Systems"], "author": "Edem Robin", "date": "2025-04-01" },
+        { "name": "Project Alpha", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-2.md", "image": "", "tags": ["AI", "Python"], "author": "Edem Robin", "date": "2025-07-15" },
+        { "name": "Project Beta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-3.md", "image": "", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
+        { "name": "Project Gamma", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-4.md", "image": "", "tags": ["Go", "Networking"], "author": "Edem Robin", "date": "2025-05-05" },
+        { "name": "Project Delta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-5.md", "image": "", "tags": ["Rust", "Systems"], "author": "Edem Robin", "date": "2025-04-01" },
         {
             "name": "KOKIKO DNS BLOCKER",
+            "type": "project",
             "description": [
                 "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
             ],
@@ -35,7 +38,6 @@
             "author": "Edem Robin",
             "date": "2025-03-20"
         }
-
     ],
     "resume": "https://yourresume.com",
     "contact": [

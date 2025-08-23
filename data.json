@@ -72,5 +72,19 @@
         "KNOW YOUR WHY",
         "FIND A WAY OR FADE OUT",
         "IT's NEVER TOO LATE TO LEARN, JUST START TODAY"
-      ]
+      ],
+    "gallery": [
+        {
+            "title": "Trip to the Mountains",
+            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_1"
+        },
+        {
+            "title": "City at Night",
+            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_2"
+        },
+        {
+            "title": "Beach Sunset",
+            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_3"
+        }
+    ]
 }

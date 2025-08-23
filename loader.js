@@ -25,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById("latest-posts-list")) {
                 renderLatestContent(data);
             }
+            if (document.getElementById("latest-content-grid")) {
+                renderLatestContentGrid(data);
+            }
+            if (document.getElementById("image-gallery")) {
+                renderGallery(data);
+            }
 
             // Contact is in the footer, so it should be on all pages
             renderContact(data);

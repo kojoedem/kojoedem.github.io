@@ -23,7 +23,7 @@
         }
       
     ],
-    "resume": "https://yourresume.com",
+    "resume": "resume/my_resume.pdf",
     "contact": [
         {
             "name": "buy me a coffee",
@@ -56,5 +56,12 @@
         "KNOW YOUR WHY",
         "FIND A WAY OR FADE OUT",
         "IT's NEVER TOO LATE TO LEARN, JUST START TODAY"
-      ]
+      ],
+    "blog": [
+        {
+            "title": "My First Blog Post",
+            "date": "2024-07-29",
+            "file": "blog/blog-1.md"
+        }
+    ]
 }

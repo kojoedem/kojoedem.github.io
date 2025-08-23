@@ -190,6 +190,22 @@ nav .menu-toggle {
     border-radius: 4px;
 }
 
+/* Tags on cards */
+.tags-container {
+    margin-top: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin: 0.25rem;
+}
+
 /* Blog Page Specifics */
 .blog-post {
     padding-bottom: 2rem;

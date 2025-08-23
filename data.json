@@ -17,7 +17,8 @@
             "name": "KOKIKO DNS BLOCKER",
             "file": "projects/project-1.md",
             "readMoreLink": "https://github.com/kojoedem/kokiko_dns_blocker/blob/main/README.md",
-            "image": "images/kolikodnsblock.png"
+            "image": "images/kolikodnsblock.png",
+            "technologies": ["Python", "MikroTik API"]
         }
     ],
     "resume": "resume/my_resume.pdf",

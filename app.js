@@ -5,11 +5,15 @@ function renderAbout(data) {
     }
 }
 
-function renderFilterableSection(items, containerId, filterContainerId, searchInputId, CARDS_PER_PAGE = 6) {
+function renderFilterableSection(items, containerId, filterContainerId, searchInputId, CARDS_PER_PAGE = 8) {
+    console.log(`[renderFilterableSection for ${containerId}] Received ${items.length} items.`);
     const container = document.getElementById(containerId);
     const filterContainer = document.getElementById(filterContainerId);
     const searchInput = document.getElementById(searchInputId);
-    if (!container) return;
+    if (!container) {
+        console.error(`[renderFilterableSection] Container #${containerId} not found.`);
+        return;
+    }
 
     let currentFilter = "All";
     let searchTerm = "";
@@ -17,24 +21,18 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
 
     function applyFilters() {
         let filtered = [...allItems];
-
-        // Apply tag filter
         if (currentFilter !== "All") {
             filtered = filtered.filter(item => item.tags?.includes(currentFilter));
         }
-
-        // Apply search filter
         if (searchTerm) {
             const lowerCaseSearchTerm = searchTerm.toLowerCase();
             filtered = filtered.filter(item => {
                 const title = (item.day || item.name || "").toLowerCase();
-                const description = Array.isArray(item.description)
-                    ? item.description.join(' ').toLowerCase()
-                    : (item.description || "").toLowerCase();
+                const description = Array.isArray(item.description) ? item.description.join(' ').toLowerCase() : (item.description || "").toLowerCase();
                 return title.includes(lowerCaseSearchTerm) || description.includes(lowerCaseSearchTerm);
             });
         }
-
+        console.log(`[applyFilters for ${containerId}] Filtered down to ${filtered.length} items.`);
         return filtered;
     }
 
@@ -42,6 +40,7 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
         container.innerHTML = "";
         const start = (page - 1) * CARDS_PER_PAGE;
         const pageItems = itemsToRender.slice(start, start + CARDS_PER_PAGE);
+        console.log(`[renderPage for ${containerId}] Rendering page ${page} with ${pageItems.length} items.`);
 
         pageItems.forEach((item) => {
             const card = document.createElement("div");
@@ -146,10 +145,19 @@ function renderBlog(data) {
 }
 
 function renderContact(data) {
+    console.log("Attempting to render contact section...");
     const contactSection = document.querySelector("#contact .contact-list");
-    if (contactSection && data.contact?.length) {
+
+    if (!contactSection) {
+        console.error("Error: Contact section container not found.");
+        return;
+    }
+
+    if (data.contact && data.contact.length > 0) {
+        console.log("Contact data found:", data.contact);
         contactSection.innerHTML = "";
         data.contact.forEach(contactItem => {
+            console.log("Processing contact item:", contactItem.name);
             const contactElement = document.createElement("div");
             contactElement.classList.add("contact-item");
 

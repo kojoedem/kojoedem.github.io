@@ -183,8 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="card-front" style="${backgroundStyle}"><h3>${item.title || item.name}</h3></div>
                     <div class="card-content">
                         <div>${description}</div>
-                        ${technologiesHTML}
-                        ${tagsHTML}
                         <a href="${readMoreLink}" class="read-more" target="${target}">Read More</a>
                     </div>`;
 

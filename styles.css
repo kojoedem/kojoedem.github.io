@@ -225,7 +225,15 @@ footer .social-links a:hover {
     color: #ccc;
     opacity: 0;
     visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
 
+.card-content div {
+    max-height: 70%;
+    overflow-y: auto;
 }
 
 .card.open .card-front {
@@ -238,22 +246,20 @@ footer .social-links a:hover {
     visibility: visible;
 }
 .card-content .read-more{
-    position: absolute;
-    top: 10rem;
+    display: inline-block;
+    margin-top: 1rem;
     background-color: #007bff;
-    padding: 0.2rem;
+    padding: 0.5rem 1rem;
     font-size: 0.9rem;
     text-decoration: none;
     color: white;
+    border-radius: 4px;
+    align-self: flex-start;
    }
 
    .card-content p {
-    position: absolute;
-    top: 1rem;
-    text-decoration: none;
-    color: white;
-    font-family: 'Lato', sans-serif;
-    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #f0f0f0;
    }
 
 

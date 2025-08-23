@@ -348,3 +348,85 @@ function setupModal() {
 
 // Add setupModal to the loader
 document.addEventListener('DOMContentLoaded', setupModal);
+
+function renderGallery(data) {
+    const galleryContainer = document.getElementById("image-gallery");
+    if (!galleryContainer) return;
+
+    const images = data.gallery || [];
+    if (images.length === 0) {
+        galleryContainer.innerHTML = "<p>No images in the gallery yet.</p>";
+        return;
+    }
+
+    galleryContainer.innerHTML = "";
+    images.forEach(image => {
+        const imageUrl = `https://drive.google.com/uc?export=view&id=${image.fileId}`;
+        const galleryItem = document.createElement("a");
+        galleryItem.classList.add("gallery-item");
+        galleryItem.href = imageUrl;
+        galleryItem.setAttribute("data-src", imageUrl);
+        galleryItem.setAttribute("data-sub-html", `<h4>${image.title}</h4>`);
+
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = image.title;
+
+        galleryItem.appendChild(img);
+        galleryContainer.appendChild(galleryItem);
+    });
+
+    // Initialize lightGallery
+    lightGallery(galleryContainer, {
+        selector: '.gallery-item',
+        speed: 500,
+        download: false
+    });
+}
+
+function renderLatestContentGrid(data, count = 8) {
+    const container = document.getElementById("latest-content-grid");
+    if (!container) return;
+
+    const allContent = [
+        ...(data.progress || []),
+        ...(data.projects || [])
+    ];
+
+    allContent.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const latestContent = allContent.slice(0, count);
+
+    container.innerHTML = "";
+    latestContent.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        if (item.image) {
+            card.classList.add("has-image");
+        }
+        const backgroundStyle = item.image ? `background-image: url(${item.image}); background-size: cover;` : "background-color: #3498db;";
+        card.innerHTML = `
+            <div class="card-front" style="${backgroundStyle}">
+                <h3>${item.day || item.name}</h3>
+            </div>
+            <div class="card-content">
+                <div class="card-meta">
+                    <span class="author">By: ${item.author || 'Anonymous'}</span>
+                    <span class="date">${item.date || ''}</span>
+                </div>
+                <p>${Array.isArray(item.description) ? item.description.join(' ') : item.description || "No description available."}</p>
+                ${item.tags ? `<div class="tags-container">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+                <button class="read-more" data-markdown-path="${item.readMoreLink || "#"}">Read More</button>
+            </div>
+        `;
+        container.appendChild(card);
+        card.addEventListener("click", (e) => {
+            if (e.target.classList.contains('read-more')) {
+                e.stopPropagation();
+                showMarkdownModal(e.target.dataset.markdownPath);
+            } else {
+                card.classList.toggle("open");
+            }
+        });
+    });
+}

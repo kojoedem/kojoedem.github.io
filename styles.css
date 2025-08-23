@@ -333,6 +333,10 @@ footer {
     .main-layout, .projects-list, .blog-list, .gallery-grid {
         grid-template-columns: 1fr;
     }
+    .main-content, .sidebar {
+        grid-column: auto; /* Reset grid column */
+        min-width: 0; /* Prevent overflow */
+    }
     .sidebar {
         margin-top: 2rem;
     }
@@ -362,6 +366,10 @@ footer {
     .card-content p { font-size: 0.85rem; }
     footer {
         padding: 1.5rem 1rem;
+    }
+    /* Hide the main grid on mobile to reduce scrolling */
+    #latest-content-grid {
+        display: none;
     }
 }
 

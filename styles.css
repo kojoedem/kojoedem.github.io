@@ -45,7 +45,8 @@ header p {
 /* Navigation Styling */
 nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     background-color: #111;
     padding: 0.5rem 0;
     border-bottom: 1px solid #333;
@@ -53,6 +54,14 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.nav-brand {
+    font-size: 1.25rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 2rem;
 }
 
 nav .menu-toggle {
@@ -91,13 +100,13 @@ nav .nav-links a:hover {
 
 
 /* Responsive Header Image */
-header img {
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
+.header-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
     object-fit: cover; 
-    margin: 10px;
-    padding: 20px;
+    margin: 1rem 0;
 }
 
 /* Contact Section */

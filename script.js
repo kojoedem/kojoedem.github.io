@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentYear = new Date().getFullYear();
     document.getElementById("current-year").textContent = currentYear;
 
-    const CARDS_PER_PAGE = 6;
-
     // Menu toggle
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
@@ -49,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            renderSectionWithMarkdown(data.projects || [], "projects-list");
+            renderSectionWithMarkdown(data.projects || [], "projects-list", 6);
+            renderSectionWithMarkdown(data.blog || [], "blog-list", 8);
             loadLatestPosts(data.blog || []);
 
             const contactList = document.querySelector("#contact .contact-list");
@@ -78,10 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function renderSectionWithMarkdown(items, containerId) {
-        const sectionContainer = document.getElementById(containerId).parentElement;
+    function renderSectionWithMarkdown(items, containerId, cardsPerPage) {
+        const sectionContainer = document.getElementById(containerId)?.parentElement;
         const container = document.getElementById(containerId);
-        if (!container) return;
+        if (!container || !sectionContainer) return;
 
         let allItems = [...items];
         let filteredItems = [...allItems];
@@ -94,6 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function renderFilterButtons() {
             const uniqueTags = getUniqueTags();
+            if (uniqueTags.length === 0) return;
+
             const filterContainer = document.createElement('div');
             filterContainer.classList.add('filter-container');
 
@@ -131,9 +132,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function renderPage() {
             container.innerHTML = "";
-            const totalPages = Math.ceil(filteredItems.length / CARDS_PER_PAGE);
-            const start = (currentPage - 1) * CARDS_PER_PAGE;
-            const pageItems = filteredItems.slice(start, start + CARDS_PER_PAGE);
+            const totalPages = Math.ceil(filteredItems.length / cardsPerPage);
+            const start = (currentPage - 1) * cardsPerPage;
+            const pageItems = filteredItems.slice(start, start + cardsPerPage);
 
             for (const item of pageItems) {
                 const card = document.createElement("div");
@@ -169,9 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let readMoreLink = item.readMoreLink || "#";
                 let target = "_blank";
-                if (containerId === 'projects-list') {
+                if (containerId === 'projects-list' || containerId === 'blog-list' && item.name) {
                     readMoreLink = `project.html?name=${encodeURIComponent(item.name)}`;
+                } else if (containerId === 'blog-list') {
+                    readMoreLink = `blog.html#${item.title.replace(/\s+/g, '-').toLowerCase()}`;
                 }
+
 
                 card.innerHTML = `
                     <div class="card-front" style="${backgroundStyle}"><h3>${item.title || item.name}</h3></div>

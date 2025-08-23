@@ -137,7 +137,7 @@ header img {
     padding: 2rem 1rem;
 }
 
-#contact h2 {
+#contact h3 {
     text-align: center;
     color: #007bff;
     font-size: 2rem;
@@ -146,44 +146,23 @@ header img {
 
 .contact-list {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 1rem;
 }
 
-.contact-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row; /* Default: horizontal layout */
-    gap: 0.5rem;
-    background-color: #111;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    flex: 1 1 calc(33.333% - 1rem); /* Three items per row by default */
-    max-width: calc(33.333% - 1rem);
-    transition: all 0.3s ease;
-    color: #f0f0f0;
+.contact-list a {
+    display: inline-block;
 }
 
-.contact-item a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    flex-grow: 1;
-    word-break: break-word;
-}
-
-.contact-item img {
-    width: 30px; /* Icon size */
-    height: 30px;
+.contact-list img {
+    width: 40px;
+    height: 40px;
     object-fit: contain;
-    margin-right: 0.5rem;
     transition: transform 0.3s ease;
 }
 
-.contact-item img:hover {
+.contact-list img:hover {
     transform: scale(1.2);
 }
 
@@ -331,58 +310,6 @@ footer .social-links a:hover {
     background-color: #666;
     cursor: not-allowed;
 }
-
-/* Contact Section */
-#contact {
-    padding: 2rem;
-}
-
-#contact h2 {
-    text-align: center;
-    color: #007bff;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.contact-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.contact-list p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #f0f0f0;
-    font-size: 1.1rem;
-}
-
-.contact-list a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 0.5rem;
-}
-
-/* Contact Images (icons) */
-.contact-list img {
-    width: 30px; /* Set size for the icon images */
-    height: 30px;
-    object-fit: contain;
-    margin-right: 0.5rem; /* Space between image and text */
-    transition: transform 0.3s ease;
-}
-
-.contact-list img:hover {
-    transform: scale(1.2); /* Slightly enlarge the icon on hover */
-}
-
-
-
 
 
 @media (max-width: 768px) {
@@ -544,26 +471,9 @@ footer .social-links a:hover {
     /* Smaller Screens */
 @media (max-width: 768px) {
     .contact-list {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items */
+        flex-direction: row;
+        align-items: center;
     }
-
-    .contact-item {
-        flex: 1 1 100%; /* Full width for each item */
-        max-width: 100%;
-        flex-direction: column; /* Stack icon and text */
-        text-align: center;
-    }
-
-    .contact-item img {
-        margin: 0 0 0.5rem; /* Adjust spacing for stacked layout */
-    }
-
-    .contact-item a {
-        margin: 0; /* Remove any extra margins */
-    }
-
- 
 }
 
 

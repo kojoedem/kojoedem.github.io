@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById("projects-list")) {
                 renderProjects(data);
             }
-            if (document.getElementById("progress-list")) {
-                renderBlog(data);
+            if (document.getElementById("blog-content")) {
+                renderBlogPage(data);
             }
             if (document.getElementById("latest-posts-list")) {
-                renderLatestPosts(data);
+                renderLatestContent(data);
             }
 
             // Contact is in the footer, so it should be on all pages

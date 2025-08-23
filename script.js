@@ -85,21 +85,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Populate Contact
-            const contactSection = document.querySelector("#contact .contact-list");
+            const contactList = document.querySelector("#contact .contact-list");
             if (data.contact?.length) {
-                contactSection.innerHTML = "";
+                contactList.innerHTML = "";
                 data.contact.forEach(item => {
-                    const el = document.createElement("div");
-                    el.classList.add("contact-item");
-                    if (item.link) {
-                        el.innerHTML = `<a href="${item.link}" target="_blank">${item.image ? `<img src="${item.image}" alt="${item.name} icon" class="contact-image">` : ''}<span>${item.name}</span></a>`;
-                    } else {
-                        el.textContent = item.name || "Contact option unavailable.";
+                    const link = document.createElement("a");
+                    link.href = item.link;
+                    link.target = "_blank";
+                    link.title = item.name;
+                    if(item.image) {
+                        const img = document.createElement("img");
+                        img.src = item.image;
+                        img.alt = `${item.name} icon`;
+                        link.appendChild(img);
                     }
-                    contactSection.appendChild(el);
+                    contactList.appendChild(link);
                 });
             } else {
-                contactSection.textContent = "No contact options available.";
+                contactList.textContent = "No contact options available.";
             }
 
             // Setup slogan rotator

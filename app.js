@@ -45,6 +45,10 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
                     <h3>${item.day || item.name}</h3>
                 </div>
                 <div class="card-content">
+                    <div class="card-meta">
+                        <span class="author">By: ${item.author || 'Anonymous'}</span>
+                        <span class="date">${item.date || ''}</span>
+                    </div>
                     <p>${Array.isArray(item.description) ? item.description.join(' ') : item.description || "No description available."}</p>
                     ${item.tags ? `<div class="tags-container">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
                     <button class="read-more" data-markdown-path="${item.readMoreLink || "#"}">Read More</button>
@@ -160,7 +164,7 @@ function renderContact(data) {
                     contactImage.classList.add("contact-image");
                     contactLink.appendChild(contactImage);
                 }
-                contactLink.innerHTML += `<span>${contactItem.name}</span>`;
+                contactLink.title = contactItem.name; // Use a title for hover text instead
                 contactElement.appendChild(contactLink);
             } else {
                 contactElement.textContent = contactItem.name || "Contact option unavailable.";

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            renderSectionWithMarkdown(data.projects || [], "projects-list", 6);
+            renderSectionWithMarkdown(data.projects || [], "projects-list", 8);
             renderSectionWithMarkdown(data.blog || [], "blog-list", 8);
             loadLatestPosts(data.blog || []);
 

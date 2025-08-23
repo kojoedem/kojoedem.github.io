@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
             aboutSection.textContent = data.about?.text || "No About Me section found.";
 
             // Render sections with pagination
-            renderSectionWithPagination(data.progress || [], "progress-list");
-            renderSectionWithPagination(data.projects || [], "projects-list");
+            renderSectionWithMarkdown(data.techChronicles || [], "tech-chronicles-list");
+            renderSectionWithMarkdown(data.projects || [], "projects-list");
 
             // Populate Resume section
             const resumeLink = document.querySelector("#resume a");
@@ -49,41 +49,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
           // Populate Contact section
-const contactSection = document.querySelector("#contact .contact-list");
-if (data.contact?.length) {
-    contactSection.innerHTML = "";
-    data.contact.forEach(contactItem => {
-        const contactElement = document.createElement("div");
-        contactElement.classList.add("contact-item"); // Adding a class for styling
+            const contactSection = document.querySelector("#contact .contact-list");
+            if (data.contact?.length) {
+                contactSection.innerHTML = "";
+                data.contact.forEach(contactItem => {
+                    const contactElement = document.createElement("div");
+                    contactElement.classList.add("contact-item"); // Adding a class for styling
 
-        // Check if the link exists
-        if (contactItem.link) {
-            const contactLink = document.createElement("a");
-            contactLink.href = contactItem.link;
-            contactLink.target = "_blank";
+                    // Check if the link exists
+                    if (contactItem.link) {
+                        const contactLink = document.createElement("a");
+                        contactLink.href = contactItem.link;
+                        contactLink.target = "_blank";
 
-            // Create and append image if it exists
-            if (contactItem.image) {
-                const contactImage = document.createElement("img");
-                contactImage.src = contactItem.image;
-                contactImage.alt = `${contactItem.name} image`;
-                contactImage.classList.add("contact-image"); // Optional: Add class for styling
-                contactLink.appendChild(contactImage);
+                        // Create and append image if it exists
+                        if (contactItem.image) {
+                            const contactImage = document.createElement("img");
+                            contactImage.src = contactItem.image;
+                            contactImage.alt = `${contactItem.name} image`;
+                            contactImage.classList.add("contact-image"); // Optional: Add class for styling
+                            contactLink.appendChild(contactImage);
+                        }
+
+                        // Add the name as text to the link
+                        contactLink.innerHTML += `<span>${contactItem.name}</span>`;
+                        contactElement.appendChild(contactLink);
+                    } else {
+                        // If there's no link, just display the name or default text
+                        contactElement.textContent = contactItem.name || "Contact option unavailable.";
+                    }
+
+                    contactSection.appendChild(contactElement);
+                });
+            } else {
+                contactSection.textContent = "No contact options available.";
             }
-
-            // Add the name as text to the link
-            contactLink.innerHTML += `<span>${contactItem.name}</span>`;
-            contactElement.appendChild(contactLink);
-        } else {
-            // If there's no link, just display the name or default text
-            contactElement.textContent = contactItem.name || "Contact option unavailable.";
-        }
-
-        contactSection.appendChild(contactElement);
-    });
-} else {
-    contactSection.textContent = "No contact options available.";
-}
 
         } catch (error) {
             console.error("Error loading data:", error);
@@ -91,18 +91,18 @@ if (data.contact?.length) {
         }
     }
 
-    function renderSectionWithPagination(items, containerId) {
+    function renderSectionWithMarkdown(items, containerId) {
         const container = document.getElementById(containerId);
         const totalCards = items.length;
         const totalPages = Math.ceil(totalCards / CARDS_PER_PAGE);
         let currentPage = 1;
 
-        function renderPage(page) {
+        async function renderPage(page) {
             container.innerHTML = "";
             const start = (page - 1) * CARDS_PER_PAGE;
             const pageItems = items.slice(start, start + CARDS_PER_PAGE);
 
-            pageItems.forEach((item) => {
+            for (const item of pageItems) {
                 const card = document.createElement("div");
                 card.classList.add("card");
 
@@ -110,20 +110,38 @@ if (data.contact?.length) {
                     ? `background-image: url(${item.image}); background-size: cover;`
                     : "background-color: #3498db;";
 
+                let description = "No description available.";
+                if (item.file) {
+                    try {
+                        const mdResponse = await fetch(item.file);
+                        if (!mdResponse.ok) throw new Error(`Failed to load ${item.file}`);
+                        const markdown = await mdResponse.text();
+                        description = marked.parse(markdown);
+                    } catch (error) {
+                        console.error("Error loading markdown file:", error);
+                        description = "Error loading content.";
+                    }
+                }
+
+                let readMoreLink = item.readMoreLink || "#";
+                if (containerId === 'projects-list') {
+                    readMoreLink = `project.html?name=${encodeURIComponent(item.name)}`;
+                }
+
                 card.innerHTML = `
                     <div class="card-front" style="${backgroundStyle}">
-                        <h3>${item.day || item.name}</h3>
+                        <h3>${item.title || item.name}</h3>
                     </div>
                     <div class="card-content">
-                        <p>${item.description || "No description available."}</p>
-                        <a href="${item.readMoreLink || "#"}" class="read-more" target="_blank">Read More</a>
+                        <div>${description}</div>
+                        <a href="${readMoreLink}" class="read-more" target="_blank">Read More</a>
                     </div>
                 `;
 
                 container.appendChild(card);
 
                 card.addEventListener("click", () => card.classList.toggle("open"));
-            });
+            }
         }
 
         function renderPagination() {
@@ -160,41 +178,41 @@ if (data.contact?.length) {
         }
         
 
-// Function to fetch the JSON file and select a random line
-function getRandomLine() {
-    fetch("data.json") // Replace with your actual file path
-        .then(response => response.json())
-        .then(data => {
-            const lines = data.lines;
-            const randomIndex = Math.floor(Math.random() * lines.length);
-            const randomLine = lines[randomIndex];
+        // Function to fetch the JSON file and select a random line
+        function getRandomLine() {
+            fetch("data.json") // Replace with your actual file path
+                .then(response => response.json())
+                .then(data => {
+                    const lines = data.lines;
+                    const randomIndex = Math.floor(Math.random() * lines.length);
+                    const randomLine = lines[randomIndex];
 
-            // Find the element with class "slogan" and update its text
-            const sloganElement = document.querySelector('.slogan');
-            if (sloganElement) {
-                // Reset the animation by toggling the class
-                sloganElement.classList.remove('typing');
-                void sloganElement.offsetWidth; // Trigger reflow to restart animation
-                sloganElement.textContent = randomLine; // Update the text
-                sloganElement.classList.add('typing'); // Apply the typing class
-            }
-        })
-        .catch(error => {
-            console.error('Error loading JSON:', error);
-        });
-}
+                    // Find the element with class "slogan" and update its text
+                    const sloganElement = document.querySelector('.slogan');
+                    if (sloganElement) {
+                        // Reset the animation by toggling the class
+                        sloganElement.classList.remove('typing');
+                        void sloganElement.offsetWidth; // Trigger reflow to restart animation
+                        sloganElement.textContent = randomLine; // Update the text
+                        sloganElement.classList.add('typing'); // Apply the typing class
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading JSON:', error);
+                });
+        }
 
-// Call the function every 5 minutes (300,000 milliseconds)
-setInterval(getRandomLine, 30000);
+        // Call the function every 5 minutes (300,000 milliseconds)
+        setInterval(getRandomLine, 30000);
 
-// Call immediately to get the first random line
-getRandomLine();
+        // Call immediately to get the first random line
+        getRandomLine();
 
 
 
-        function updatePage(page) {
+        async function updatePage(page) {
             currentPage = page;
-            renderPage(page);
+            await renderPage(page);
             renderPagination();
         }
 

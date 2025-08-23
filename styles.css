@@ -149,6 +149,7 @@ header img {
     justify-content: center;
     gap: 1.5rem;
     margin-top: 1rem;
+    flex-wrap: wrap;
 }
 
 .contact-list a {

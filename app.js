@@ -61,7 +61,7 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
             card.addEventListener("click", (e) => {
                 if (e.target.classList.contains('read-more')) {
                     e.stopPropagation(); // Prevent card flip when clicking button
-                    showMarkdownModal(e.target.dataset.markdownPath);
+                    showMarkdownModal(e.target.dataset.markdownPath, item.type === 'blog' ? 'blog.html' : 'projects.html');
                 } else {
                     card.classList.toggle("open");
                 }
@@ -145,31 +145,13 @@ function renderProjects(data) {
     renderFilterableSection(data.projects || [], "projects-list", "projects-filter-container", null);
 }
 
-function renderBlog(data) {
-    // This function is kept for the projects page, which still uses the card layout.
-    // The new blog page logic is in renderBlogPage.
-    renderFilterableSection(data.progress || [], "progress-list", "blog-filter-container", "search-input");
-}
-
-async function loadBlogPost(path, container) {
-    try {
-        const response = await fetch(path);
-        if (!response.ok) throw new Error(`Failed to fetch ${path}`);
-        const markdown = await response.text();
-        container.innerHTML = marked.parse(markdown);
-    } catch (error) {
-        console.error("Error loading blog post:", error);
-        container.innerHTML = "<h3>Error</h3><p>Could not load blog post content.</p>";
-    }
-}
-
 function renderBlogPage(data) {
     const contentContainer = document.getElementById('blog-content');
     const sidebarList = document.getElementById('blog-sidebar-list');
     const searchInput = document.getElementById('sidebar-search-input');
     if (!contentContainer || !sidebarList || !searchInput) return;
 
-    const allPosts = (data.progress || []).slice().reverse(); // Newest first
+    const allPosts = (data.progress || []).slice().reverse();
 
     const populateSidebar = (postsToRender) => {
         sidebarList.innerHTML = "";
@@ -192,16 +174,13 @@ function renderBlogPage(data) {
         });
     };
 
-    // Initial population
     populateSidebar(allPosts);
 
-    // Load the latest post by default
     if (allPosts.length > 0) {
         loadBlogPost(allPosts[0].readMoreLink, contentContainer);
         sidebarList.querySelector('a')?.classList.add('active');
     }
 
-    // Add search functionality
     searchInput.addEventListener('keyup', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         const filteredPosts = allPosts.filter(post =>
@@ -209,6 +188,18 @@ function renderBlogPage(data) {
         );
         populateSidebar(filteredPosts);
     });
+}
+
+async function loadBlogPost(path, container) {
+    try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error(`Failed to fetch ${path}`);
+        const markdown = await response.text();
+        container.innerHTML = marked.parse(markdown);
+    } catch (error) {
+        console.error("Error loading blog post:", error);
+        container.innerHTML = "<h3>Error</h3><p>Could not load blog post content.</p>";
+    }
 }
 
 function renderContact(data) {
@@ -229,7 +220,7 @@ function renderContact(data) {
                     contactImage.classList.add("contact-image");
                     contactLink.appendChild(contactImage);
                 }
-                contactLink.title = contactItem.name; // Use a title for hover text instead
+                contactLink.title = contactItem.name;
                 contactElement.appendChild(contactLink);
             } else {
                 contactElement.textContent = contactItem.name || "Contact option unavailable.";
@@ -273,13 +264,8 @@ function renderLatestContent(data, count = 8) {
     const listContainer = document.getElementById("latest-posts-list");
     if (!listContainer) return;
 
-    const allContent = [
-        ...(data.progress || []),
-        ...(data.projects || [])
-    ];
-
+    const allContent = [...(data.progress || []), ...(data.projects || [])];
     allContent.sort((a, b) => new Date(b.date) - new Date(a.date));
-
     const latestContent = allContent.slice(0, count);
 
     if (latestContent.length === 0) {
@@ -290,20 +276,20 @@ function renderLatestContent(data, count = 8) {
     listContainer.innerHTML = "";
     latestContent.forEach(item => {
         const listItem = document.createElement("li");
-        const link = document.createElement("a");
+        const button = document.createElement("button");
+        const itemType = item.type === 'blog' ? 'Blog' : 'Project';
+        const fullPageLink = item.type === 'blog' ? 'blog.html' : 'projects.html';
 
-        if (item.type === 'blog') {
-            link.href = `blog.html`; // Will be handled by the new blog page logic
-            link.textContent = `[Blog] ${item.day}`;
-        } else {
-            link.href = `projects.html`; // Links to the projects page
-            link.textContent = `[Project] ${item.name}`;
-        }
+        button.textContent = `[${itemType}] ${item.day || item.name}`;
+        button.addEventListener('click', () => {
+            showMarkdownModal(item.readMoreLink, fullPageLink);
+        });
 
-        listItem.appendChild(link);
+        listItem.appendChild(button);
         listContainer.appendChild(listItem);
     });
 }
+
 
 function setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -322,7 +308,7 @@ function setupScrollAnimations() {
 }
 
 // --- Modal Logic ---
-async function showMarkdownModal(path) {
+async function showMarkdownModal(path, fullPageLink) {
     if (!path || path === "#") return;
     const modalOverlay = document.getElementById('markdown-modal');
     const modalBody = document.getElementById('modal-body');
@@ -332,7 +318,13 @@ async function showMarkdownModal(path) {
         const response = await fetch(path);
         if (!response.ok) throw new Error(`Failed to fetch ${path}`);
         const markdown = await response.text();
-        modalBody.innerHTML = marked.parse(markdown);
+
+        let readMoreButton = '';
+        if (fullPageLink) {
+            readMoreButton = `<a href="${fullPageLink}" class="read-more modal-read-more">Read More on Full Page</a>`;
+        }
+
+        modalBody.innerHTML = marked.parse(markdown) + readMoreButton;
         modalOverlay.classList.add('visible');
     } catch (error) {
         console.error("Error loading markdown:", error);
@@ -359,55 +351,14 @@ function setupModal() {
     }
 }
 
-// Add setupModal to the loader
 document.addEventListener('DOMContentLoaded', setupModal);
-
-function renderGallery(data) {
-    const galleryContainer = document.getElementById("image-gallery");
-    if (!galleryContainer) return;
-
-    const images = data.gallery || [];
-    if (images.length === 0) {
-        galleryContainer.innerHTML = "<p>No images in the gallery yet.</p>";
-        return;
-    }
-
-    galleryContainer.innerHTML = "";
-    images.forEach(image => {
-        const imageUrl = `https://drive.google.com/uc?export=view&id=${image.fileId}`;
-        const galleryItem = document.createElement("a");
-        galleryItem.classList.add("gallery-item");
-        galleryItem.href = imageUrl;
-        galleryItem.setAttribute("data-src", imageUrl);
-        galleryItem.setAttribute("data-sub-html", `<h4>${image.title}</h4>`);
-
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        img.alt = image.title;
-
-        galleryItem.appendChild(img);
-        galleryContainer.appendChild(galleryItem);
-    });
-
-    // Initialize lightGallery
-    lightGallery(galleryContainer, {
-        selector: '.gallery-item',
-        speed: 500,
-        download: false
-    });
-}
 
 function renderLatestContentGrid(data, count = 8) {
     const container = document.getElementById("latest-content-grid");
     if (!container) return;
 
-    const allContent = [
-        ...(data.progress || []),
-        ...(data.projects || [])
-    ];
-
+    const allContent = [...(data.progress || []), ...(data.projects || [])];
     allContent.sort((a, b) => new Date(b.date) - new Date(a.date));
-
     const latestContent = allContent.slice(0, count);
 
     container.innerHTML = "";
@@ -436,7 +387,7 @@ function renderLatestContentGrid(data, count = 8) {
         card.addEventListener("click", (e) => {
             if (e.target.classList.contains('read-more')) {
                 e.stopPropagation();
-                showMarkdownModal(e.target.dataset.markdownPath);
+                showMarkdownModal(e.target.dataset.markdownPath, item.type === 'blog' ? 'blog.html' : 'projects.html');
             } else {
                 card.classList.toggle("open");
             }

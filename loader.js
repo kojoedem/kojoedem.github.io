@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupMenu();
     setYear();
     setupScrollAnimations();
+    setupModal(); // I added this in the last step, but it should be here.
 
     async function loadData() {
         try {

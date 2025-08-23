@@ -220,20 +220,20 @@ footer .social-links a:hover {
     left: 100%;
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
     background-color: #1e1e1e;
     color: #ccc;
     opacity: 0;
     visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .card-content div {
-    max-height: 70%;
-    overflow-y: auto;
+    /* This div now just holds the snippet paragraph */
 }
 
 .card.open .card-front {
@@ -254,12 +254,14 @@ footer .social-links a:hover {
     text-decoration: none;
     color: white;
     border-radius: 4px;
-    align-self: flex-start;
+    align-self: center;
    }
 
    .card-content p {
     margin-bottom: 1rem;
     color: #f0f0f0;
+    font-size: 0.9rem;
+    line-height: 1.6;
    }
 
 

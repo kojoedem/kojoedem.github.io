@@ -48,13 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         const mdResponse = await fetch(item.file);
                         if (mdResponse.ok) {
                             const markdown = await mdResponse.text();
-                            description = marked.parse(markdown);
+                            // Create a snippet instead of full parsed markdown
+                            const snippet = markdown.replace(/#.*$/m, '').trim().substring(0, 150) + '...';
+                            description = `<p>${snippet}</p>`; // Wrap snippet in a p tag for consistent styling
                         } else {
                             throw new Error(`Failed to load ${item.file}`);
                         }
                     } catch (error) {
                         console.error("Error loading markdown file:", error);
-                        description = "Error loading content.";
+                        description = "<p>Error loading content.</p>";
                     }
                 }
 

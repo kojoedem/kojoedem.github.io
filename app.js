@@ -232,6 +232,32 @@ function renderContact(data) {
     }
 }
 
+function renderGallery(data) {
+    const galleryContainer = document.getElementById("image-gallery");
+    if (galleryContainer && data.gallery?.length) {
+        galleryContainer.innerHTML = "";
+        data.gallery.forEach(item => {
+            const galleryItem = document.createElement("div");
+            galleryItem.classList.add("gallery-item");
+            galleryItem.dataset.src = item.imageUrl; // For lightGallery
+            galleryItem.dataset.subHtml = `<h4>${item.title}</h4>`; // For lightGallery caption
+
+            const img = document.createElement("img");
+            img.src = item.imageUrl;
+            img.alt = item.title;
+
+            galleryItem.appendChild(img);
+            galleryContainer.appendChild(galleryItem);
+        });
+
+        // Initialize lightGallery
+        lightGallery(galleryContainer, {
+            selector: '.gallery-item',
+            download: false
+        });
+    }
+}
+
 function setupMenu() {
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");

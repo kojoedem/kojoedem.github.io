@@ -76,15 +76,11 @@
     "gallery": [
         {
             "title": "Trip to the Mountains",
-            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_1"
+            "imageUrl": "https://drive.google.com/uc?id=16XAkGAPVFPrqaccj8eiwLE2KRoPD_dpU"
         },
         {
             "title": "City at Night",
-            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_2"
-        },
-        {
-            "title": "Beach Sunset",
-            "fileId": "YOUR_GOOGLE_DRIVE_FILE_ID_3"
+            "imageUrl": "https://drive.google.com/uc?id=16PhCaRsaOUwMo_2af42v5XGZZuyyOA4t"
         }
     ]
 }

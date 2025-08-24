@@ -76,11 +76,35 @@
     "gallery": [
         {
             "title": "Trip to the Mountains",
-            "imageUrl": "images/gallery-image-1.jpg"
+            "imageUrl": "images/gallery/gallery-image-1.jpg"
         },
         {
             "title": "City at Night",
-            "imageUrl": "images/gallery-image-2.jpg"
+            "imageUrl": "images/gallery/gallery-image-2.jpg"
+        },
+        {
+            "title": "Gallery Image 3",
+            "imageUrl": "images/gallery/new_image_1.jpg"
+        },
+        {
+            "title": "Gallery Image 4",
+            "imageUrl": "images/gallery/new_image_2.jpg"
+        },
+        {
+            "title": "Gallery Image 5",
+            "imageUrl": "images/gallery/new_image_3.jpg"
+        },
+        {
+            "title": "Gallery Image 6",
+            "imageUrl": "images/gallery/new_image_4.jpg"
+        },
+        {
+            "title": "Gallery Image 7",
+            "imageUrl": "images/gallery/new_image_5.jpg"
+        },
+        {
+            "title": "Gallery Image 8",
+            "imageUrl": "images/gallery/new_image_6.jpg"
         }
     ]
 }

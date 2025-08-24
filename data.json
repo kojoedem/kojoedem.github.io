@@ -76,11 +76,11 @@
     "gallery": [
         {
             "title": "Trip to the Mountains",
-            "imageUrl": "https://drive.google.com/uc?id=16XAkGAPVFPrqaccj8eiwLE2KRoPD_dpU"
+            "imageUrl": "images/gallery-image-1.jpg"
         },
         {
             "title": "City at Night",
-            "imageUrl": "https://drive.google.com/uc?id=16PhCaRsaOUwMo_2af42v5XGZZuyyOA4t"
+            "imageUrl": "images/gallery-image-2.jpg"
         }
     ]
 }

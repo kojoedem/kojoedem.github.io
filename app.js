@@ -387,7 +387,8 @@ function renderLatestContentGrid(data, count = 8) {
         card.addEventListener("click", (e) => {
             if (e.target.classList.contains('read-more')) {
                 e.stopPropagation();
-                showMarkdownModal(e.target.dataset.markdownPath, item.type === 'blog' ? 'blog.html' : 'projects.html');
+                const fullPageLink = item.type === 'blog' ? 'blog.html' : 'projects.html';
+                window.location.href = fullPageLink;
             } else {
                 card.classList.toggle("open");
             }

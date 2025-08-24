@@ -45,11 +45,11 @@ header {
 
 .header-image {
     width: 100%;
-    max-width: 250px;
+    max-width: 450px;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 
 header h1 {
@@ -367,7 +367,7 @@ footer {
     header h1 { font-size: 2rem; }
     header p { font-size: 1.1rem; }
     .header-image {
-        max-width: 150px;
+        max-width: 300px;
     }
     .card-content p { font-size: 0.85rem; }
     footer {

@@ -47,9 +47,10 @@ header {
     width: 100%;
     max-width: 450px;
     height: auto;
-    border-radius: 8px;
     object-fit: cover;
     margin: 1rem auto;
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+    mask-image: radial-gradient(circle, black 60%, transparent 100%);
 }
 
 header h1 {

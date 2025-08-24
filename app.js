@@ -253,6 +253,7 @@ function renderGallery(data) {
         // Initialize lightGallery
         lightGallery(galleryContainer, {
             selector: '.gallery-item',
+            plugins: [lgThumbnail, lgPager],
             download: false
         });
     }

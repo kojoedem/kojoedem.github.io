@@ -1,7 +1,83 @@
 function renderAbout(data) {
-    const aboutSection = document.querySelector("#about .about-me-p");
+    const aboutSection = document.querySelector("#about");
     if (aboutSection) {
-        aboutSection.textContent = data.about?.text || "No About Me section found.";
+        // Clear the "Loading..." text
+        aboutSection.innerHTML = '';
+
+        const professional = data.about?.professional;
+        const funny = data.about?.funny;
+
+        if (professional) {
+            const professionalContainer = document.createElement('div');
+            professionalContainer.classList.add('about-section');
+
+            const title = document.createElement('h2');
+            title.className = 'about-me';
+            title.textContent = "About Me";
+            professionalContainer.appendChild(title);
+
+            const intro = document.createElement('p');
+            intro.textContent = professional.introduction;
+            professionalContainer.appendChild(intro);
+
+            const createList = (title, items) => {
+                const listContainer = document.createElement('div');
+                const listTitle = document.createElement('h4');
+                listTitle.textContent = title;
+                listContainer.appendChild(listTitle);
+                const ul = document.createElement('ul');
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                listContainer.appendChild(ul);
+                return listContainer;
+            };
+
+            if (professional.values) {
+                professionalContainer.appendChild(createList("My Values", professional.values));
+            }
+            if (professional.focus) {
+                professionalContainer.appendChild(createList("My Focus", professional.focus));
+            }
+            if (professional.philosophy) {
+                professionalContainer.appendChild(createList("My Philosophy", professional.philosophy));
+            }
+
+            const personality = document.createElement('p');
+            personality.textContent = professional.personality;
+            professionalContainer.appendChild(personality);
+
+            const vision = document.createElement('p');
+            vision.textContent = professional.future_vision;
+            professionalContainer.appendChild(vision);
+
+            const closing = document.createElement('p');
+            closing.textContent = professional.closing;
+            professionalContainer.appendChild(closing);
+
+            aboutSection.appendChild(professionalContainer);
+        }
+
+        if (funny) {
+            const funnyContainer = document.createElement('div');
+            funnyContainer.classList.add('about-section', 'funny-section');
+
+            const funnyTitle = document.createElement('h3');
+            funnyTitle.textContent = "The Lighter Side...";
+            funnyContainer.appendChild(funnyTitle);
+
+            const funnyText = document.createElement('p');
+            funnyText.textContent = funny.text;
+            funnyContainer.appendChild(funnyText);
+
+            aboutSection.appendChild(funnyContainer);
+        }
+
+        if (!professional && !funny) {
+            aboutSection.innerHTML = '<h2 class="about-me">About Me</h2><p class="about-me-p">No About Me section found.</p>';
+        }
     }
 }
 

@@ -196,6 +196,7 @@ async function loadBlogPost(path, container) {
         if (!response.ok) throw new Error(`Failed to fetch ${path}`);
         const markdown = await response.text();
         container.innerHTML = marked.parse(markdown);
+
     } catch (error) {
         console.error("Error loading blog post:", error);
         container.innerHTML = "<h3>Error</h3><p>Could not load blog post content.</p>";

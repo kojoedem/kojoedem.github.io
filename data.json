@@ -1,32 +1,140 @@
 {
-  "name": "Edem Robin",
-  "title": "Network Engineer | Python & Android Developer",
-  "about": {
-    "professional": {
-      "introduction": "Hi, I’m Edem Robin — a Network Engineer, Python & Android Developer, and tech enthusiast with a passion for building, automating, and simplifying systems. Over the years, I’ve worked hands-on with networks, servers, and applications, solving complex problems and creating solutions that bridge technology with real-world needs.",
-      "values": [
-        "Hard work",
-        "Perseverance",
-        "Self-discipline"
-      ],
-      "focus": [
-        "Network automation",
-        "Python development",
-        "Android development",
-        "Monitoring with Zabbix and Grafana",
-        "API development"
-      ],
-      "philosophy": [
-        "Beautiful is better than ugly.",
-        "Simple is better than complex.",
-        "Health, wisdom, and growth always come first."
-      ],
-      "personality": "I enjoy blending creativity with technical precision and weaving humor into technology (yes, even UDP jokes).",
-      "future_vision": "I’m building toward bigger dreams — from network automation and API development to launching solutions that make connectivity and payments more seamless.",
-      "closing": "This portfolio is my little space on the internet to share my work, projects, and progress. Welcome!"
+    "name": "Edem Robin",
+    "title": "Network Engineer | Python & Android Developer",
+    "about": {
+        "professional": {
+            "introduction": "Hi, I’m Edem Robin — a Network Engineer, Python & Android Developer, and tech enthusiast with a passion for building, automating, and simplifying systems. Over the years, I’ve worked hands-on with networks, servers, and applications, solving complex problems and creating solutions that bridge technology with real-world needs.",
+            "values": [
+                "Hard work",
+                "Perseverance",
+                "Self-discipline"
+            ],
+            "focus": [
+                "Network automation",
+                "Python development",
+                "Android development",
+                "Monitoring with Zabbix and Grafana",
+                "API development"
+            ],
+            "philosophy": [
+                "Beautiful is better than ugly.",
+                "Simple is better than complex.",
+                "Health, wisdom, and growth always come first."
+            ],
+            "personality": "I enjoy blending creativity with technical precision and weaving humor into technology (yes, even UDP jokes).",
+            "future_vision": "I’m building toward bigger dreams — from network automation and API development to launching solutions that make connectivity and payments more seamless.",
+            "closing": "This portfolio is my little space on the internet to share my work, projects, and progress. Welcome!"
+        },
+        "funny": {
+            "text": "Hey Again 👋! I’m Edem. I believe that Beautiful is better than ugly and Simple is better than complex. Passionate about sharing what I know, I thrive on hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries! Oh, and don’t worry, I won’t 'force-close' our interaction—though I might throw an exception! 😉. In all of this, I am just a simple computer user with an ability to click an icon."
+        }
     },
-    "funny": {
-      "text": "Hey Again 👋! I’m Edem. I believe that Beautiful is better than ugly and Simple is better than complex. Passionate about sharing what I know, I thrive on hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries! Oh, and don’t worry, I won’t 'force-close' our interaction—though I might throw an exception! 😉. In all of this, I am just a simple computer user with an ability to click an icon."
-    }
-  }
+    "progress": [
+        { "day": "New Blog Post 4", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-5.md", "tags": ["Cloud"], "author": "Edem Robin", "date": "2025-08-23" },
+        { "day": "New Blog Post 3", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-4.md", "tags": ["DevOps"], "author": "Edem Robin", "date": "2025-08-22" },
+        { "day": "New Blog Post 2", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-3.md", "tags": ["WebDev"], "author": "Edem Robin", "date": "2025-08-21" },
+        { "day": "New Blog Post 1", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-2.md", "tags": ["Tutorial"], "author": "Edem Robin", "date": "2025-08-20" },
+        {
+            "day": "VirtualBox Kernel Error",
+            "type": "blog",
+            "image": "images/kolikodnsblock.png",
+            "update": "What caused this Error",
+            "description": "The VirtualBox Linux kernel driver is either not loaded or not set up correctly. Please try setting it up again by executing'/sbin/vboxconfig'as root.If your system has EFI Secure Boot enabled you may also need to sign the kernel modules",
+            "readMoreLink": "content/blog-post-1.md",
+            "tags": ["Virtualization", "Linux", "Troubleshooting"],
+            "author": "Edem Robin",
+            "date": "2025-08-19"
+        }
+    ],
+    "projects": [
+        { "name": "Project Alpha", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-2.md", "image": "", "tags": ["AI", "Python"], "author": "Edem Robin", "date": "2025-07-15" },
+        { "name": "Project Beta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-3.md", "image": "", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
+        { "name": "Project Gamma", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-4.md", "image": "", "tags": ["Go", "Networking"], "author": "Edem Robin", "date": "2025-05-05" },
+        { "name": "Project Delta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-5.md", "image": "", "tags": ["Rust", "Systems"], "author": "Edem Robin", "date": "2025-04-01" },
+        {
+            "name": "KOKIKO DNS BLOCKER",
+            "type": "project",
+            "description": [
+                "This is a small tool to help you take advantage of your MikroTik router's firewall. Visit the site to read more and download it."
+            ],
+            "readMoreLink": "content/project-1.md",
+            "image": "images/kolikodnsblock.png",
+            "tags": ["Networking", "Security", "Tool"],
+            "author": "Edem Robin",
+            "date": "2025-03-20"
+        }
+    ],
+    "resume": "https://yourresume.com",
+    "contact": [
+        {
+            "name": "buy me a coffee",
+            "link": "https://buymeacoffee.com/edemrobin",
+            "image": "images/buyme.gif"
+        },
+        {
+            "name": "email",
+            "link": "mailto:edem@edemrobin.com",
+            "image": "images/gmail.png"
+        },
+        {
+            "name": "github",
+            "link": "https://github.com/kojoedem",
+            "image": "images/github.png"
+        },
+        {
+            "name": "x",
+            "link": "https://twitter.com/edemrobin",
+            "image": "images/x.png"
+        },
+        {
+            "name": "linkedin",
+            "link": "https://linkedin.com/in/amedzo-edem-robin-2a484890",
+            "image": "images/linkedin.png"
+        },
+        {
+            "name": "telegram",
+            "link": "https://t.me/Guykoliko",
+            "image": "https://cdn.iconscout.com/icon/free/png-256/free-telegram-logo-icon-svg-png-download-1408699.png"
+        }
+    ],
+    "lines":[
+        "LESS BULLSHIT MORE ENGINEERING",
+        "KNOW YOUR WHY",
+        "FIND A WAY OR FADE OUT",
+        "IT's NEVER TOO LATE TO LEARN, JUST START TODAY"
+      ],
+    "gallery": [
+        {
+            "title": "Trip to the Mountains",
+            "imageUrl": "images/gallery/gallery-image-1.jpg"
+        },
+        {
+            "title": "City at Night",
+            "imageUrl": "images/gallery/gallery-image-2.jpg"
+        },
+        {
+            "title": "Gallery Image 3",
+            "imageUrl": "images/gallery/new_image_1.jpg"
+        },
+        {
+            "title": "Gallery Image 4",
+            "imageUrl": "images/gallery/new_image_2.jpg"
+        },
+        {
+            "title": "Gallery Image 5",
+            "imageUrl": "images/gallery/new_image_3.jpg"
+        },
+        {
+            "title": "Gallery Image 6",
+            "imageUrl": "images/gallery/new_image_4.jpg"
+        },
+        {
+            "title": "Gallery Image 7",
+            "imageUrl": "images/gallery/new_image_5.jpg"
+        },
+        {
+            "title": "Gallery Image 8",
+            "imageUrl": "images/gallery/new_image_6.jpg"
+        }
+    ]
 }

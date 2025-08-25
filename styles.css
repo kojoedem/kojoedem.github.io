@@ -78,16 +78,13 @@ nav {
     z-index: 1000;
 }
 
-.nav-brand {
-    font-size: 1.25rem;
-    color: #f0f0f0;
-    text-decoration: none;
-    font-weight: bold;
+.nav-logo {
+    height: 40px;
+    vertical-align: middle;
 }
 
 nav .nav-links {
     display: flex;
-    justify-content: center;
     gap: 20px;
 }
 

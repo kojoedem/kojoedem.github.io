@@ -530,10 +530,10 @@ footer {
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 220px; /* Increased height for a more substantial feel */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    aspect-ratio: 1/1;
 }
 
 .gallery-item:hover {
@@ -543,8 +543,8 @@ footer {
 
 .gallery-item img {
     width: 100%;
-    height: 100%; /* Image fills the container height */
-    object-fit: cover; /* Maintain aspect ratio */
+    height: 100%;
+    object-fit: cover;
     cursor: pointer;
 }
 

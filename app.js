@@ -310,6 +310,7 @@ function renderContact(data) {
 }
 
 function renderGallery(data) {
+    console.log("Rendering gallery");
     const galleryContainer = document.getElementById("image-gallery");
     if (galleryContainer && data.gallery?.length) {
         galleryContainer.innerHTML = "";

@@ -48,7 +48,7 @@
         },
         {
             "name": "email",
-            "link": "mailto:edemozone@gmail.com",
+            "link": "mailto:edem@edemrobin.com",
             "image": "images/gmail.png"
         },
         {
@@ -65,6 +65,11 @@
             "name": "linkedin",
             "link": "https://linkedin.com/in/amedzo-edem-robin-2a484890",
             "image": "images/linkedin.png"
+        },
+        {
+            "name": "telegram",
+            "link": "https://t.me/Guykoliko",
+            "image": "images/guykoliko.png"
         }
     ],
     "lines":[

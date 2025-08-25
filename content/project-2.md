@@ -21,5 +21,6 @@ I tried a few online image resize tools, but they kept slowing me down, especial
 So, after thinking it through, I decided to create something small, fast, and lightweight to solve the problem.
 That’s how Ant was born. 🐜
 
-
 Visit the [GitHub repository](https://github.com/kojoedem/ant/blob/main/readme.md) for more technical details and how to use the tool.
+
+Don't forget to give me feedback as your feedback encourages me to do more.

@@ -20,7 +20,9 @@
     <meta property="twitter:image" content="https://edemrobin.com/images/guykoliko.png">
     <link rel="icon" href="images/guykoliko.png" type="image/png">
     <title>About Me - Edem Robin</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="images/guykoliko.png" as="image">
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
 <body>
     <header>
@@ -57,7 +59,7 @@
         <p>&copy; <span id="current-year"></span> Edem Robin. All Rights Reserved.</p>
     </footer>
 
-    <script src="app.js"></script>
-    <script src="loader.js"></script>
+    <script src="app.js" defer></script>
+    <script src="loader.js" defer></script>
 </body>
 </html>

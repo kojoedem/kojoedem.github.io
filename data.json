@@ -30,10 +30,7 @@
         }
     },
     "progress": [
-        { "day": "New Blog Post 4", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-5.md", "tags": ["Cloud"], "author": "Edem Robin", "date": "2025-08-23" },
-        { "day": "New Blog Post 3", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-4.md", "tags": ["DevOps"], "author": "Edem Robin", "date": "2025-08-22" },
-        { "day": "New Blog Post 2", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-3.md", "tags": ["WebDev"], "author": "Edem Robin", "date": "2025-08-21" },
-        { "day": "New Blog Post 1", "type": "blog", "image": "images/kolikodnsblock.png", "description": "Description...", "readMoreLink": "content/blog-post-2.md", "tags": ["Tutorial"], "author": "Edem Robin", "date": "2025-08-20" },
+       
         {
             "day": "VirtualBox Kernel Error",
             "type": "blog",
@@ -48,9 +45,8 @@
     ],
     "projects": [
         { "name": "Ant", "type": "project", "description": ["Simple, fast, and lightweight image resizing."], "readMoreLink": "content/project-2.md", "image": "images/ant.png", "tags": ["Tool", "Python"], "author": "Edem Robin", "date": "2025-08-25" },
-        { "name": "Project Beta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-3.md", "image": "", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
-        { "name": "Project Gamma", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-4.md", "image": "", "tags": ["Go", "Networking"], "author": "Edem Robin", "date": "2025-05-05" },
-        { "name": "Project Delta", "type": "project", "description": ["Description..."], "readMoreLink": "content/project-5.md", "image": "", "tags": ["Rust", "Systems"], "author": "Edem Robin", "date": "2025-04-01" },
+        { "name": "EDEMROBIN", "type": "project", "description": ["A small web tool for managing IP addresses, VLANs, and users with role-based access.Built with FastAPI, SQLite, and Tailwind CSS.This tool is good for small to medium size company who aways go with IP. With this tool you can upload your router configuration and it will update all your IPs in their block and a lot more"], "readMoreLink": "content/project-3.md", "image": "images/admin_page.png", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
+      
         {
             "name": "KOKIKO DNS BLOCKER",
             "type": "project",

@@ -45,7 +45,7 @@
     ],
     "projects": [
         { "name": "Ant", "type": "project", "description": ["Simple, fast, and lightweight image resizing."], "readMoreLink": "content/project-2.md", "image": "images/ant.png", "tags": ["Tool", "Python"], "author": "Edem Robin", "date": "2025-08-25" },
-        { "name": "EDEMROBIN", "type": "project", "description": ["A small web tool for managing IP addresses, VLANs, and users with role-based access.Built with FastAPI, SQLite, and Tailwind CSS.This tool is good for small to medium size company who aways go with IP. With this tool you can upload your router configuration and it will update all your IPs in their block and a lot more"], "readMoreLink": "content/project-3.md", "image": "images/admin_page.png", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-06-10" },
+        { "name": "EDEMROBIN", "type": "project", "description": ["A small web tool for managing IP addresses, VLANs, and users with role-based access.Built with FastAPI, SQLite, and Tailwind CSS.This tool is good for small to medium size company who aways go with IP. With this tool you can upload your router configuration and it will update all your IPs in their block and a lot more"], "readMoreLink": "content/project-3.md", "image": "images/admin_page.png", "tags": ["JavaScript", "React"], "author": "Edem Robin", "date": "2025-09-01" },
       
         {
             "name": "KOKIKO DNS BLOCKER",

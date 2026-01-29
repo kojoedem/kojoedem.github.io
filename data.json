@@ -30,17 +30,17 @@
         }
     },
     "progress": [
-       
+           
         {
-            "day": "VirtualBox Kernel Error",
+            "day": "Bitchat: A Curse or a Blessing?",
             "type": "blog",
-            "image": "images/kolikodnsblock.png",
-            "update": "What caused this Error",
-            "description": "The VirtualBox Linux kernel driver is either not loaded or not set up correctly. Please try setting it up again by executing'/sbin/vboxconfig'as root.If your system has EFI Secure Boot enabled you may also need to sign the kernel modules",
-            "readMoreLink": "content/blog-post-1.md",
-            "tags": ["Virtualization", "Linux", "Troubleshooting"],
+            "image": "images/bitchat.png",
+            "update": "Bitchat: A Curse or a Blessing?",
+            "description": "In recent weeks, I’ve heard many colleagues talk about a new and intriguing platform created by a powerful mind in the tech space — Jack Dorsey, the original creator of Twitter (now X). Dorsey has long been known as a strong advocate for free speech, privacy, and decentralization, so it came as no surprise when news broke about his latest experiment: .",
+            "readMoreLink": "content/bitchat-a-curse-or-a-blessing.md",
+            "tags": ["Network Automation", "Python", "DevOps"],
             "author": "Edem Robin",
-            "date": "2025-08-19"
+            "date": "2025-09-05"
         }
     ],
     "projects": [

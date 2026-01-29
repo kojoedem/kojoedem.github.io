@@ -225,10 +225,3 @@ Bluetooth itself is already a **weak security medium**, and without stronger tru
 
 With the right security architecture, however, it could evolve into something truly revolutionary.
 
->---
->---
-
-<div style="margin-left:40px; border:1px solid #999; padding:10px; width: fit-content;">
-  <strong>Published:</strong> 29 January 2026<br>
-  <strong>Author:</strong> Edem Ozone
-</div>

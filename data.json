@@ -3,7 +3,7 @@
     "title": "Network Engineer | Python & Android Developer",
     "about": {
         "professional": {
-            "introduction": "Hi, I’m Edem Robin — a Network Engineer, Python & Android Developer, and tech enthusiast with a passion for building, automating, and simplifying systems. Over the years, I’ve worked hands-on with networks, servers, and applications, solving complex problems and creating solutions that bridge technology with real-world needs.",
+            "introduction": "Hi, I’m Edem Robin — a Network Engineer, Python & Android Developer, and technology enthusiast passionate about building, automating, and simplifying systems. I work at the intersection of networking and software, transforming complex technical challenges into practical, reliable solutions that connect technology with real-world needs.",
             "values": [
                 "Hard work",
                 "Perseverance",
@@ -13,22 +13,21 @@
                 "Network automation",
                 "Python development",
                 "Android development",
-                "Monitoring with Zabbix and Grafana",
-                "API development"
+                "Infrastructure monitoring with Zabbix and Grafana",
+                "API design and development"
             ],
             "philosophy": [
                 "Beautiful is better than ugly.",
                 "Simple is better than complex.",
-                "Health, wisdom, and growth always come first."
+                "Health, wisdom, and continuous growth come first."
             ],
-            "personality": "I enjoy blending creativity with technical precision and weaving humor into technology (yes, even UDP jokes).",
-            "future_vision": "I’m building toward bigger dreams — from network automation and API development to launching solutions that make connectivity and payments more seamless.",
-            "closing": "This portfolio is my little space on the internet to share my work, projects, and progress. Welcome!"
+            "personality": "I enjoy blending creativity with technical precision, designing systems that are both powerful and simple to use, while occasionally weaving humor into technology — yes, even UDP jokes.",
+            "future_vision": "I am working toward building innovative solutions that improve connectivity, automation, and digital payments, creating technology that is efficient, scalable, and accessible.",
+            "closing": "This portfolio is my small corner of the internet where I share my work, projects, experiments, and growth along the journey. Welcome!"
         },
         "funny": {
-            "text": "Hey Again 👋! I’m Edem. I believe that Beautiful is better than ugly and Simple is better than complex. Passionate about sharing what I know, I thrive on hard work, perseverance, and, most of all, self-discipline. I love doing what I do and do what I love. I may not be your typical tech guy, but I can tell you a joke about UDP—though you probably won’t get it. I can also tell you a joke about TCP, and I guarantee you will get it... but it might take a few tries! Oh, and don’t worry, I won’t 'force-close' our interaction—though I might throw an exception! 😉. In all of this, I am just a simple computer user with an ability to click an icon."
-        }
-    },
+            "text": "Hey again 👋! I’m Edem — a firm believer that beautiful is better than ugly and simple is better than complex. Passionate about sharing knowledge, I thrive on hard work, perseverance, and self-discipline. I may not be your typical tech guy, but I can tell you a joke about UDP… though you probably won’t get it. I can also tell you a joke about TCP — and I guarantee you will get it, though it might take a few retries! Don’t worry, I won’t force-close our interaction… though an exception might occasionally occur 😉. At the end of the day, I’m just a simple computer user with a special talent for clicking icons."
+        }},
     "progress": [
            
         {

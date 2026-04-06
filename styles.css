@@ -354,6 +354,15 @@ footer {
     .card-content p { 
         font-size: 0.64rem; 
     }
+    header h4 a {
+     color: #f0f0f0;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    /* transition: background 0.2s; */
+    font-size: 0.5rem;
+    background-color: #575f63;
+}
 }
 
 @media (max-width: 576px) {
@@ -364,6 +373,15 @@ footer {
       .card-content p { 
         font-size: 0.64rem; 
     }
+     header h4 a {
+     color: #f0f0f0;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    /* transition: background 0.2s; */
+    font-size: 0.5rem;
+    background-color: #575f63;
+}
 }
 
 @media (max-width: 768px) {
@@ -385,6 +403,15 @@ footer {
     nav .menu-toggle {
         display: block;
     }
+     header h4 a {
+     color: #f0f0f0;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    /* transition: background 0.2s; */
+    font-size: 0.5rem;
+    background-color: #575f63;
+}
     .container {
         padding: 1rem;
     }

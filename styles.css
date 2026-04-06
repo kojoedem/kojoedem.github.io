@@ -82,7 +82,15 @@ nav {
     height: 80px;
     vertical-align: middle;
 }
-
+header h4 a {
+     color: #f0f0f0;
+    text-decoration: none;
+    padding: 10px 20px 5px 20px;
+    border-radius: 2px;
+    /* transition: background 0.2s; */
+    font-size: 0.9rem;
+    background-color: #575f63;
+}
 nav .nav-links {
     display: flex;
     gap: 20px;

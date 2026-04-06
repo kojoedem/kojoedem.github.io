@@ -382,6 +382,9 @@ footer {
     font-size: 0.5rem;
     background-color: #575f63;
 }
+     header h4 {
+      padding: 1rem;
+}
 }
 
 @media (max-width: 768px) {
@@ -397,6 +400,9 @@ footer {
         width: 100%;
         background: #1e1e1e;
     }
+         header h4 {
+      padding: 1rem;
+}
     nav .nav-links.open {
         display: flex;
     }
@@ -412,6 +418,7 @@ footer {
     font-size: 0.5rem;
     background-color: #575f63;
 }
+
     .container {
         padding: 1rem;
     }
@@ -420,12 +427,24 @@ footer {
     .header-image {
         max-width: 300px;
     }
+         header h4 {
+      padding: 1rem;
+}
     .card-content p { 
         font-size: 0.84rem; 
     }
     footer {
         padding: 1.5rem 1rem;
     }
+       header h4 a {
+     color: #f0f0f0;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    /* transition: background 0.2s; */
+    font-size: 0.5rem;
+    background-color: #575f63;
+}
     .contact-list {
         flex-wrap: nowrap;
         overflow-x: auto;

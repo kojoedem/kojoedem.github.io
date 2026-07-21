@@ -958,3 +958,26 @@ footer {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
 }
+
+/* Header Biography Text formatting with marked.js */
+#header-bio-text {
+    max-width: 850px;
+    margin: 0 auto;
+    font-weight: 600;
+    line-height: 1.7;
+    text-align: center;
+}
+
+#header-bio-text p {
+    margin: 0 auto 1rem auto;
+    text-align: center;
+}
+
+#header-bio-text p:last-of-type {
+    margin-bottom: 0;
+}
+
+#header-bio-text a {
+    display: inline-block;
+    margin: 8px 12px;
+}

@@ -1,0 +1,14 @@
+127.0.0.1 - - [21/Jul/2026 08:50:57] "GET /blog.html HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/logo.png HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/guykoliko.png HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /loader.js HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /data.json HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /content/bitchat-a-curse-or-a-blessing.md HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /content/pyats-day-1.md HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/buyme.gif HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/gmail.png HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/github.png HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/x.png HTTP/1.1" 200 -
+127.0.0.1 - - [21/Jul/2026 08:50:58] "GET /images/linkedin.png HTTP/1.1" 200 -

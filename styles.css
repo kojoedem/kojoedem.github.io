@@ -282,8 +282,42 @@ nav .menu-toggle {
 .pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 0.5rem;
     margin-top: 2rem;
+}
+
+.pagination button {
+    background-color: #34495e;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.latest-content-pagination {
+    margin-bottom: 2rem;
 }
 
 /* Footer */
@@ -693,6 +727,114 @@ footer {
     border-radius: 5px;
     font-size: 14px;
     z-index: 1001; /* Ensure it's above the sticky nav */
+}
+
+/* About Page Styles */
+.about-section {
+    background-color: #1e1e1e;
+    padding: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
+    color: #f0f0f0;
+}
+
+.about-me {
+    color: #007bff;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.about-intro {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #e0e0e0;
+}
+
+.about-lists-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.about-list-card {
+    background-color: #262626;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.about-list-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.about-list-title {
+    color: #00aaff;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.3rem;
+}
+
+.about-list-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.about-list-card ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+.about-list-card ul li::before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -0.1rem;
+}
+
+.about-paragraph {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-top: 1.5rem;
+    color: #e0e0e0;
+}
+
+.funny-section {
+    background-color: #1e1e1e;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
+}
+
+.funny-section h3 {
+    color: #fd7e14;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+/* Responsive adjustment for About Page Grid */
+@media (max-width: 992px) {
+    .about-lists-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
 }
 
 /* pyATS Blog System Styles */

@@ -7,6 +7,20 @@ function renderAbout(data) {
         const professional = data.about?.professional;
         const funny = data.about?.funny;
 
+        const parseText = (text) => {
+            if (typeof marked !== "undefined") {
+                return marked.parse(text || "");
+            }
+            return text || "";
+        };
+
+        const parseInlineText = (text) => {
+            if (typeof marked !== "undefined") {
+                return marked.parseInline(text || "");
+            }
+            return text || "";
+        };
+
         if (professional) {
             const professionalContainer = document.createElement('div');
             professionalContainer.classList.add('about-section');
@@ -16,8 +30,8 @@ function renderAbout(data) {
             title.textContent = "About Me";
             professionalContainer.appendChild(title);
 
-            const intro = document.createElement('p');
-            intro.textContent = professional.introduction;
+            const intro = document.createElement('div');
+            intro.innerHTML = parseText(professional.introduction);
             professionalContainer.appendChild(intro);
 
             const createList = (title, items) => {
@@ -28,7 +42,7 @@ function renderAbout(data) {
                 const ul = document.createElement('ul');
                 items.forEach(item => {
                     const li = document.createElement('li');
-                    li.textContent = item;
+                    li.innerHTML = parseInlineText(item);
                     ul.appendChild(li);
                 });
                 listContainer.appendChild(ul);
@@ -45,16 +59,19 @@ function renderAbout(data) {
                 professionalContainer.appendChild(createList("My Philosophy", professional.philosophy));
             }
 
-            const personality = document.createElement('p');
-            personality.textContent = professional.personality;
+            const personality = document.createElement('div');
+            personality.style.marginTop = '1rem';
+            personality.innerHTML = parseText(professional.personality);
             professionalContainer.appendChild(personality);
 
-            const vision = document.createElement('p');
-            vision.textContent = professional.future_vision;
+            const vision = document.createElement('div');
+            vision.style.marginTop = '1rem';
+            vision.innerHTML = parseText(professional.future_vision);
             professionalContainer.appendChild(vision);
 
-            const closing = document.createElement('p');
-            closing.textContent = professional.closing;
+            const closing = document.createElement('div');
+            closing.style.marginTop = '1rem';
+            closing.innerHTML = parseText(professional.closing);
             professionalContainer.appendChild(closing);
 
             aboutSection.appendChild(professionalContainer);
@@ -68,8 +85,8 @@ function renderAbout(data) {
             funnyTitle.textContent = "The Lighter Side...";
             funnyContainer.appendChild(funnyTitle);
 
-            const funnyText = document.createElement('p');
-            funnyText.textContent = funny.text;
+            const funnyText = document.createElement('div');
+            funnyText.innerHTML = parseText(funny.text);
             funnyContainer.appendChild(funnyText);
 
             aboutSection.appendChild(funnyContainer);
@@ -309,16 +326,35 @@ function renderBlogPage(data) {
 
     populateSidebar(allPosts);
 
-    // Default load: Prefer first other post if available, else first pyATS post
-    if (allPosts.length > 0) {
-        loadBlogPost(allPosts[0].readMoreLink, contentContainer);
-        sidebarList.querySelector('a')?.classList.add('active');
+    // Check if query parameter specifies a specific blog post to load
+    const urlParams = new URLSearchParams(window.location.search);
+    const postToLoad = urlParams.get('post');
+
+    if (postToLoad) {
+        // Attempt to find the link in other posts or pyats posts sidebars
+        loadBlogPost(postToLoad, contentContainer);
+        // Highlight active link
+        setTimeout(() => {
+            document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => {
+                if (a.dataset.path === postToLoad) {
+                    a.classList.add('active');
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+        }, 100);
     } else {
-        const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
-        if (pyatsPosts.length > 0) {
-            pyatsPosts.sort((a, b) => (a.day_num || 0) - (b.day_num || 0));
-            loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
-            document.querySelector('#pyats-sidebar-list a')?.classList.add('active');
+        // Default load: Prefer first other post if available, else first pyATS post
+        if (allPosts.length > 0) {
+            loadBlogPost(allPosts[0].readMoreLink, contentContainer);
+            sidebarList.querySelector('a')?.classList.add('active');
+        } else {
+            const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
+            if (pyatsPosts.length > 0) {
+                pyatsPosts.sort((a, b) => (a.day_num || 0) - (b.day_num || 0));
+                loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
+                document.querySelector('#pyats-sidebar-list a')?.classList.add('active');
+            }
         }
     }
 
@@ -434,6 +470,27 @@ function renderLatestContent(data, count = 8) {
     const listContainer = document.getElementById("latest-posts-list");
     if (!listContainer) return;
 
+    // Compile biography text markdown under profile image if we have a loader and are on a page containing #header-bio-text
+    const bioTextElement = document.getElementById("header-bio-text");
+    if (bioTextElement && typeof marked !== "undefined" && !bioTextElement.dataset.parsed) {
+        bioTextElement.dataset.parsed = "true";
+        // Extract raw text before links
+        const htmlContent = bioTextElement.innerHTML;
+        // To keep links functional and parse only text, let's extract the bio lines and process with marked
+        const linkMatches = htmlContent.match(/<a[\s\S]*?<\/a>/gi) || [];
+        // Temporary replacement for links
+        let processedText = htmlContent.replace(/<a[\s\S]*?<\/a>/gi, "[[LINK_PLACEHOLDER]]");
+        // Replace <br> tags with double newlines so marked interprets them as paragraphs
+        processedText = processedText.replace(/<br\s*\/?>/gi, "\n\n");
+        // Parse with marked.js
+        let parsedHtml = marked.parse(processedText);
+        // Put links back
+        linkMatches.forEach(link => {
+            parsedHtml = parsedHtml.replace("[[LINK_PLACEHOLDER]]", link);
+        });
+        bioTextElement.innerHTML = parsedHtml;
+    }
+
     const allContent = [...(data.progress || []), ...(data.projects || [])];
     allContent.sort((a, b) => new Date(b.date) - new Date(a.date));
     const latestContent = allContent.slice(0, count);
@@ -447,10 +504,18 @@ function renderLatestContent(data, count = 8) {
     latestContent.forEach(item => {
         const listItem = document.createElement("li");
         const button = document.createElement("button");
-        const itemType = item.type === 'blog' ? 'Blog' : 'Project';
+
+        const isPyats = item.category === 'pyats';
+        const itemType = isPyats ? 'pyATS' : (item.type === 'blog' ? 'Blog' : 'Project');
+        const badgeClass = isPyats ? 'badge-pyats' : (item.type === 'blog' ? 'badge-blog' : 'badge-project');
         const fullPageLink = item.type === 'blog' ? 'blog.html' : 'projects.html';
 
-        button.textContent = `[${itemType}] ${item.day || item.name}`;
+        button.innerHTML = `
+            <span class="activity-badge ${badgeClass}">${itemType}</span>
+            <span class="activity-title">${item.day || item.name}</span>
+            <span class="activity-meta">By: ${item.author || 'Anonymous'} | ${item.date || ''}</span>
+        `;
+
         button.addEventListener('click', () => {
             showMarkdownModal(item.readMoreLink, fullPageLink);
         });
@@ -491,7 +556,10 @@ async function showMarkdownModal(path, fullPageLink) {
 
         let readMoreButton = '';
         if (fullPageLink) {
-            readMoreButton = `<a href="${fullPageLink}" class="read-more modal-read-more">Read More on Full Page</a>`;
+            // Include deep linking query parameters for readMoreLink if we are showing a blog post modal
+            const isBlogLink = fullPageLink.startsWith('blog.html');
+            const targetLink = isBlogLink ? `blog.html?post=${encodeURIComponent(path)}` : fullPageLink;
+            readMoreButton = `<a href="${targetLink}" class="read-more modal-read-more">Read More on Full Page</a>`;
         }
 
         modalBody.innerHTML = marked.parse(markdown) + readMoreButton;
@@ -557,7 +625,9 @@ function renderLatestContentGrid(data, count = 8) {
         card.addEventListener("click", (e) => {
             if (e.target.classList.contains('read-more')) {
                 e.stopPropagation();
-                const fullPageLink = item.type === 'blog' ? 'blog.html' : 'projects.html';
+                // Ensure redirect parameters are passed correctly for standard or pyats posts
+                const queryParam = item.readMoreLink ? `?post=${encodeURIComponent(item.readMoreLink)}` : '';
+                const fullPageLink = item.type === 'blog' ? `blog.html${queryParam}` : `projects.html`;
                 window.location.href = fullPageLink;
             } else {
                 card.classList.toggle("open");

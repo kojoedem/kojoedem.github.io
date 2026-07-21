@@ -49,40 +49,34 @@ Network Engineer & Automation Developer. I design and simulate BGP-based<br>netw
     </nav>
 
     <div class="container">
-        <!-- 100 Days of pyATS Blog System -->
-        <section id="pyats-posts" class="pyats-section scroll-animate">
-            <h2>100 Days of pyATS</h2>
-            <div class="pyats-progress-container">
-                <span id="pyats-progress-text">Progress: Day 0 / 100</span>
-                <div class="pyats-progress-bar-bg">
-                    <div id="pyats-progress-bar-fill" class="pyats-progress-bar-fill"></div>
-                </div>
-            </div>
-            <div class="pyats-layout">
-                <aside class="pyats-sidebar">
-                    <h3>pyATS Days</h3>
-                    <ul id="pyats-sidebar-list">
-                        <!-- pyATS days will be loaded here -->
-                    </ul>
-                </aside>
-                <div id="content" class="pyats-content">
-                    <p>Select a day from the sidebar to view the pyATS post.</p>
-                </div>
-            </div>
-        </section>
-
-        <main class="main-layout" style="margin-top: 3rem;">
+        <main class="main-layout">
             <div id="blog-content" class="main-content">
-                <!-- Blog post content will be loaded here -->
+                <!-- Blog post content or pyATS post content will be loaded here -->
             </div>
             <aside class="sidebar">
                 <div class="search-container">
                     <input type="text" id="sidebar-search-input" placeholder="Search posts...">
                 </div>
-                <h3>All Posts</h3>
-                <ul id="blog-sidebar-list">
-                    <!-- Blog post titles will be loaded here -->
-                </ul>
+
+                <div class="sidebar-section">
+                    <h3>Other Posts</h3>
+                    <ul id="blog-sidebar-list">
+                        <!-- Blog post titles will be loaded here -->
+                    </ul>
+                </div>
+
+                <div class="sidebar-section pyats-sidebar-section">
+                    <h3>100 Days of pyATS</h3>
+                    <div class="pyats-progress-container">
+                        <span id="pyats-progress-text">Progress: Day 0 / 100</span>
+                        <div class="pyats-progress-bar-bg">
+                            <div id="pyats-progress-bar-fill" class="pyats-progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <ul id="pyats-sidebar-list">
+                        <!-- pyATS days will be loaded here -->
+                    </ul>
+                </div>
             </aside>
         </main>
     </div>

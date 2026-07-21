@@ -222,13 +222,12 @@ function renderProjects(data) {
 }
 
 function renderPyatsPosts(data) {
-    const pyatsSection = document.getElementById('pyats-posts');
     const sidebarList = document.getElementById('pyats-sidebar-list');
-    const contentContainer = document.getElementById('content');
+    const contentContainer = document.getElementById('blog-content');
     const progressText = document.getElementById('pyats-progress-text');
     const progressBarFill = document.getElementById('pyats-progress-bar-fill');
 
-    if (!pyatsSection || !sidebarList || !contentContainer) return;
+    if (!sidebarList || !contentContainer) return;
 
     // Filter posts for pyATS category
     const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
@@ -264,19 +263,14 @@ function renderPyatsPosts(data) {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             loadBlogPost(link.dataset.path, contentContainer);
-            sidebarList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+            // Clear active from both blog lists to make selection exclusive
+            document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => a.classList.remove('active'));
             link.classList.add('active');
         });
 
         listItem.appendChild(link);
         sidebarList.appendChild(listItem);
     });
-
-    // Load first post as default
-    if (pyatsPosts.length > 0) {
-        loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
-        sidebarList.querySelector('a')?.classList.add('active');
-    }
 }
 
 function renderBlogPage(data) {
@@ -303,7 +297,8 @@ function renderBlogPage(data) {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 loadBlogPost(link.dataset.path, contentContainer);
-                sidebarList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+                // Clear active from both blog lists to make selection exclusive
+                document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
             });
 
@@ -314,9 +309,17 @@ function renderBlogPage(data) {
 
     populateSidebar(allPosts);
 
+    // Default load: Prefer first other post if available, else first pyATS post
     if (allPosts.length > 0) {
         loadBlogPost(allPosts[0].readMoreLink, contentContainer);
         sidebarList.querySelector('a')?.classList.add('active');
+    } else {
+        const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
+        if (pyatsPosts.length > 0) {
+            pyatsPosts.sort((a, b) => (a.day_num || 0) - (b.day_num || 0));
+            loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
+            document.querySelector('#pyats-sidebar-list a')?.classList.add('active');
+        }
     }
 
     searchInput.addEventListener('keyup', (e) => {

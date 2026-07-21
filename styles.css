@@ -629,41 +629,40 @@ footer {
 }
 
 /* pyATS Blog System Styles */
-.pyats-section {
-    background-color: #252525;
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid #444;
-    margin-bottom: 3rem;
+.sidebar-section {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 6px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
 }
 
-.pyats-section h2 {
-    color: #007bff;
+.sidebar-section h3 {
     margin-bottom: 1rem;
-    text-align: center;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+    color: #00aaff;
 }
 
 .pyats-progress-container {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
 }
 
 #pyats-progress-text {
     font-weight: bold;
-    font-size: 1rem;
-    text-align: center;
+    font-size: 0.85rem;
+    color: #ccc;
 }
 
 .pyats-progress-bar-bg {
     width: 100%;
-    height: 12px;
+    height: 8px;
     background-color: #444;
-    border-radius: 6px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
@@ -672,26 +671,6 @@ footer {
     width: 0%;
     background-color: #007bff;
     transition: width 0.5s ease-in-out;
-}
-
-.pyats-layout {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 2rem;
-}
-
-.pyats-sidebar {
-    background-color: #1e1e1e;
-    padding: 1.5rem;
-    border-radius: 6px;
-    border: 1px solid #333;
-}
-
-.pyats-sidebar h3 {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #444;
-    padding-bottom: 0.5rem;
 }
 
 #pyats-sidebar-list {
@@ -706,7 +685,7 @@ footer {
     padding: 0.75rem 0.5rem;
     border-bottom: 1px solid #333;
     transition: background-color 0.2s, padding-left 0.2s;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 #pyats-sidebar-list li:last-child a {
@@ -726,40 +705,35 @@ footer {
     padding-left: 0.75rem;
 }
 
-.pyats-content {
+/* Unified Main Content styling inside blog post */
+#blog-content {
     background-color: #1e1e1e;
-    padding: 2rem;
-    border-radius: 6px;
+    padding: 2.5rem;
+    border-radius: 8px;
     border: 1px solid #333;
-    min-height: 300px;
+    min-height: 400px;
 }
 
-.pyats-content h1, .pyats-content h2, .pyats-content h3 {
+#blog-content h1, #blog-content h2, #blog-content h3 {
     color: #007bff;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
 }
 
-.pyats-content p {
-    margin-bottom: 1rem;
+#blog-content p {
+    margin-bottom: 1.25rem;
 }
 
-.pyats-content pre {
+#blog-content pre {
     background-color: #111;
-    padding: 1rem;
-    border-radius: 4px;
+    padding: 1.25rem;
+    border-radius: 6px;
     overflow-x: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #333;
 }
 
-.pyats-content code {
+#blog-content code {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
-}
-
-/* Make pyATS section responsive */
-@media (max-width: 768px) {
-    .pyats-layout {
-        grid-template-columns: 1fr;
-    }
 }

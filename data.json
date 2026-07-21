@@ -29,17 +29,7 @@
             "text": "Hey again 👋! I’m Edem — a firm believer that beautiful is better than ugly and simple is better than complex. Passionate about sharing knowledge, I thrive on hard work, perseverance, and self-discipline. I may not be your typical tech guy, but I can tell you a joke about UDP… though you probably won’t get it. I can also tell you a joke about TCP — and I guarantee you will get it, though it might take a few retries! Don’t worry, I won’t force-close our interaction… though an exception might occasionally occur 😉. At the end of the day, I’m just a simple computer user with a special talent for clicking icons."
         }},
     "progress": [
-        {
-            "day": "100-Days of pyATS: Day 1",
-            "type": "blog",
-            "image": "",
-            "update": "100-Days of pyATS: Day 1",
-            "description": "Today I am starting my journey with 100 days of pyATS! In this series, I'll document my learnings, challenges, and code snippets as I explore Cisco's Python Automated Test System to automate network testing and verification.",
-            "readMoreLink": "content/100-days-of-pyats-day-1.md",
-            "tags": ["pyATS", "Python", "Networking"],
-            "author": "Edem Robin",
-            "date": "2026-03-03"
-        },
+
         {
             "day": "Bitchat: A Curse or a Blessing?",
             "type": "blog",
@@ -50,6 +40,19 @@
             "tags": ["Network Automation", "Python", "DevOps"],
             "author": "Edem Robin",
             "date": "2026-01-29"
+        },
+        {
+            "day": "Day 1: Getting Started with pyATS",
+            "type": "blog",
+            "category": "pyats",
+            "day_num": 1,
+            "image": "",
+            "update": "Day 1: Getting Started with pyATS",
+            "description": "Today marks the beginning of my 100 Days of pyATS journey! Over the next 100 days, I will be deep-diving into pyATS.",
+            "readMoreLink": "content/pyats-day-1.md",
+            "tags": ["Network Automation", "pyATS", "Python"],
+            "author": "Edem Robin",
+            "date": "2026-03-03"
         }
     ],
     "projects": [

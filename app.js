@@ -31,12 +31,15 @@ function renderAbout(data) {
             professionalContainer.appendChild(title);
 
             const intro = document.createElement('div');
+            intro.classList.add('about-intro');
             intro.innerHTML = parseText(professional.introduction);
             professionalContainer.appendChild(intro);
 
             const createList = (title, items) => {
                 const listContainer = document.createElement('div');
+                listContainer.classList.add('about-list-card');
                 const listTitle = document.createElement('h4');
+                listTitle.classList.add('about-list-title');
                 listTitle.textContent = title;
                 listContainer.appendChild(listTitle);
                 const ul = document.createElement('ul');
@@ -49,28 +52,35 @@ function renderAbout(data) {
                 return listContainer;
             };
 
+            const listsGrid = document.createElement('div');
+            listsGrid.classList.add('about-lists-grid');
+
             if (professional.values) {
-                professionalContainer.appendChild(createList("My Values", professional.values));
+                listsGrid.appendChild(createList("My Values", professional.values));
             }
             if (professional.focus) {
-                professionalContainer.appendChild(createList("My Focus", professional.focus));
+                listsGrid.appendChild(createList("My Focus", professional.focus));
             }
             if (professional.philosophy) {
-                professionalContainer.appendChild(createList("My Philosophy", professional.philosophy));
+                listsGrid.appendChild(createList("My Philosophy", professional.philosophy));
+            }
+
+            if (professional.values || professional.focus || professional.philosophy) {
+                professionalContainer.appendChild(listsGrid);
             }
 
             const personality = document.createElement('div');
-            personality.style.marginTop = '1rem';
+            personality.classList.add('about-paragraph');
             personality.innerHTML = parseText(professional.personality);
             professionalContainer.appendChild(personality);
 
             const vision = document.createElement('div');
-            vision.style.marginTop = '1rem';
+            vision.classList.add('about-paragraph');
             vision.innerHTML = parseText(professional.future_vision);
             professionalContainer.appendChild(vision);
 
             const closing = document.createElement('div');
-            closing.style.marginTop = '1rem';
+            closing.classList.add('about-paragraph');
             closing.innerHTML = parseText(professional.closing);
             professionalContainer.appendChild(closing);
 
@@ -238,6 +248,28 @@ function renderProjects(data) {
     renderFilterableSection(data.projects || [], "projects-list", "projects-filter-container", null);
 }
 
+// Helper to transform a filename path (content/pyats-day-1.md) into a shareable slug
+function getSlug(link) {
+    if (!link) return "";
+    // Remove content/ prefix and .md extension
+    return link.replace(/^content\//i, "").replace(/\.md$/i, "");
+}
+
+// Helper to look up an item in data.json by its slug
+function findItemBySlug(data, slug) {
+    if (!slug) return null;
+    const allPosts = data.progress || [];
+    return allPosts.find(post => getSlug(post.readMoreLink) === slug);
+}
+
+// Helper to update the browser URL search parameter without reloading
+function updateUrlSlug(slug) {
+    if (slug) {
+        const newUrl = `${window.location.pathname}?post=${encodeURIComponent(slug)}`;
+        window.history.replaceState({ path: newUrl }, "", newUrl);
+    }
+}
+
 function renderPyatsPosts(data) {
     const sidebarList = document.getElementById('pyats-sidebar-list');
     const contentContainer = document.getElementById('blog-content');
@@ -276,10 +308,12 @@ function renderPyatsPosts(data) {
         link.href = "#";
         link.textContent = post.day;
         link.dataset.path = post.readMoreLink;
+        link.dataset.slug = getSlug(post.readMoreLink);
 
         link.addEventListener('click', (e) => {
             e.preventDefault();
             loadBlogPost(link.dataset.path, contentContainer);
+            updateUrlSlug(link.dataset.slug);
             // Clear active from both blog lists to make selection exclusive
             document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => a.classList.remove('active'));
             link.classList.add('active');
@@ -310,10 +344,12 @@ function renderBlogPage(data) {
             link.href = "#";
             link.textContent = post.day;
             link.dataset.path = post.readMoreLink;
+            link.dataset.slug = getSlug(post.readMoreLink);
 
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 loadBlogPost(link.dataset.path, contentContainer);
+                updateUrlSlug(link.dataset.slug);
                 // Clear active from both blog lists to make selection exclusive
                 document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
@@ -326,17 +362,28 @@ function renderBlogPage(data) {
 
     populateSidebar(allPosts);
 
-    // Check if query parameter specifies a specific blog post to load
+    // Check if query parameter specifies a specific blog post slug or path to load
     const urlParams = new URLSearchParams(window.location.search);
-    const postToLoad = urlParams.get('post');
+    const rawPostToLoad = urlParams.get('post');
+    let finalPathToLoad = null;
 
-    if (postToLoad) {
-        // Attempt to find the link in other posts or pyats posts sidebars
-        loadBlogPost(postToLoad, contentContainer);
+    if (rawPostToLoad) {
+        // Try looking up the item by slug
+        const matchedItemBySlug = findItemBySlug(data, rawPostToLoad);
+        if (matchedItemBySlug) {
+            finalPathToLoad = matchedItemBySlug.readMoreLink;
+        } else {
+            // Fallback: Check if the raw parameter is already a path
+            finalPathToLoad = rawPostToLoad;
+        }
+    }
+
+    if (finalPathToLoad) {
+        loadBlogPost(finalPathToLoad, contentContainer);
         // Highlight active link
         setTimeout(() => {
             document.querySelectorAll('#pyats-sidebar-list a, #blog-sidebar-list a').forEach(a => {
-                if (a.dataset.path === postToLoad) {
+                if (a.dataset.path === finalPathToLoad) {
                     a.classList.add('active');
                 } else {
                     a.classList.remove('active');
@@ -348,12 +395,14 @@ function renderBlogPage(data) {
         if (allPosts.length > 0) {
             loadBlogPost(allPosts[0].readMoreLink, contentContainer);
             sidebarList.querySelector('a')?.classList.add('active');
+            updateUrlSlug(getSlug(allPosts[0].readMoreLink));
         } else {
             const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
             if (pyatsPosts.length > 0) {
                 pyatsPosts.sort((a, b) => (a.day_num || 0) - (b.day_num || 0));
                 loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
                 document.querySelector('#pyats-sidebar-list a')?.classList.add('active');
+                updateUrlSlug(getSlug(pyatsPosts[0].readMoreLink));
             }
         }
     }
@@ -558,7 +607,7 @@ async function showMarkdownModal(path, fullPageLink) {
         if (fullPageLink) {
             // Include deep linking query parameters for readMoreLink if we are showing a blog post modal
             const isBlogLink = fullPageLink.startsWith('blog.html');
-            const targetLink = isBlogLink ? `blog.html?post=${encodeURIComponent(path)}` : fullPageLink;
+            const targetLink = isBlogLink ? `blog.html?post=${encodeURIComponent(getSlug(path))}` : fullPageLink;
             readMoreButton = `<a href="${targetLink}" class="read-more modal-read-more">Read More on Full Page</a>`;
         }
 
@@ -591,47 +640,111 @@ function setupModal() {
 
 document.addEventListener('DOMContentLoaded', setupModal);
 
-function renderLatestContentGrid(data, count = 8) {
+function renderLatestContentGrid(data) {
     const container = document.getElementById("latest-content-grid");
     if (!container) return;
 
+    const CARDS_PER_PAGE = 6;
+    let currentPage = 1;
+
     const allContent = [...(data.progress || []), ...(data.projects || [])];
     allContent.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const latestContent = allContent.slice(0, count);
 
-    container.innerHTML = "";
-    latestContent.forEach((item) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        if (item.image) {
-            card.classList.add("has-image");
-        }
-        const backgroundStyle = item.image ? `background-image: url(${item.image}); background-size: cover;` : "background-color: #3498db;";
-        card.innerHTML = `
-            <div class="card-front" style="${backgroundStyle}">
-                <h3>${item.day || item.name}</h3>
-            </div>
-            <div class="card-content">
-                <div class="card-meta">
-                    <span class="author">By: ${item.author || 'Anonymous'}</span>
-                    <span class="date">${item.date || ''}</span>
-                </div>
-                <p>${Array.isArray(item.description) ? item.description.join(' ') : item.description || "No description available."}</p>
-                ${item.tags ? `<div class="tags-container">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
-                <button class="read-more" data-markdown-path="${item.readMoreLink || "#"}">Read More</button>
-            </div>
-        `;
-        container.appendChild(card);
-        card.addEventListener("click", (e) => {
-            if (e.target.classList.contains('read-more')) {
-                e.stopPropagation();
-                // Ensure redirect parameters are passed correctly for standard or pyats posts
-                const queryParam = item.readMoreLink ? `?post=${encodeURIComponent(item.readMoreLink)}` : '';
-                const fullPageLink = item.type === 'blog' ? `blog.html${queryParam}` : `projects.html`;
-                window.location.href = fullPageLink;
+    function renderPage(page) {
+        container.innerHTML = "";
+        const start = (page - 1) * CARDS_PER_PAGE;
+        const pageItems = allContent.slice(start, start + CARDS_PER_PAGE);
+
+        // Update heading title based on page number
+        const headingElement = document.getElementById("latest-content-title");
+        if (headingElement) {
+            if (page === 1) {
+                headingElement.textContent = "Latest Content";
             } else {
-                card.classList.toggle("open");
+                headingElement.textContent = "Older Content";
             }
+        }
+
+        pageItems.forEach((item) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            if (item.image) {
+                card.classList.add("has-image");
+            }
+            const backgroundStyle = item.image ? `background-image: url(${item.image}); background-size: cover;` : "background-color: #3498db;";
+            card.innerHTML = `
+                <div class="card-front" style="${backgroundStyle}">
+                    <h3>${item.day || item.name}</h3>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="author">By: ${item.author || 'Anonymous'}</span>
+                        <span class="date">${item.date || ''}</span>
+                    </div>
+                    <p>${Array.isArray(item.description) ? item.description.join(' ') : item.description || "No description available."}</p>
+                    ${item.tags ? `<div class="tags-container">${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+                    <button class="read-more" data-markdown-path="${item.readMoreLink || "#"}">Read More</button>
+                </div>
+            `;
+            container.appendChild(card);
+            card.addEventListener("click", (e) => {
+                if (e.target.classList.contains('read-more')) {
+                    e.stopPropagation();
+                    // Ensure redirect parameters are passed correctly for standard or pyats posts
+                    const queryParam = item.readMoreLink ? `?post=${encodeURIComponent(getSlug(item.readMoreLink))}` : '';
+                    const fullPageLink = item.type === 'blog' ? `blog.html${queryParam}` : `projects.html`;
+                    window.location.href = fullPageLink;
+                } else {
+                    card.classList.toggle("open");
+                }
+            });
         });
-    });
+
+        renderPagination(Math.ceil(allContent.length / CARDS_PER_PAGE), page);
+    }
+
+    function renderPagination(totalPages, page) {
+        let paginationContainer = container.parentElement.querySelector(".latest-content-pagination");
+        if (!paginationContainer) {
+            paginationContainer = document.createElement("div");
+            paginationContainer.classList.add("pagination", "latest-content-pagination");
+            container.parentElement.appendChild(paginationContainer);
+        }
+        paginationContainer.innerHTML = "";
+        if (totalPages <= 1) return;
+
+        const prevButton = document.createElement("button");
+        prevButton.innerHTML = "&larr; Newer";
+        prevButton.disabled = page === 1;
+        prevButton.addEventListener("click", () => {
+            currentPage = page - 1;
+            renderPage(currentPage);
+            container.scrollIntoView({ behavior: 'smooth' });
+        });
+        paginationContainer.appendChild(prevButton);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement("button");
+            pageButton.textContent = i;
+            if (i === page) pageButton.classList.add("active");
+            pageButton.addEventListener("click", () => {
+                currentPage = i;
+                renderPage(currentPage);
+                container.scrollIntoView({ behavior: 'smooth' });
+            });
+            paginationContainer.appendChild(pageButton);
+        }
+
+        const nextButton = document.createElement("button");
+        nextButton.innerHTML = "Older &rarr;";
+        nextButton.disabled = page === totalPages;
+        nextButton.addEventListener("click", () => {
+            currentPage = page + 1;
+            renderPage(currentPage);
+            container.scrollIntoView({ behavior: 'smooth' });
+        });
+        paginationContainer.appendChild(nextButton);
+    }
+
+    renderPage(1);
 }

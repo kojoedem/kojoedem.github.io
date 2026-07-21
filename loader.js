@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById("blog-content")) {
                 renderBlogPage(data);
             }
+            if (document.getElementById("pyats-posts")) {
+                renderPyatsPosts(data);
+            }
             if (document.getElementById("latest-posts-list")) {
                 renderLatestContent(data);
             }

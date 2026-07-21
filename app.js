@@ -221,13 +221,75 @@ function renderProjects(data) {
     renderFilterableSection(data.projects || [], "projects-list", "projects-filter-container", null);
 }
 
+function renderPyatsPosts(data) {
+    const pyatsSection = document.getElementById('pyats-posts');
+    const sidebarList = document.getElementById('pyats-sidebar-list');
+    const contentContainer = document.getElementById('content');
+    const progressText = document.getElementById('pyats-progress-text');
+    const progressBarFill = document.getElementById('pyats-progress-bar-fill');
+
+    if (!pyatsSection || !sidebarList || !contentContainer) return;
+
+    // Filter posts for pyATS category
+    const pyatsPosts = (data.progress || []).filter(post => post.category === 'pyats');
+
+    if (pyatsPosts.length === 0) {
+        sidebarList.innerHTML = "<li>No pyATS posts yet.</li>";
+        return;
+    }
+
+    // Sort by day number ascending
+    pyatsPosts.sort((a, b) => (a.day_num || 0) - (b.day_num || 0));
+
+    // Calculate progress based on the latest day number completed
+    const maxDayCompleted = Math.max(...pyatsPosts.map(post => post.day_num || 0), 0);
+    const progressPercent = Math.min((maxDayCompleted / 100) * 100, 100);
+
+    if (progressText) {
+        progressText.textContent = `Progress: Day ${maxDayCompleted} / 100`;
+    }
+    if (progressBarFill) {
+        progressBarFill.style.width = `${progressPercent}%`;
+    }
+
+    // Render pyATS sidebar links
+    sidebarList.innerHTML = "";
+    pyatsPosts.forEach(post => {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = post.day;
+        link.dataset.path = post.readMoreLink;
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadBlogPost(link.dataset.path, contentContainer);
+            sidebarList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+        });
+
+        listItem.appendChild(link);
+        sidebarList.appendChild(listItem);
+    });
+
+    // Load first post as default
+    if (pyatsPosts.length > 0) {
+        loadBlogPost(pyatsPosts[0].readMoreLink, contentContainer);
+        sidebarList.querySelector('a')?.classList.add('active');
+    }
+}
+
 function renderBlogPage(data) {
     const contentContainer = document.getElementById('blog-content');
     const sidebarList = document.getElementById('blog-sidebar-list');
     const searchInput = document.getElementById('sidebar-search-input');
     if (!contentContainer || !sidebarList || !searchInput) return;
 
-    const allPosts = (data.progress || []).slice().reverse();
+    // Exclude pyATS posts from the main blog's sidebar and page view to keep lists separate
+    const allPosts = (data.progress || [])
+        .filter(post => post.category !== 'pyats')
+        .slice()
+        .reverse();
 
     const populateSidebar = (postsToRender) => {
         sidebarList.innerHTML = "";

@@ -49,7 +49,29 @@ Network Engineer & Automation Developer. I design and simulate BGP-based<br>netw
     </nav>
 
     <div class="container">
-        <main class="main-layout">
+        <!-- 100 Days of pyATS Blog System -->
+        <section id="pyats-posts" class="pyats-section scroll-animate">
+            <h2>100 Days of pyATS</h2>
+            <div class="pyats-progress-container">
+                <span id="pyats-progress-text">Progress: Day 0 / 100</span>
+                <div class="pyats-progress-bar-bg">
+                    <div id="pyats-progress-bar-fill" class="pyats-progress-bar-fill"></div>
+                </div>
+            </div>
+            <div class="pyats-layout">
+                <aside class="pyats-sidebar">
+                    <h3>pyATS Days</h3>
+                    <ul id="pyats-sidebar-list">
+                        <!-- pyATS days will be loaded here -->
+                    </ul>
+                </aside>
+                <div id="content" class="pyats-content">
+                    <p>Select a day from the sidebar to view the pyATS post.</p>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-layout" style="margin-top: 3rem;">
             <div id="blog-content" class="main-content">
                 <!-- Blog post content will be loaded here -->
             </div>

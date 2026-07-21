@@ -515,11 +515,7 @@ function setYear() {
     }
 }
 
-function renderLatestContent(data, count = 8) {
-    const listContainer = document.getElementById("latest-posts-list");
-    if (!listContainer) return;
-
-    // Compile biography text markdown under profile image if we have a loader and are on a page containing #header-bio-text
+function renderHeaderBioText() {
     const bioTextElement = document.getElementById("header-bio-text");
     if (bioTextElement && typeof marked !== "undefined" && !bioTextElement.dataset.parsed) {
         bioTextElement.dataset.parsed = "true";
@@ -539,6 +535,11 @@ function renderLatestContent(data, count = 8) {
         });
         bioTextElement.innerHTML = parsedHtml;
     }
+}
+
+function renderLatestContent(data, count = 8) {
+    const listContainer = document.getElementById("latest-posts-list");
+    if (!listContainer) return;
 
     const allContent = [...(data.progress || []), ...(data.projects || [])];
     allContent.sort((a, b) => new Date(b.date) - new Date(a.date));

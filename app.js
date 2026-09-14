@@ -164,7 +164,11 @@ function renderFilterableSection(items, containerId, filterContainerId, searchIn
             card.addEventListener("click", (e) => {
                 if (e.target.classList.contains('read-more')) {
                     e.stopPropagation(); // Prevent card flip when clicking button
-                    showMarkdownModal(e.target.dataset.markdownPath, item.type === 'blog' ? 'blog.html' : 'projects.html');
+                    if (item.readMoreLink && !item.readMoreLink.endsWith('.md')) {
+                        window.location.href = item.readMoreLink;
+                    } else {
+                        showMarkdownModal(e.target.dataset.markdownPath, item.type === 'blog' ? 'blog.html' : 'projects.html');
+                    }
                 } else {
                     card.classList.toggle("open");
                 }
@@ -567,7 +571,11 @@ function renderLatestContent(data, count = 8) {
         `;
 
         button.addEventListener('click', () => {
-            showMarkdownModal(item.readMoreLink, fullPageLink);
+            if (item.readMoreLink && !item.readMoreLink.endsWith('.md')) {
+                window.location.href = item.readMoreLink;
+            } else {
+                showMarkdownModal(item.readMoreLink, fullPageLink);
+            }
         });
 
         listItem.appendChild(button);
@@ -595,6 +603,10 @@ function setupScrollAnimations() {
 // --- Modal Logic ---
 async function showMarkdownModal(path, fullPageLink) {
     if (!path || path === "#") return;
+    if (!path.endsWith('.md')) {
+        window.location.href = path;
+        return;
+    }
     const modalOverlay = document.getElementById('markdown-modal');
     const modalBody = document.getElementById('modal-body');
     if (!modalOverlay || !modalBody) return;
@@ -691,10 +703,14 @@ function renderLatestContentGrid(data) {
             card.addEventListener("click", (e) => {
                 if (e.target.classList.contains('read-more')) {
                     e.stopPropagation();
-                    // Ensure redirect parameters are passed correctly for standard or pyats posts
-                    const queryParam = item.readMoreLink ? `?post=${encodeURIComponent(getSlug(item.readMoreLink))}` : '';
-                    const fullPageLink = item.type === 'blog' ? `blog.html${queryParam}` : `projects.html`;
-                    window.location.href = fullPageLink;
+                    if (item.readMoreLink && !item.readMoreLink.endsWith('.md')) {
+                        window.location.href = item.readMoreLink;
+                    } else {
+                        // Ensure redirect parameters are passed correctly for standard or pyats posts
+                        const queryParam = item.readMoreLink ? `?post=${encodeURIComponent(getSlug(item.readMoreLink))}` : '';
+                        const fullPageLink = item.type === 'blog' ? `blog.html${queryParam}` : `projects.html`;
+                        window.location.href = fullPageLink;
+                    }
                 } else {
                     card.classList.toggle("open");
                 }

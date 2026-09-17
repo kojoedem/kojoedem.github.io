@@ -103,6 +103,26 @@
                 <span class="ms-card-action">View Usage & Attack Popup →</span>
             </div>
 
+            <!-- SNMP Lab Card -->
+            <div class="ms-card" onclick="openModal('snmp')">
+                <div class="ms-card-header">
+                    <h3 class="ms-card-title">📡 SNMP Network Management</h3>
+                    <span class="port-tag">161</span>
+                </div>
+                <p class="ms-card-desc">Enterprise SNMP v1/v2c agent supporting OID/MIB walks, public community string enumeration, and unauthenticated metric exfiltration.</p>
+                <span class="ms-card-action">View Usage & Attack Popup →</span>
+            </div>
+
+            <!-- SSH Lab Card -->
+            <div class="ms-card" onclick="openModal('ssh')">
+                <div class="ms-card-header">
+                    <h3 class="ms-card-title">🔑 SSH Remote Shell Gateway</h3>
+                    <span class="port-tag">22</span>
+                </div>
+                <p class="ms-card-desc">Linux SSH remote management gateway featuring weak host keys, default credential brute-forcing, and command audit logging.</p>
+                <span class="ms-card-action">View Usage & Attack Popup →</span>
+            </div>
+
         </div>
     </div>
 
@@ -265,6 +285,50 @@
                     "curl -s http://<VM_IP>:8086/api/v1/certificate",
                     "curl -s http://<VM_IP>:8086/certificate/download/key.pem -o key.pem",
                     "openssl x509 -in cert.pem -text -noout"
+                ]
+            },
+            snmp: {
+                title: "📡 Dadiwoo SNMP Network Management Lab",
+                port: "161",
+                domain: "snmp.lab:161",
+                category: "Network Management & Monitoring",
+                stack: "Python UDP, PySNMP / MIB Engine",
+                overview: "Simulates an enterprise SNMP v1/v2c agent exposing network statistics, system metrics, and interface MIBs vulnerable to community string brute forcing.",
+                usage: [
+                    "1. Query SNMP metrics over UDP port 161 using snmpwalk or snmpget.",
+                    "2. Enumerate community strings using public or common dictionary lists.",
+                    "3. Inspect system OID values for sensitive network configurations."
+                ],
+                flaws: [
+                    "Public Community String: Unauthenticated access using default 'public' community string.",
+                    "Information Disclosure: System description, interface IPs, and uptime metrics exfiltrated via OID tree walk."
+                ],
+                kali: [
+                    "snmpwalk -v2c -c public <VM_IP> .1.3.6.1.2.1.1",
+                    "onesixtyone -c /usr/share/seclists/Discovery/SNMP/snmp.txt <VM_IP>",
+                    "snmpcheck -t <VM_IP> -c public"
+                ]
+            },
+            ssh: {
+                title: "🔑 Dadiwoo SSH Secure Shell Gateway Lab",
+                port: "22",
+                domain: "ssh.lab:22",
+                category: "Remote Access & Management",
+                stack: "Linux SSH Server, AsyncSSH / Paramiko",
+                overview: "Simulates a Linux SSH remote management gateway endpoint. Features weak host key identification, default credential brute-forcing, and audit logging.",
+                usage: [
+                    "1. Connect via SSH client to host IP on port 22.",
+                    "2. Attempt credential authentication with user admin.",
+                    "3. Perform dictionary attacks to identify weak default credentials."
+                ],
+                flaws: [
+                    "Weak Credentials: User 'admin' configured with weak password.",
+                    "Weak Ciphers & Key Exchange: Legacy algorithm support enables traffic analysis in captive lab networks."
+                ],
+                kali: [
+                    "hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://<VM_IP>",
+                    "ssh -o KexAlgorithms=+diffie-hellman-group1-sha1 admin@<VM_IP>",
+                    "nmap -p 22 --script ssh-auth-methods,ssh2-enum-algos <VM_IP>"
                 ]
             }
         };

@@ -253,6 +253,20 @@
                             <td>FastAPI, SQLite, Pillow</td>
                             <td>OSINT profile intelligence gathering, multi-photo asset upload compression (~1-30 KB).</td>
                         </tr>
+                        <tr>
+                            <td><strong>📡 SNMP Network Management Lab</strong></td>
+                            <td><span class="port-tag">161 (UDP)</span></td>
+                            <td><code>snmp.lab</code></td>
+                            <td>Python UDP, PySNMP / MIB</td>
+                            <td>SNMP v1/v2c walk, public community string enumeration, system metric exfiltration.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🔑 SSH Secure Shell Gateway Lab</strong></td>
+                            <td><span class="port-tag">22</span></td>
+                            <td><code>ssh.lab</code></td>
+                            <td>Paramiko / AsyncSSH</td>
+                            <td>Weak host key identification, default credential brute-forcing, audit logging.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -376,6 +390,38 @@
                 </div>
             </div>
 
+            <!-- SNMP Lab -->
+            <div class="lab-item reverse">
+                <div class="lab-text">
+                    <span class="lab-badge">PORT 161 | NETWORK MANAGEMENT</span>
+                    <h3>📡 Dadiwoo SNMP Network Management Lab</h3>
+                    <p>Simulates an enterprise SNMP v1/v2c agent. Introduces students to network device monitoring, MIB/OID walk traversal, public community string enumeration, and system metric exfiltration.</p>
+                    <ul>
+                        <li><strong>Tags:</strong> <code>#snmp</code> <code>#network</code> <code>#udp</code> <code>#monitoring</code> <code>#mib</code> <code>#enumeration</code></li>
+                        <li><strong>Domain:</strong> <code>snmp.lab:161</code></li>
+                    </ul>
+                </div>
+                <div class="lab-preview">
+                    <img src="images/snmp_lab.png" alt="Dadiwoo SNMP Lab Screenshot">
+                </div>
+            </div>
+
+            <!-- SSH Lab -->
+            <div class="lab-item">
+                <div class="lab-text">
+                    <span class="lab-badge">PORT 22 | SECURE SHELL</span>
+                    <h3>🔑 Dadiwoo SSH Secure Shell Gateway Lab</h3>
+                    <p>Simulates a Linux SSH remote management gateway endpoint. Features weak host key identification, default credential brute-forcing, and command execution audit logging.</p>
+                    <ul>
+                        <li><strong>Tags:</strong> <code>#ssh</code> <code>#gateway</code> <code>#bruteforce</code> <code>#credentials</code> <code>#remote-access</code></li>
+                        <li><strong>Domain:</strong> <code>ssh.lab:22</code></li>
+                    </ul>
+                </div>
+                <div class="lab-preview">
+                    <img src="images/ssh_lab.png" alt="Dadiwoo SSH Gateway Lab Screenshot">
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -389,11 +435,11 @@
                 <h3>Option 1: Add the `/etc/hosts` Line (Recommended)</h3>
                 <p>Copy the exact line provided on the Dadiwoo Control Plane Dashboard (`http://<YOUR_VM_IP>:9000`):</p>
                 <div class="code-block">
-                    127.0.0.1 atm.lab bank.lab isp.lab school.lab shop.lab mobile.lab wave.lab
+                    127.0.0.1 atm.lab bank.lab isp.lab school.lab shop.lab mobile.lab wave.lab snmp.lab ssh.lab
                 </div>
                 <p>Append it to your machine's `/etc/hosts` file:</p>
                 <div class="code-block">
-                    echo "127.0.0.1 atm.lab bank.lab isp.lab school.lab shop.lab mobile.lab wave.lab" | sudo tee -a /etc/hosts
+                    echo "127.0.0.1 atm.lab bank.lab isp.lab school.lab shop.lab mobile.lab wave.lab snmp.lab ssh.lab" | sudo tee -a /etc/hosts
                 </div>
             </div>
         </div>

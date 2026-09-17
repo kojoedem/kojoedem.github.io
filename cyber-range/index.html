@@ -24,6 +24,7 @@
                 <a href="#dns">Mini DNS</a>
                 <a href="#wireshark">Wireshark & Kali</a>
                 <a href="microservices.html" style="color: #38bdf8; font-weight: bold;">⚡ Interactive Usage Guide</a>
+                <a href="https://github.com/kojoedem/Dadiwo" target="_blank" style="color: #a78bfa; font-weight: bold;">⭐ GitHub Repo</a>
                 <a href="#quickstart" class="btn-nav">🚀 Quickstart</a>
             </div>
         </div>
@@ -37,6 +38,7 @@
             <p>A lightweight, microservice-based personal cyber range designed for virtualized environments (Ubuntu VM inside GNS3, EVE-NG, PNETLab, Proxmox, VMware). Features dynamic port allocation, an embedded UDP Mini DNS server, dual environment modes, and realistic vulnerability labs.</p>
             <div class="hero-buttons">
                 <a href="#quickstart" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/kojoedem/Dadiwo" target="_blank" class="btn btn-secondary" style="border-color: var(--accent-purple); color: #a78bfa;">⭐ GitHub Repository</a>
                 <a href="#hosted" class="btn btn-secondary">Hosted Services Catalog</a>
             </div>
         </div>
@@ -445,20 +447,34 @@ dns && udp.port == 5353
 
     <!-- Quickstart Execution -->
     <section id="quickstart" class="section">
-        <div class="container text-center">
-            <h2 class="section-title">🚀 Launch the Cyber Range in Seconds</h2>
-            <div class="code-block" style="max-width: 600px; margin: 0 auto 24px;">
-chmod +x start_labs.sh
-./start_labs.sh
+        <div class="container">
+            <h2 class="section-title">🚀 Launch & Access the Cyber Range</h2>
+            <p class="section-subtitle">Follow these steps to clone the repository and run the Dadiwoo Cyber Range on your local machine, Ubuntu VM, or virtualized network environment (GNS3, EVE-NG, Proxmox).</p>
+
+            <div class="guide-box" style="max-width: 800px; margin: 0 auto 24px;">
+                <h3>1. Clone the GitHub Repository</h3>
+                <p>Open a terminal on your local machine or Linux VM and clone the project source code:</p>
+                <div class="code-block">git clone https://github.com/kojoedem/Dadiwo.git
+cd Dadiwo</div>
+
+                <h3>2. Make Scripts Executable & Start the Platform</h3>
+                <p>Grant execution permissions to the setup orchestrator script and start the microservice containers:</p>
+                <div class="code-block">chmod +x start_labs.sh
+./start_labs.sh</div>
+
+                <h3>3. Access Central Control Plane & Services</h3>
+                <p>Once started, open your web browser and navigate to the Central Control Plane at:</p>
+                <div class="code-block">http://localhost:9000   # Local machine
+http://&lt;YOUR_VM_IP&gt;:9000   # Remote VM / GNS3 / EVE-NG Host</div>
+                <p style="margin-top: 12px; color: var(--text-muted);">From the dashboard, you can start, stop, monitor, and configure all microservices and DNS domain resolutions.</p>
             </div>
-            <p>Access the Control Plane at <code>http://localhost:9000</code> or <code>http://&lt;YOUR_VM_IP&gt;:9000</code>.</p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container text-center">
-            <p>🛡 Dadiwoo Cyber Range Platform | Distributed under the MIT License</p>
+            <p>🛡 Dadiwoo Cyber Range Platform | <a href="https://github.com/kojoedem/Dadiwo" target="_blank" style="color: #a78bfa; text-decoration: underline;">GitHub Repository</a> | Distributed under the MIT License</p>
         </div>
     </footer>
 
